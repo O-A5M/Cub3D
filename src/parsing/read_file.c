@@ -12,6 +12,7 @@ size_t	file_len(int fd)
 	{
 		ret++;
 		free(tmp);
+		tmp = get_next_line(fd);
 	}
 	return (ret);
 }
@@ -22,10 +23,9 @@ char	**read_file(int fd, size_t len)
 	int		index;
 
 	index = 0;
-	len = file_len(fd);
 	if (len == 0)
 		return (NULL);
-	ret = malloc(sizeof(char*) * len + 1);
+	ret = malloc(sizeof(char*) * (len + 1));
 	if (!ret)
 		return (NULL);
 	while (len - index > 0)

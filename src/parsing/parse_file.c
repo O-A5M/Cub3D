@@ -56,6 +56,8 @@ int	parse_file(char	*file_name)
 	if (fd == -1)
 		return (1);
 	file_content = read_file(fd, len);
+	for (int i = 0; file_content[i]; i++)
+		printf("%s", file_content[i]);
 	free_array(file_content);
 	close(fd);
 	return (0);
