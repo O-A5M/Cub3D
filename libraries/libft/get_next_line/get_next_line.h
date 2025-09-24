@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 11:25:20 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/09/23 19:17:31 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/09/24 13:45:55 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 # include <stddef.h>
 
 char	*get_next_line(int fd);
-// size_t	ft_strlen(const char	*s);
-// char	*ft_strchr(char *s, int c);
-// char	*ft_strdup(const char *s);
-// char	*ft_strjoin(const char *s1, const char *s2);
-// char	*ft_substr(const char *s, unsigned int start, size_t len);
+size_t	ft_strlen_(const char	*s);
+char	*ft_strchr_(char *s, int c);
+char	*ft_strdup_(const char *s);
+char	*ft_strjoin_(const char *s1, const char *s2);
+char	*ft_substr_(const char *s, unsigned int start, size_t len);
 size_t	the_line(char *ret, char **left_l);
 void	free_the_slave(char *ret, char **left_l);
 void	fill_line(int fd, char *buff, char **ret);

@@ -1,7 +1,7 @@
 # The compiler and flags
 
 CC	  = cc
-FLAGS = -Wall -Wextra -Werror -g -O3 -Iincludes -Ilibraries/libft -Ilibraries/minilibx-linux
+FLAGS = -Wall -Wextra -Werror -g3 -g -O3 -Iincludes -Ilibraries/libft -Ilibraries/minilibx-linux
 
 # external libraries
 
@@ -42,6 +42,11 @@ fclean: clean
 	rm $(NAME) -fr
 
 re: fclean all
+
+do: fclean all
+	make clean -C $(LIBFT_D)
+	rm $(OBJDIR) -fr
+	clear
 
 .SECONDARY: $(OBJS)
 .PHONEY: clean
