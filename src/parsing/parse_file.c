@@ -57,7 +57,10 @@ int	parse_file(char	*file_name)
 		return (1);
 	file_content = read_file(fd, len);
 	for (int i = 0; file_content[i]; i++)
-		printf("%s", file_content[i]);
+	{
+		if (file_content[i][0] != '\n')
+			printf("%s", file_content[i]);
+	}
 	free_array(file_content);
 	close(fd);
 	return (0);
