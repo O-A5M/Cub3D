@@ -6,11 +6,12 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:01:31 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/09/29 17:22:46 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/09/29 18:58:32 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
+#include <stddef.h>
 
 int	parse_wall(char **content, int *index, t_map **map)
 {
@@ -125,6 +126,31 @@ int	parse_color(char **content, int *index, t_map **map)
 			return (1);
 		}
 	}
+	return (0);
+}
+
+int	map_line_len(char *s, int pos)
+{
+	int	ret;
+	int	index;
+
+	index = 0;
+	ret = 0;
+	if (!s || s[0] == '\0')
+		return (-1);
+	while (s[index])
+	{
+		if ((pos == 1 && s[index] != '1')
+			|| s[index] != '0' || s[index] != '1'
+			|| s[index] != 'S' || s[index] != 'W'
+			|| s[index] != 'E' || s[index] != 'N'
+			|| s[index] != ' ')
+			return (-1);
+		ret++;
+		index++;
+	}
+	if (s[index] == '\0' && s[index - 1] != '1')
+		return (-1);
 	return (0);
 }
 
