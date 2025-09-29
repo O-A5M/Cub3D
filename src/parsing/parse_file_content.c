@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_file_content.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/29 17:01:31 by oakhmouc          #+#    #+#             */
+/*   Updated: 2025/09/29 17:22:46 by oakhmouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
-#include "libft.h"
 
 int	parse_wall(char **content, int *index, t_map **map)
 {
@@ -72,9 +83,9 @@ int	check_color(char *colors, int *place)
 		free_array(color_plat);
 		return (1);
 	}
-	(place)[0] = ft_atoi(color_plat[0]);
-	(place)[1] = ft_atoi(color_plat[1]);
-	(place)[2] = ft_atoi(color_plat[2]);
+	place[0] = ft_atoi(color_plat[0]);
+	place[1] = ft_atoi(color_plat[1]);
+	place[2] = ft_atoi(color_plat[2]);
 	free_array(color_plat);
 	return (0);
 }
@@ -117,7 +128,10 @@ int	parse_color(char **content, int *index, t_map **map)
 	return (0);
 }
 
-int	parse_map(char **content, int *index, t_map **map); // TODO
+int	parse_map(char **content, int *index, t_map **map)
+{
+	return (0);
+}
 
 t_map	*parse_content(char **content)
 {
