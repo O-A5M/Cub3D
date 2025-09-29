@@ -10,7 +10,8 @@ size_t	file_len(int fd)
 	tmp = get_next_line(fd);
 	while(tmp)
 	{
-		ret++;
+		if (tmp && tmp[0] != '\n')
+			ret++;
 		free(tmp);
 		tmp = get_next_line(fd);
 	}
@@ -20,9 +21,11 @@ size_t	file_len(int fd)
 char	**read_file(int fd, size_t len)
 {
 	char	**ret;
+	char	*tmp;
 	int		index;
 
 	index = 0;
+	tmp = NULL;
 	if (len == 0)
 		return (NULL);
 	ret = malloc(sizeof(char*) * (len + 1));
@@ -30,8 +33,13 @@ char	**read_file(int fd, size_t len)
 		return (NULL);
 	while (len - index > 0)
 	{
-		ret[index] = get_next_line(fd);
-		index++;
+		tmp = get_next_line(fd);
+		if (tmp && tmp[0] != '\n')
+		{
+			ret[index] = ft_strdup(tmp);
+			index++;
+		}
+		free (tmp);
 	}
 	ret[index] = NULL;
 	return (ret);
