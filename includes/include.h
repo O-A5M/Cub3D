@@ -53,5 +53,6 @@ void	free_map(t_map **map);
 int		da_init(t_dynamic_array *da);
 int		da_append(t_dynamic_array *da, char *s);
 void	da_free(t_dynamic_array *da);
+t_map	*parse_content(char **content, size_t len);
 
 #endif
