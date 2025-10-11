@@ -11,7 +11,8 @@ LIBFT   = ft
 
 # Source and object files
 
-SRC    = main/main.c src/parsing/parse_file.c src/parsing/read_file.c
+SRC    = main/main.c src/parsing/parse_file.c src/parsing/read_file.c\
+		 src/parsing/parse_file_content.c src/parsing/parsing/utils.c\
 OBJDIR = obj
 OBJS   = $(patsubst %.c,$(OBJDIR)/%.o,$(SRC))
 

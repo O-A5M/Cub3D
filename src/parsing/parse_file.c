@@ -46,7 +46,9 @@ int	parse_file(char	*file_name)
 	int		fd;
 	size_t	len;
 	char	**file_content;
+	t_map	*map;
 
+	map = NULL;
 	fd = open_file(file_name);
 	if (fd == -1)
 		return (1);
@@ -56,11 +58,8 @@ int	parse_file(char	*file_name)
 	if (fd == -1)
 		return (1);
 	file_content = read_file(fd, len);
-	for (int i = 0; file_content[i]; i++)
-	{
-		if (file_content[i][0] != '\n')
-			printf("%s", file_content[i]);
-	}
+	map = parse_content(file_content, len);
+	free_map(&map);
 	free_array(file_content);
 	close(fd);
 	return (0);
