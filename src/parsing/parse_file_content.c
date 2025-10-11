@@ -6,192 +6,206 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:01:31 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/09/29 18:58:32 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/10/11 21:18:24 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
 #include <stddef.h>
 
-int	parse_wall(char **content, int *index, t_map **map)
+int	parse_map(char **content, int *index, t_map **map)
 {
-	while (content[*index][0] == '\n' || content[*index][0] == 'S'
-			|| content[*index][0] == 'E' || content[*index][0] == 'N'
-			|| content[*index][0] == 'W')
+	int	i;
+
+	while (content[*index] && content[*index][0] == '\n')
+		(*index)--;
+	while (content[*index] && content[*index][0] != '\n'
+			&& content[*index][0] != 'F' && content[*index][0] != 'C'
+			&& content[*index][0] != 'N' && content[*index][0] != 'S'
+			&& content[*index][0] != 'E' && content[*index][0] != 'W')
 	{
-		if (ft_strnstr(content[*index], "NO",3))
-			(*map)->textures->no = ft_strdup(content[*index]);
-		if (ft_strnstr(content[*index], "SO",2))
-			(*map)->textures->so = ft_strdup(content[*index]);
-		if (ft_strnstr(content[*index], "EA",2))
-			(*map)->textures->ea = ft_strdup(content[*index]);
-		if (ft_strnstr(content[*index], "WE",2))
-			(*map)->textures->we = ft_strdup(content[*index]);
-		(*index)++;
+		i = 0;
+		while (content[*index][i])
+		{
+			if (content[*index][i] != '1' && content[*index][i] != '0'
+				&& content[*index][i] != 'N' && content[*index][i] != 'S'
+				&& content[*index][i] != 'E' && content[*index][i] != 'W'
+				&& content[*index][i] != ' ')
+				return (1);
+		}
+		da_append((*map)->map, content[*index]);
+		(*index)--;
 	}
-	if (!(*map)->textures->ea || !(*map)->textures->no
-		|| !(*map)->textures->we || !(*map)->textures->so)
-	{
-		free_map(map);
-		return (-1);
-	}
+	da_append((*map)->map, NULL);
 	return (0);
 }
 
-int	check_color_char(char **colors)
+int	check_color_plat(char **content, int *index, t_map **map, char type)
 {
-	int i;
-	int	j;
+	int		i;
+	int		j;
+	char	**tmp;
 
 	i = 0;
-	while (i < 3)
+	tmp = NULL;
+	while (content[*index][i])
 	{
-		j = 0;
-		while (colors[i][j])
+		while (content[*index][i] && !ft_isdigit(content[*index][i]))
+			i++;
+		if (content[*index][i] && ft_isdigit(content[*index][i]))
 		{
-			if (!ft_isdigit(colors[i][j]))
+			tmp = ft_split(content[*index] + i, ',');
+			if (!tmp)
 				return (1);
+		}
+	}
+	i = 0;
+	while (tmp[i] && i < 3)
+	{
+		if (tmp[i] == NULL)
+		{
+			free_array(tmp);
+			return (1);
+		}
+		j = 0;
+		while (tmp[i][j])
+		{
+			if (!ft_isdigit(tmp[i][j]))
+			{
+				free_array(tmp);
+				return (1);
+			}
 			j++;
+		}
+		if (type == 'F')
+		{
+			(*map)->floore[i] = ft_atoi(tmp[i]);
+			if ((*map)->floore[i] > 255 || (*map)->floore[i] < 0)
+			{
+				free_array(tmp);
+				return (1);
+			}
+		}
+		if (type == 'C')
+		{
+			(*map)->ceilling[i] = ft_atoi(tmp[i]);
+			if ((*map)->ceilling[i] > 255 || (*map)->ceilling[i] < 0)
+			{
+				free_array(tmp);
+				return (1);
+			}
 		}
 		i++;
 	}
-	return (0);
-}
-
-int	check_color(char *colors, int *place)
-{
-	char	**tmp;
-	char	**color_plat;
-
-	color_plat = NULL;
-	tmp = ft_split(colors, ' ');
-	if (tmp[0] == NULL || tmp[0] == NULL || tmp[3] != NULL)
-	{
-		free_array(tmp);
-		return (1);
-	}
-	color_plat = ft_split(tmp[1], ',');
 	free_array(tmp);
-	if (color_plat == NULL || color_plat[0] == NULL
-		|| color_plat[1] == NULL || color_plat[3] == NULL
-		|| color_plat[3] != NULL)
-	{
-		free_array(color_plat);
-		return (1);
-	}
-	if (check_color_char(color_plat))
-	{
-		free_array(color_plat);
-		return (1);
-	}
-	place[0] = ft_atoi(color_plat[0]);
-	place[1] = ft_atoi(color_plat[1]);
-	place[2] = ft_atoi(color_plat[2]);
-	free_array(color_plat);
 	return (0);
 }
 
 int	parse_color(char **content, int *index, t_map **map)
 {
-	int i;
+	int	flag;
 
-	i = 0;
-	while (content[*index][0] == '\n' || content[*index][0] == 'F'
-			|| content[*index][0] == 'C')
+	flag = 0;
+	while (flag != 2)
 	{
 		if (content[*index][0] == 'F')
 		{
-			if (check_color(content[*index], (*map)->floore))
-			{
-				free_map(map);
+			if (!check_color_plat(content, index, map, 'F'))
+	  			flag++;
+			else
 				return (1);
-			}
-		}
-		if (content[*index][0] == 'F')
+	  	}
+		else if (content[*index][0] == 'C')
 		{
-			if (check_color(content[*index], (*map)->ceilling))
-			{
-				free_map(map);
+			if (!check_color_plat(content, index, map, 'F'))
+	  			flag++;
+			else
 				return (1);
-			}
 		}
-		(*index)++;
+		(*index)--;
 	}
-	while (i < 3)
+	return (0);
+}
+
+int	parse_wall_tex(char **content, int *index, t_map **map)
+{
+	int		flag;
+	char	*tmp;
+
+	flag = 0;
+	tmp = NULL;
+	while (flag < 4)
 	{
-		if (((*map)->floore[i] < 0 || (*map)->floore[i] > 255)
-			|| ((*map)->ceilling[i] < 0 || (*map)->ceilling[i] > 255))
+		if (content[*index] && content[*index][0] != '\n')
+			tmp = ft_substr(content[*index], 3, sizeof(content[*index]) - 3);
+		if (tmp && content[*index][0] == 'N' && content[*index][0] == 'O')
 		{
-			free_map(map);
-			return (1);
+			(*map)->textures->no = ft_strdup(tmp);
+			flag++;
+		}
+		if (tmp && content[*index][0] == 'S' && content[*index][0] == 'O')
+		{
+			(*map)->textures->so = ft_strdup(tmp);
+			flag++;
+		}
+		if (tmp && content[*index][0] == 'E' && content[*index][0] == 'A')
+		{
+			(*map)->textures->ea = ft_strdup(tmp);
+			flag++;
+		}
+		if (tmp && content[*index][0] == 'W' && content[*index][0] == 'E')
+		{
+			(*map)->textures->we = ft_strdup(tmp);
+			flag++;
+		}
+		free(tmp);
+		tmp = NULL;
+		(*index)--;
+	}
+	if (!(*map)->textures->no || !(*map)->textures->so
+		|| !(*map)->textures->ea || !(*map)->textures->we)
+		return (1);
+	return (0);
+}
+
+int	parse_wall_color(char **content, int *index, t_map **map)
+{
+	while (*index >= 0)
+	{
+		while (*index >= 0 && content[*index][0] == '\n')
+			(*index)--;
+		if (*index >= 0
+			&& (content[*index][0] == 'F' || content[*index][0] == 'C'))
+		{
+			if (parse_color(content, index, map))
+				return (1);
+		}
+		if (*index >= 0
+			&& (content[*index][0] == 'S' || content[*index][0] == 'N'
+			|| content[*index][0] == 'E' || content[*index][0] == 'W'))
+		{
+			if (parse_wall_tex(content, index, map))
+				return (1);
 		}
 	}
 	return (0);
 }
 
-int	map_line_len(char *s, int pos)
+t_map	*parse_content(char **content, size_t len)
 {
-	int	ret;
-	int	index;
-
-	index = 0;
-	ret = 0;
-	if (!s || s[0] == '\0')
-		return (-1);
-	while (s[index])
-	{
-		if ((pos == 1 && s[index] != '1')
-			|| s[index] != '0' || s[index] != '1'
-			|| s[index] != 'S' || s[index] != 'W'
-			|| s[index] != 'E' || s[index] != 'N'
-			|| s[index] != ' ')
-			return (-1);
-		ret++;
-		index++;
-	}
-	if (s[index] == '\0' && s[index - 1] != '1')
-		return (-1);
-	return (0);
-}
-
-int	parse_map(char **content, int *index, t_map **map)
-{
-	return (0);
-}
-
-t_map	*parse_content(char **content)
-{
-	t_map	*ret;
+	t_map	*map;
 	int		index;
 
-	if (!content)
-		return (NULL);
-	index = 0;
-	ret = malloc(sizeof(t_map));
-	if (!ret)
-		return (NULL);
-	while (content[index])
+	index = len - 1;
+	if (parse_map(content, &index, &map))
 	{
-		if (content[index][0] == '\n')
-			index++;
-		else if (ft_strnstr(content[index], "NO", 2)
-			|| ft_strnstr(content[index], "SO", 2)
-			|| ft_strnstr(content[index], "EA", 2)
-			|| ft_strnstr(content[index], "WE", 2))
-		{
-			if (parse_wall(content, &index, &ret))
-				return (NULL);
-		}
-		else if (content[index][0] == 'F' || content[index][0] == 'C')
-		{
-			if (parse_color(content, &index, &ret))
-				return (NULL);
-		}
-		else
-		{
-			if (parse_map(content, &index, &ret))
-				return (NULL);
-		}
+		free_map(&map);
+		return (NULL);
 	}
-	return (ret);
+	if (parse_wall_color(content, &index, &map))
+	{
+		free_map(&map);
+		return (NULL);
+	}
+	return (map);
 }
