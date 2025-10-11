@@ -1,5 +1,6 @@
 #ifndef INCLUDE_H
 # define INCLUDE_H
+#include <stddef.h>
 #include <stdio.h>
 #include <math.h>
 #include <fcntl.h>
@@ -19,16 +20,25 @@ typedef struct	s_textures
 	char	*ea;
 }				t_textures;
 
+// structer to implement the dynamic array consept
+
+typedef struct	s_dynamic_array
+{
+	size_t	size;
+	size_t	count;
+	char	**array;
+}				t_dynamic_array;
+
 // structer to store all the info
 // in the .cub file.
 
 typedef struct	s_map
 {
-	char		**map;
-	t_textures	*textures;
-	int			floore[3];
-	int			ceilling[3];
-}				t_map;
+	t_dynamic_array	*map;
+	t_textures		*textures;
+	int				floore[3];
+	int				ceilling[3];
+}					t_map;
 
 // Parsing functions
 
@@ -40,5 +50,8 @@ int		parse_file(char *file_name);
 void	free_array(char **arr);
 void	free_textures(t_textures **tex);
 void	free_map(t_map **map);
+int		da_init(t_dynamic_array *da);
+int		da_append(t_dynamic_array *da, char *s);
+void	da_free(t_dynamic_array *da);
 
 #endif
