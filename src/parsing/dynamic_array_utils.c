@@ -1,5 +1,6 @@
 #include "include.h"
 #include "libft.h"
+#include <stdio.h>
 
 int	da_init(t_dynamic_array *da, size_t count)
 {
