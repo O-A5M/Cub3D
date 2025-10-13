@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:01:31 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/10/11 21:18:24 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/10/13 11:19:21 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ int	parse_map(char **content, int *index, t_map **map)
 				&& content[*index][i] != ' ')
 				return (1);
 		}
-		da_append((*map)->map, content[*index]);
+		da_append(&(*map)->map, content[*index]);
 		(*index)--;
 	}
-	da_append((*map)->map, NULL);
 	return (0);
 }
 
@@ -197,6 +196,8 @@ t_map	*parse_content(char **content, size_t len)
 	int		index;
 
 	index = len - 1;
+	map = NULL;
+	init_map(&map);
 	if (parse_map(content, &index, &map))
 	{
 		free_map(&map);
