@@ -34,7 +34,7 @@ typedef struct	s_dynamic_array
 
 typedef struct	s_map
 {
-	t_dynamic_array	*map;
+	t_dynamic_array	map;
 	t_textures		*textures;
 	int				floore[3];
 	int				ceilling[3];
@@ -50,9 +50,10 @@ int		parse_file(char *file_name);
 void	free_array(char **arr);
 void	free_textures(t_textures **tex);
 void	free_map(t_map **map);
-int		da_init(t_dynamic_array *da);
+int		da_init(t_dynamic_array *da, size_t count);
 int		da_append(t_dynamic_array *da, char *s);
 void	da_free(t_dynamic_array *da);
 t_map	*parse_content(char **content, size_t len);
+void	init_map(t_map **map);
 
 #endif
