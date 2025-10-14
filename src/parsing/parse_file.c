@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_file.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 13:41:42 by oakhmouc          #+#    #+#             */
+/*   Updated: 2025/10/14 16:56:14 by oakhmouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 
 void	free_array(char **arr)
@@ -59,7 +71,7 @@ int	parse_file(char	*file_name)
 		return (1);
 	file_content = read_file(fd, len);
 	map = parse_content(file_content, len);
-	free_map(&map);
+	free_map(map);
 	free_array(file_content);
 	close(fd);
 	return (0);
