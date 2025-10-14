@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:01:31 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/10/14 11:26:59 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:59:10 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	parse_map(char **content, int *index, t_map **map)
 			&& content[*index][0] != 'E' && content[*index][0] != 'W')
 	{
 		i = 0;
-		while (content[*index][i])
+		while (content[*index][i++])
 		{
 			if (content[*index][i] != '1' && content[*index][i] != '0'
 				&& content[*index][i] != 'N' && content[*index][i] != 'S'
@@ -32,7 +32,7 @@ int	parse_map(char **content, int *index, t_map **map)
 				&& content[*index][i] != ' ')
 				return (1);
 		}
-		da_append((*map)->map, content[*index]);
+		da_append(&(*map)->map, content[*index]);
 		(*index)--;
 	}
 	return (0);
@@ -195,16 +195,18 @@ t_map	*parse_content(char **content, size_t len)
 	int		index;
 
 	index = len - 1;
-	map = NULL;
+	map = malloc(sizeof(t_map));
+	if (!map)
+		return (NULL);
 	init_map(&map);
 	if (parse_map(content, &index, &map))
 	{
-		free_map(&map);
+		free_map(map);
 		return (NULL);
 	}
 	if (parse_wall_color(content, &index, &map))
 	{
-		free_map(&map);
+		free_map(map);
 		return (NULL);
 	}
 	return (map);
