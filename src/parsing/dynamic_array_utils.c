@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 10:07:40 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/10/14 18:22:50 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:37:47 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	da_append(t_dynamic_array **da, char *s)
 	da_free(*da);
 	da_init(da, tmp->count + 1);
 	index = 0;
-	while ((*da)->count > 2 && index < tmp->count)
+	while ((*da)->count > 2 && index < tmp->count - 1)
 	{
 		(*da)->array[index] = ft_strdup(tmp->array[index]);
 		index++;
