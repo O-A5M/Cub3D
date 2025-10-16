@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:01:31 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/10/15 14:20:02 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:30:20 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	check_color_plat(char **content, int *index, t_map **map, char type)
 		j = 0;
 		while (tmp[i][j])
 		{
-			if (!ft_isdigit(tmp[i][j]))
+			if (!ft_isdigit(tmp[i][j]) && tmp[i][j] != '\n')
 			{
 				free_array(tmp);
 				return (1);
@@ -111,7 +111,7 @@ int	parse_color(char **content, int *index, t_map **map)
 	int	flag;
 
 	flag = 0;
-	while (flag != 2)
+	while (flag != 2 && *index >= 0)
 	{
 		if (content[*index][0] == 'F')
 		{
@@ -128,8 +128,8 @@ int	parse_color(char **content, int *index, t_map **map)
 	  			flag++;
 			else
 			{
-				return (1);
 				printf("no here\n");
+				return (1);
 			}
 		}
 		(*index)--;
@@ -144,26 +144,26 @@ int	parse_wall_tex(char **content, int *index, t_map **map)
 
 	flag = 0;
 	tmp = NULL;
-	while (flag < 4)
+	while (flag < 4 && *index >= 0)
 	{
 		if (content[*index] && content[*index][0] != '\n')
-			tmp = ft_substr(content[*index], 3, sizeof(content[*index]) - 3);
-		if (tmp && content[*index][0] == 'N' && content[*index][0] == 'O')
+			tmp = ft_substr(content[*index], 3, ft_strlen(content[*index]) - 3);
+		if (tmp && content[*index][0] == 'N' && content[*index][1] == 'O')
 		{
 			(*map)->textures->no = ft_strdup(tmp);
 			flag++;
 		}
-		if (tmp && content[*index][0] == 'S' && content[*index][0] == 'O')
+		if (tmp && content[*index][0] == 'S' && content[*index][1] == 'O')
 		{
 			(*map)->textures->so = ft_strdup(tmp);
 			flag++;
 		}
-		if (tmp && content[*index][0] == 'E' && content[*index][0] == 'A')
+		if (tmp && content[*index][0] == 'E' && content[*index][1] == 'A')
 		{
 			(*map)->textures->ea = ft_strdup(tmp);
 			flag++;
 		}
-		if (tmp && content[*index][0] == 'W' && content[*index][0] == 'E')
+		if (tmp && content[*index][0] == 'W' && content[*index][1] == 'E')
 		{
 			(*map)->textures->we = ft_strdup(tmp);
 			flag++;
@@ -174,7 +174,10 @@ int	parse_wall_tex(char **content, int *index, t_map **map)
 	}
 	if (!(*map)->textures->no || !(*map)->textures->so
 		|| !(*map)->textures->ea || !(*map)->textures->we)
+	{
+		printf("empty textures\n");
 		return (1);
+	}
 	return (0);
 }
 
@@ -188,7 +191,10 @@ int	parse_wall_color(char **content, int *index, t_map **map)
 			&& (content[*index][0] == 'F' || content[*index][0] == 'C'))
 		{
 			if (parse_color(content, index, map))
+			{
+				printf("hello\n");
 				return (1);
+			}
 		}
 		if (*index >= 0
 			&& (content[*index][0] == 'S' || content[*index][0] == 'N'
