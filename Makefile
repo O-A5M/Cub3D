@@ -13,7 +13,7 @@ LIBFT   = ft
 
 SRC    = main/main.c src/parsing/parse_file.c src/parsing/read_file.c\
 		 src/parsing/parse_file_content.c src/parsing/parsing_utils.c\
-		 src/parsing/dynamic_array_utils.c
+		 src/parsing/dynamic_array_utils.c src/parsing/parse_file_content_utils.c\
 
 OBJDIR = obj
 OBJS   = $(patsubst %.c,$(OBJDIR)/%.o,$(SRC))

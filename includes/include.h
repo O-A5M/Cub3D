@@ -55,5 +55,9 @@ int		da_append(t_dynamic_array **da, char *s);
 void	da_free(t_dynamic_array *da);
 t_map	*parse_content(char **content, size_t len);
 void	init_map(t_map **map);
+void	insert_tex_name(char *content, int *flag, t_map **map);
+char	**split_colors(char *content);
+int		insert_color(int color, t_map **map, char type, int index);
+int		parse_map(char **content, int *index, t_map **map);
 
 #endif
