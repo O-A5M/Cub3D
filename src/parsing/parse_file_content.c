@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:01:31 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/10/14 16:59:10 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:20:02 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,18 @@ int	parse_map(char **content, int *index, t_map **map)
 			&& content[*index][0] != 'E' && content[*index][0] != 'W')
 	{
 		i = 0;
-		while (content[*index][i++])
+		while (content[*index][i] != '\0')
 		{
 			if (content[*index][i] != '1' && content[*index][i] != '0'
 				&& content[*index][i] != 'N' && content[*index][i] != 'S'
 				&& content[*index][i] != 'E' && content[*index][i] != 'W'
-				&& content[*index][i] != ' ')
+				&& content[*index][i] != ' ' && content[*index][i] != '\n')
+			{
+				printf("%d invalide character in map, line %d \n"
+		   			, content[*index][i], *index);
 				return (1);
+			}
+			i++;
 		}
 		da_append(&(*map)->map, content[*index]);
 		(*index)--;
@@ -55,6 +60,8 @@ int	check_color_plat(char **content, int *index, t_map **map, char type)
 			tmp = ft_split(content[*index] + i, ',');
 			if (!tmp)
 				return (1);
+			else
+				break ;
 		}
 	}
 	i = 0;
@@ -111,14 +118,19 @@ int	parse_color(char **content, int *index, t_map **map)
 			if (!check_color_plat(content, index, map, 'F'))
 	  			flag++;
 			else
+			{
 				return (1);
+			}
 	  	}
 		else if (content[*index][0] == 'C')
 		{
-			if (!check_color_plat(content, index, map, 'F'))
+			if (!check_color_plat(content, index, map, 'C'))
 	  			flag++;
 			else
+			{
 				return (1);
+				printf("no here\n");
+			}
 		}
 		(*index)--;
 	}
@@ -201,11 +213,12 @@ t_map	*parse_content(char **content, size_t len)
 	init_map(&map);
 	if (parse_map(content, &index, &map))
 	{
-		free_map(map);
+		printf("no map \n");
 		return (NULL);
 	}
 	if (parse_wall_color(content, &index, &map))
 	{
+		printf("no color\n");
 		free_map(map);
 		return (NULL);
 	}
