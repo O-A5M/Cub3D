@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:01:31 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/10/16 18:17:58 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/10/17 13:52:53 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ int	parse_wall_color(char **content, int *index, t_map **map)
 			if (parse_wall_tex(content, index, map))
 				return (1);
 		}
-		else
-			return (printf("Invalide map\n"), 1);
+		(*index)--;
 	}
 	return (0);
 }
