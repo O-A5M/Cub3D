@@ -6,11 +6,12 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:01:31 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/10/17 13:52:53 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/10/17 15:04:40 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
+#include "libft.h"
 
 int	check_color_plat(char **content, int *index, t_map **map, char type)
 {
@@ -113,6 +114,24 @@ int	parse_wall_color(char **content, int *index, t_map **map)
 	return (0);
 }
 
+int	check_map_pos(char **content, int index)
+{
+	int	i;
+
+	i = index - 2;
+	while (i >= 0)
+	{
+		while (content[i] && content[i][0] == '\n')
+			i--;
+		if (content[i][0] != ' ' && content[i][0] != '0'
+			&& content[i][0] != '1')
+			return (1);
+		else
+			return (0);
+	}
+	return (0);
+}
+
 t_map	*parse_content(char **content, size_t len)
 {
 	t_map	*map;
@@ -123,6 +142,8 @@ t_map	*parse_content(char **content, size_t len)
 	if (!map)
 		return (NULL);
 	init_map(&map);
+	if (check_map_pos(content, (int)len))
+		return (free_map(map), NULL);
 	if (parse_map(content, &index, &map))
 		return (free_map(map), NULL);
 	if (parse_wall_color(content, &index, &map))

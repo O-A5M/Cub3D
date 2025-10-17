@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 14:47:23 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/10/17 13:35:46 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/10/17 15:00:35 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ int	parse_map(char **content, int *index, t_map **map)
 	while (content[*index] && content[*index][0] == '\n')
 		(*index)--;
 	while (content[*index] && content[*index][0] != '\n'
-			/*&& content[*index][0] != 'F' && content[*index][0] != 'C'
+			&& content[*index][0] != 'F' && content[*index][0] != 'C'
 			&& content[*index][0] != 'N' && content[*index][0] != 'S'
-			&& content[*index][0] != 'E' && content[*index][0] != 'W'*/
-			&& content[*index][0] != '\0')
+			&& content[*index][0] != 'E' && content[*index][0] != 'W')
 	{
 		i = 0;
 		while (content[*index][i] != '\0')
