@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 14:47:23 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/10/17 15:00:35 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/10/21 00:19:03 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,6 @@ int	insert_color(int color, t_map **map, char type, int index)
 	if (type == 'F')
 		(*map)->floore[index] = color;
 	else
-		(*map)->floore[index] = color;
+		(*map)->ceilling[index] = color;
 	return (0);
 }
