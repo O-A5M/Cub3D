@@ -38,6 +38,7 @@ typedef struct	s_map
 	t_textures		*textures;
 	int				floore[3];
 	int				ceilling[3];
+	int				player_pos[2];
 }					t_map;
 
 // Parsing functions
@@ -59,5 +60,6 @@ void	insert_tex_name(char *content, int *flag, t_map **map);
 char	**split_colors(char *content);
 int		insert_color(int color, t_map **map, char type, int index);
 int		parse_map(char **content, int *index, t_map **map);
+int		check_input_struct(t_map *map);
 
 #endif
