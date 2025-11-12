@@ -9,57 +9,42 @@
 #include "mlx.h"
 #include "libft.h"
 
-// structer to store the path of
-// the texture files.
+#define ALL_TEXTURES 6
+#define NORTH_TEX 0
+#define SOUTH_TEX 1
+#define EAST_TEX 2
+#define WEST_TEX 3
+#define DOOR_TEX 4
+#define SPRITE_TEX 5
 
-typedef struct	s_textures
+#define RED 0
+#define GREEN 1
+#define BLUE 2
+
+typedef struct	s_lines
 {
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-}				t_textures;
+	char			*line;
+	struct s_lines	*next;
+}				t_lines;
 
-// structer to implement the dynamic array consept
-
-typedef struct	s_dynamic_array
+typedef struct	s_params
 {
-	size_t	size;
-	size_t	count;
-	char	**array;
-}				t_dynamic_array;
+	char	**map;
+	char	*textures[ALL_TEXTURES];
+	int		floor_color[3];
+	int		ceiling_color[3];
+}				t_params;
 
-// structer to store all the info
-// in the .cub file.
-
-typedef struct	s_map
-{
-	t_dynamic_array	*map;
-	t_textures		*textures;
-	int				floore[3];
-	int				ceilling[3];
-	int				player_pos[2];
-}					t_map;
-
-// Parsing functions
-
-char	**read_file(int fd, size_t len);
-size_t	file_len(int fd);
-int		chech_file_name(char *file_name);
-int		open_file(char *file_name);
-int		parse_file(char *file_name);
-void	free_array(char **arr);
-void	free_textures(t_textures **tex);
-void	free_map(t_map *map);
-int		da_init(t_dynamic_array **da, size_t count);
-int		da_append(t_dynamic_array **da, char *s);
-void	da_free(t_dynamic_array *da);
-t_map	*parse_content(char **content, size_t len);
-void	init_map(t_map **map);
-void	insert_tex_name(char *content, int *flag, t_map **map);
-char	**split_colors(char *content);
-int		insert_color(int color, t_map **map, char type, int index);
-int		parse_map(char **content, int *index, t_map **map);
-int		check_input_struct(t_map *map);
+t_lines		*new_line(char *str);
+void		add_line(t_lines **head, t_lines *line);
+t_lines		*last_line(t_lines *head);
+size_t		lines_count(t_lines *head);
+void		free_lines(t_lines **head);
+t_params	*params_holder(void);
+void		params_init(t_params **params);
+void		free_params(t_params **params);
+int			parse_args(char *filename);
+t_lines		*extract_file_content(int fd);
+int			parse_content(t_lines *file_content);
 
 #endif
