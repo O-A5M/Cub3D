@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:41:42 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/11/11 01:38:29 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:48:43 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	parse_file(char	*file_name)
 	map = parse_content(file_content, len);
 	if (!map)
 		return (free_array(file_content), close(fd), 1);
+	if (check_input_struct(map) == -1)
+		return (1);
 	for (int i = map->map->count - 2; i >= 0; i--)
 		printf("%s", map->map->array[i]);
 	printf("%s", map->textures->ea);
@@ -85,8 +87,6 @@ int	parse_file(char	*file_name)
 		printf("%d\n", map->ceilling[i]);
 		printf("%d\n", map->floore[i]);
 	}
-	if (check_input_struct(map) == -1)
-		return (1);
 	free_map(map);
 	free_array(file_content);
 	close(fd);
