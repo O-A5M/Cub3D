@@ -1,54 +1,19 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   read_file.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/16 16:09:15 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/10/16 16:10:25 by oakhmouc         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "include.h"
-#include <stddef.h>
 
-size_t	file_len(int fd)
+// int	parse_content(t_lines *file_content);
+
+t_lines	*extract_file_content(int fd)
 {
-	size_t	ret;
+	t_lines	*ret;
 	char	*tmp;
 
-	ret = 0;
+	ret = NULL;
 	tmp = get_next_line(fd);
-	while (tmp)
+	while (!tmp)
 	{
-		ret++;
-		free(tmp);
-		tmp = get_next_line(fd);
-	}
-	return (ret);
-}
-
-char	**read_file(int fd, size_t len)
-{
-	char	**ret;
-	char	*tmp;
-	int		index;
-
-	index = 0;
-	tmp = NULL;
-	if (len == 0)
-		return (NULL);
-	ret = malloc(sizeof(char *) * (len + 1));
-	if (!ret)
-		return (NULL);
-	while (len - index > 0)
-	{
-		tmp = get_next_line(fd);
-		ret[index] = ft_strdup(tmp);
-		index++;
+		add_line(&ret, new_line(tmp));
 		free (tmp);
+		tmp = get_next_line(fd);
 	}
-	ret[index] = NULL;
 	return (ret);
 }
