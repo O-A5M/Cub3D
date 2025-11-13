@@ -33,12 +33,12 @@ int	parse_args(char *filename)
 	file_content = extract_file_content(fd);
 	if (!file_content)
 		return (perror("cub3D"),free_lines(&file_content), -1);
-	while (file_content)
-	{
-		printf("%s\n", file_content->line);
-		file_content = file_content->next;
-	}
-	// if (parse_content(file_content) == -1)
-	// 	return (free_lines(&file_content), -1);
+	// while (file_content)
+	// {
+	// 	printf("%s", file_content->line);
+	// 	file_content = file_content->next;
+	// }
+	if (parse_content(file_content) == -1)
+		return (free_lines(&file_content), -1);
 	return (0);
 }
