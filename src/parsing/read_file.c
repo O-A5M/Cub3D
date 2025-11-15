@@ -39,12 +39,23 @@ int	check_element_order(t_lines *file_content)
 int	parse_content(t_lines *file_content)
 {
 	t_lines	*tmp;
+	t_params	*param;
 
 	tmp = file_content;
-	if (check_element_order(file_content) == -1)
+	param = params_holder();
+	if (check_element_order(tmp) == -1)
 		return (-1);
-	if (separate_elements(file_content) == -1)
+	if (separate_elements(tmp) == -1)
 		return (-1);
+	for (int i = 0; param->map[i]; i++)
+		printf("%s", param->map[i]);
+	for (int i = 0; i < ALL_TEXTURES; i++)
+		printf("%s", param->textures[i]);
+	for (int i = 0; i < 3; i++)
+	{
+		printf("%d\n", param->ceiling_color[i]);
+		printf("%d\n", param->floor_color[i]);
+	}
 	return (0);
 }
 

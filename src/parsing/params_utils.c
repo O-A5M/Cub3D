@@ -4,6 +4,9 @@ t_params	*params_holder(void)
 {
 	static t_params	*ret;
 
+	if (ret == NULL)
+		ret = malloc(sizeof(t_params));
+
 	return (ret);
 }
 

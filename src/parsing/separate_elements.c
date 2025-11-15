@@ -15,13 +15,19 @@ int	split_color(char *type, char *colors)
 		return (free_array(&tmp), -1);
 	if (type[0] == 'F')
 	{
-		while (index++ < 3)
+		while (index < 3)
+		{
 			param->floor_color[index] = ft_atoi(tmp[index]);
+			index++;
+		}
 	}
 	if (type[0] == 'C')
 	{
-		while (index++ < 3)
+		while (index < 3)
+		{
 			param->ceiling_color[index] = ft_atoi(tmp[index]);
+			index++;
+		}
 	}
 	return (free_array(&tmp), 0);
 }
@@ -94,7 +100,7 @@ int	add_tex(t_lines *file_content)
 int	split_map(t_lines *file_content, size_t len)
 {
 	t_params	*param;
-	int			index;
+	size_t		index;
 
 	index = 0;
 	param = params_holder();
