@@ -46,5 +46,7 @@ void		free_params(t_params **params);
 int			parse_args(char *filename);
 t_lines		*extract_file_content(int fd);
 int			parse_content(t_lines *file_content);
+int			separate_elements(t_lines *file_content);
+void		free_array(char	***arr);
 
 #endif

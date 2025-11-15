@@ -38,10 +38,12 @@ int	check_element_order(t_lines *file_content)
 
 int	parse_content(t_lines *file_content)
 {
-	// t_lines	*tmp;
+	t_lines	*tmp;
 
-	// tmp = file_content;
+	tmp = file_content;
 	if (check_element_order(file_content) == -1)
+		return (-1);
+	if (separate_elements(file_content) == -1)
 		return (-1);
 	return (0);
 }
