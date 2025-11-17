@@ -53,7 +53,9 @@ int	add_color(t_lines *file_content)
 		}
 		file_content = file_content->next;
 	}
-	return (free_array(&tmp), 0);
+	if (!params_holder()->textures[NORTH_TEX])
+		return (free_array(&tmp), add_tex(file_content));
+	return (free_array(&tmp), add_map(file_content));
 }
 
 int	split_tex(char *type, char *path)
@@ -94,7 +96,9 @@ int	add_tex(t_lines *file_content)
 		}
 		file_content = file_content->next;
 	}
-	return (free_array(&tmp), 0);
+	if (params_holder()->floor_color[0] == -1)
+		return (free_array(&tmp), add_color(file_content));
+	return (free_array(&tmp), add_map(file_content));
 }
 
 int	split_map(t_lines *file_content, size_t len)
@@ -106,7 +110,7 @@ int	split_map(t_lines *file_content, size_t len)
 	param = params_holder();
 	param->map = malloc(sizeof(char *) * (len + 1));
 	if (!param->map)
-		return (-1);
+		return (perror("cub3D"), -1);
 	while (index < len)
 	{
 		param->map[index] = ft_strdup(file_content->line);
@@ -124,9 +128,8 @@ int	add_map(t_lines *file_content_i)
 
 	len = 0;
 	file_content = file_content_i;
-	while (file_content
-			&& (file_content->line[0] == '0' || file_content->line[0] == '1'
-			|| file_content->line[0] == ' ' || file_content->line[0] == '\n'))
+	while (file_content->line[0] == '0' || file_content->line[0] == '1'
+			|| file_content->line[0] == ' ' || file_content->line[0] == '\n')
 	{
 		if (file_content->line[0] != '\n')
 			len++;
@@ -140,6 +143,8 @@ int	add_map(t_lines *file_content_i)
 			}
 		}
 		file_content = file_content->next;
+		if (!file_content)
+			break ;
 	}
 	return (split_map(file_content_i, len));
 }
@@ -153,14 +158,10 @@ static int	separate_tex_color(t_lines *file_content)
 	{
 		if (add_tex(file_content) == -1)
 			return (-1);
-		if (add_color(file_content) == -1)
-			return (-1);
 	}
 	else if (file_content->line[0] == 'C' || file_content->line[0] == 'F')
 	{
 		if (add_color(file_content) == -1)
-			return (-1);
-		if (add_tex(file_content) == -1)
 			return (-1);
 	}
 	return (0);
@@ -174,8 +175,6 @@ int	separate_elements(t_lines *file_content)
 	while (tmp && tmp->line[0] == '\n')
 		tmp = tmp->next;
 	if (separate_tex_color(tmp) == -1)
-		return (-1);
-	if (add_map(tmp) == -1)
-		return (-1);
-	return (0);
+		return (free_lines(&file_content), -1);
+	return (free_lines(&file_content), 0);
 }

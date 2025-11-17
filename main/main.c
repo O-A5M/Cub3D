@@ -12,6 +12,6 @@ int	main(int ac, char **av)
 			printf("error\n");
 	}
 	else
-		return (1);
-	return (0);
+		return (free_params(&param), 1);
+	return (free_params(&param), 0);
 }

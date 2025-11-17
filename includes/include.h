@@ -48,5 +48,8 @@ t_lines		*extract_file_content(int fd);
 int			parse_content(t_lines *file_content);
 int			separate_elements(t_lines *file_content);
 void		free_array(char	***arr);
+int			add_tex(t_lines *file_content);
+int			add_color(t_lines *file_content);
+int			add_map(t_lines *file_content);
 
 #endif
