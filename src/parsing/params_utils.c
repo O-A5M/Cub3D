@@ -35,7 +35,14 @@ void	free_params(t_params **params)
 	while (index < ALL_TEXTURES)
 		free ((*params)->textures[index++]);
 	index = 0;
-	while ((*params)->map[index])
-		free ((*params)->map[index++]);
+	if ((*params)->map)
+	{
+		while ((*params)->map[index])
+		{
+			free ((*params)->map[index]);
+			index++;
+		}
+		free((*params)->map);
+	}
 	free (*params);
 }
