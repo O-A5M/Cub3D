@@ -33,6 +33,8 @@ typedef struct	s_params
 	char	*textures[ALL_TEXTURES];
 	int		floor_color[3];
 	int		ceiling_color[3];
+	int		player_posX;
+	int		player_posY;
 }				t_params;
 
 t_lines		*new_line(char *str);
@@ -51,5 +53,6 @@ void		free_array(char	***arr);
 int			add_tex(t_lines *file_content);
 int			add_color(t_lines *file_content);
 int			add_map(t_lines *file_content);
+int			check_map_elements(void);
 
 #endif
