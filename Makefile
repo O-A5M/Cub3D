@@ -13,7 +13,9 @@ LIBFT   = ft
 
 SRC    = main/main.c src/parsing/lines_utils.c src/parsing/parse_args.c\
 		 src/parsing/params_utils.c src/parsing/read_file.c\
-		 src/parsing/separate_elements.c src/parsing/other_utils.c
+		 src/parsing/separate_elements.c src/parsing/other_utils.c\
+		 src/parsing/separate_elements_map.c src/parsing/separate_elements_colors.c\
+		 src/parsing/separate_elements_textures.c
 
 OBJDIR = obj
 OBJS   = $(patsubst %.c,$(OBJDIR)/%.o,$(SRC))
