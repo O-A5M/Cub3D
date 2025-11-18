@@ -27,8 +27,11 @@ int	add_map(t_lines *file_content_i)
 
 	len = 0;
 	file_content = file_content_i;
-	while (file_content->line[0] == '0' || file_content->line[0] == '1'
-			|| file_content->line[0] == ' ' || file_content->line[0] == '\n')
+	if (!file_content)
+		return (-1);
+	while (file_content
+		&& ((file_content->line[0] == '0' || file_content->line[0] == '1'
+		|| file_content->line[0] == ' ' || file_content->line[0] == '\n')))
 	{
 		if (file_content->line[0] != '\n')
 			len++;
@@ -42,8 +45,6 @@ int	add_map(t_lines *file_content_i)
 			}
 		}
 		file_content = file_content->next;
-		if (!file_content)
-			break ;
 	}
 	return (split_map(file_content_i, len));
 }

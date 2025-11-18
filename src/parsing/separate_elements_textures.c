@@ -20,11 +20,14 @@ int	add_tex(t_lines *file_content)
 {
 	char	**tmp;
 
-	while ((file_content->line[0] == 'N' && file_content->line[1] == 'O')
+	if (!file_content)
+		return (-1);
+	while (file_content
+		&& ((file_content->line[0] == 'N' && file_content->line[1] == 'O')
 		|| (file_content->line[0] == 'S' && file_content->line[1] == 'O')
 		|| (file_content->line[0] == 'W' && file_content->line[1] == 'E')
 		|| (file_content->line[0] == 'E' && file_content->line[1] == 'A')
-		|| file_content->line[0] == '\n')
+		|| file_content->line[0] == '\n'))
 	{
 		if (file_content->line[0] != '\n')
 		{

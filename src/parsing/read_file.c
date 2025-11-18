@@ -1,7 +1,7 @@
 #include "include.h"
 #include "libft.h"
 
-int	element_type(char *line)
+static int	element_type(char *line)
 {
 	static int	map_flag;
 
@@ -22,14 +22,24 @@ int	element_type(char *line)
 	return (0);
 }
 
-int	check_element_order(t_lines *file_content)
+static int	char_in_file(char *line)
+{
+	if (line[0] != 'F' && line[0] != 'C' && line[0] != '0'
+		&& line[0] != 'N' && line[0] != 'S' && line[0] != '1'
+		&& line[0] != 'E' && line[0] != 'W' && line[0] != ' '
+		&& line[0] != '\n' && line[0] != '\0')
+		return (-1);
+	return (0);
+}
+
+static int	check_element_order(t_lines *file_content)
 {
 	t_lines	*tmp;
 
 	tmp = file_content;
 	while (tmp)
 	{
-		if (element_type(tmp->line) == -1)
+		if (element_type(tmp->line) == -1 || char_in_file(tmp->line) == -1)
 			return (-1);
 		tmp = tmp->next;
 	}
@@ -44,7 +54,7 @@ int	parse_content(t_lines *file_content)
 	tmp = file_content;
 	// param = params_holder();
 	if (check_element_order(tmp) == -1)
-		return (ft_putstr_fd("Elements order error!!\n", 2), -1);
+		return (ft_putstr_fd("Elements error!!\n", 2), -1);
 	if (separate_elements(tmp) == -1)
 		return (-1);
 	// for (int i = 0; param->map[i]; i++)
