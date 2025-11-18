@@ -4,7 +4,7 @@ WE ./path_to_the_west_texture
 EA ./path_to_the_west_texture
 
 
-F 22,100,1
+F 22,100,0
 C 225,30,0
 
 

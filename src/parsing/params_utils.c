@@ -25,6 +25,8 @@ void	params_init(t_params **params)
 		(*params)->floor_color[index] = -1;
 		index++;
 	}
+	(*params)->player_posX = -1;
+	(*params)->player_posY = -1;
 }
 
 void	free_params(t_params **params)
