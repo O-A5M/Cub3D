@@ -4,6 +4,8 @@ t_lines	*new_line(char *str)
 {
 	t_lines	*ret;
 
+	if (!str || str[0] == '\0')
+		return (NULL);
 	ret = malloc(sizeof(t_lines));
 	if (!ret)
 		return (NULL);
@@ -61,6 +63,8 @@ void	free_lines(t_lines **head)
 {
 	t_lines	*tmp;
 
+	if (!head || !*head)
+		return ;
 	while (*head)
 	{
 		tmp = (*head)->next;
@@ -69,4 +73,5 @@ void	free_lines(t_lines **head)
 		(*head) = tmp;
 	}
 	free (*head);
+	*head = NULL;
 }

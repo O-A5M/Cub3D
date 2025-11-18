@@ -40,5 +40,5 @@ int	parse_args(char *filename)
 	// }
 	if (parse_content(file_content) == -1)
 		return (free_lines(&file_content), -1);
-	return (0);
+	return (free_lines(&file_content), 0);
 }

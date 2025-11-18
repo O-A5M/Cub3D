@@ -9,7 +9,7 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		if (parse_args(av[1]) == -1)
-			printf("error\n");
+			return (free_params(&param), 1);
 	}
 	else
 		return (free_params(&param), 1);

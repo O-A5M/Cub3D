@@ -18,6 +18,30 @@ static int	separate_tex_color(t_lines *file_content)
 	return (0);
 }
 
+static int	check_elements(void)
+{
+	t_params	*param;
+	int			i;
+
+	i = 0;
+	param = params_holder();
+	while (i < 3)
+	{
+		if (param->ceiling_color[i] < 0 || param->ceiling_color[i] > 255
+			|| param->floor_color[i] < 0 || param->floor_color[i] > 255)
+			return (ft_putstr_fd("Error in colors!!\n", 2), -1);
+		i++;
+	}
+	i = 0;
+	while (i < 4)
+	{
+		if (!param->textures[i] || param->textures[i][0] == '\n')
+			return (ft_putstr_fd("Error in textures!!\n", 2), -1);
+		i++;
+	}
+	return (0);
+}
+
 int	separate_elements(t_lines *file_content)
 {
 	t_lines	*tmp;
@@ -26,6 +50,8 @@ int	separate_elements(t_lines *file_content)
 	while (tmp && tmp->line[0] == '\n')
 		tmp = tmp->next;
 	if (separate_tex_color(tmp) == -1)
-		return (free_lines(&file_content), -1);
-	return (free_lines(&file_content), 0);
+		return (-1);
+	if (check_elements() == -1)
+		return (-1);
+	return (0);
 }
