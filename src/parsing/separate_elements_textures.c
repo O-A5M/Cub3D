@@ -38,6 +38,7 @@ int	add_tex(t_lines *file_content)
 				return (free_array(&tmp), -1);
 			if (split_tex(tmp[0], tmp[1]) == -1)
 				return (free_array(&tmp), -1);
+			free_array(&tmp);
 		}
 		file_content = file_content->next;
 	}

@@ -80,7 +80,8 @@ t_lines	*extract_file_content(int fd)
 	tmp = get_next_line(fd);
 	while (tmp)
 	{
-		add_line(&ret, new_line(ft_strdup(tmp)));
+		if (tmp[0])
+			add_line(&ret, new_line(ft_strdup(tmp)));
 		free (tmp);
 		tmp = get_next_line(fd);
 	}
