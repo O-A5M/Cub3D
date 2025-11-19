@@ -2,10 +2,16 @@
 
 int	main(int ac, char **av)
 {
-	(void)ac;
-	if (parse_file(av[1]))
-		printf("wrong\n");
+	t_params	*param;
+
+	param = params_holder();
+	params_init(&param);
+	if (ac == 2)
+	{
+		if (parse_args(av[1]) == -1)
+			return (free_params(&param), 1);
+	}
 	else
-		printf("succes\n");
-	return (0);
+		return (free_params(&param), 1);
+	return (free_params(&param), 0);
 }
