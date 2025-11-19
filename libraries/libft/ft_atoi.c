@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:20:58 by oakhmouc          #+#    #+#             */
-/*   Updated: 2024/10/22 15:41:08 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:10:05 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_atoi(const char *nptr)
 	{
 		i++;
 	}
+	if (!ft_isdigit(nptr[i]))
+		return (-1);
 	if (nptr[i] == '-' || nptr[i] == '+')
 	{
 		if (nptr[i] == '-')
@@ -34,6 +36,8 @@ int	ft_atoi(const char *nptr)
 	while (ft_isdigit(nptr[i]))
 	{
 		ret = (ret * 10) + (nptr[i] - '0');
+		if (ret > 255)
+			return (ret);
 		i++;
 	}
 	return (ret * sign);
