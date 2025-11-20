@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   separate_elements_textures.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 11:42:32 by oakhmouc          #+#    #+#             */
+/*   Updated: 2025/11/20 11:52:39 by oakhmouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 
-int	split_tex(char *type, char *path)
+static int	split_tex(char *type, char *path)
 {
 	t_params	*param;
 
@@ -16,6 +28,18 @@ int	split_tex(char *type, char *path)
 	return (0);
 }
 
+static int	manage_tex(char **tmp, t_lines *file_content)
+{
+	tmp = ft_split(file_content->line, ' ');
+	if (!tmp || !tmp[0] || !tmp[1] || tmp[2])
+		return (perror("cub3D"), -1);
+	if (ft_strlen(tmp[0]) != 2)
+		return (-1);
+	if (split_tex(tmp[0], tmp[1]) == -1)
+		return (-1);
+	return (0);
+}
+
 int	add_tex(t_lines *file_content)
 {
 	char	**tmp;
@@ -24,19 +48,14 @@ int	add_tex(t_lines *file_content)
 		return (-1);
 	while (file_content
 		&& ((file_content->line[0] == 'N' && file_content->line[1] == 'O')
-		|| (file_content->line[0] == 'S' && file_content->line[1] == 'O')
-		|| (file_content->line[0] == 'W' && file_content->line[1] == 'E')
-		|| (file_content->line[0] == 'E' && file_content->line[1] == 'A')
-		|| file_content->line[0] == '\n'))
+			|| (file_content->line[0] == 'S' && file_content->line[1] == 'O')
+			|| (file_content->line[0] == 'W' && file_content->line[1] == 'E')
+			|| (file_content->line[0] == 'E' && file_content->line[1] == 'A')
+			|| file_content->line[0] == '\n'))
 	{
 		if (file_content->line[0] != '\n')
 		{
-			tmp = ft_split(file_content->line, ' ');
-			if (!tmp || !tmp[0] || !tmp[1] || tmp[2])
-				return (free_array(&tmp), perror("cub3D"), -1);
-			if (ft_strlen(tmp[0]) != 2)
-				return (free_array(&tmp), -1);
-			if (split_tex(tmp[0], tmp[1]) == -1)
+			if (manage_tex(tmp, file_content) == -1)
 				return (free_array(&tmp), -1);
 			free_array(&tmp);
 		}

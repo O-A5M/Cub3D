@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   params_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 11:42:05 by oakhmouc          #+#    #+#             */
+/*   Updated: 2025/11/20 11:42:56 by oakhmouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 
 t_params	*params_holder(void)
@@ -6,7 +18,6 @@ t_params	*params_holder(void)
 
 	if (ret == NULL)
 		ret = malloc(sizeof(t_params));
-
 	return (ret);
 }
 

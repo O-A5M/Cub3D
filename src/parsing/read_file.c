@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_file.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 11:41:33 by oakhmouc          #+#    #+#             */
+/*   Updated: 2025/11/20 11:47:19 by oakhmouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 #include "libft.h"
 
@@ -49,23 +61,12 @@ static int	check_element_order(t_lines *file_content)
 int	parse_content(t_lines *file_content)
 {
 	t_lines	*tmp;
-	// t_params	*param;
 
 	tmp = file_content;
-	// param = params_holder();
 	if (check_element_order(tmp) == -1)
 		return (ft_putstr_fd("Elements error!!\n", 2), -1);
 	if (separate_elements(tmp) == -1)
 		return (-1);
-	// for (int i = 0; param->map[i]; i++)
-	// 	printf("%s", param->map[i]);
-	// for (int i = 0; param->textures[i]; i++)
-	// 	printf("%s", param->textures[i]);
-	// for (int i = 0; i < 3; i++)
-	// {
-	// 	printf("%d\n", param->ceiling_color[i]);
-	// 	printf("%d\n", param->floor_color[i]);
-	// }
 	if (check_map_elements() == -1 || is_map_surrounded() == -1)
 		return (ft_putstr_fd("Map error!!\n", 2), -1);
 	return (0);
