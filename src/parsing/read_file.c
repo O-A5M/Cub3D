@@ -66,7 +66,7 @@ int	parse_content(t_lines *file_content)
 	// 	printf("%d\n", param->ceiling_color[i]);
 	// 	printf("%d\n", param->floor_color[i]);
 	// }
-	if (check_map_elements() == -1)
+	if (check_map_elements() == -1 || is_map_surrounded() == -1)
 		return (ft_putstr_fd("Map error!!\n", 2), -1);
 	return (0);
 }

@@ -54,5 +54,6 @@ int			add_tex(t_lines *file_content);
 int			add_color(t_lines *file_content);
 int			add_map(t_lines *file_content);
 int			check_map_elements(void);
+int			is_map_surrounded(void);
 
 #endif
