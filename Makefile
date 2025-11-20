@@ -1,7 +1,7 @@
 # The compiler and flags
 
 CC	  = cc
-FLAGS = -Wall -Wextra -Werror -g -O3 -Iincludes -Ilibraries/libft -Ilibraries/minilibx-linux
+FLAGS = -Wall -Wextra -Werror -g3 -g -O3 -Iincludes -Ilibraries/libft -Ilibraries/minilibx-linux
 
 # external libraries
 
@@ -11,7 +11,12 @@ LIBFT   = ft
 
 # Source and object files
 
-SRC    = main/main.c src/parsing/parse_file.c src/parsing/read_file.c
+SRC    = main/main.c src/parsing/lines_utils.c src/parsing/parse_args.c\
+		 src/parsing/params_utils.c src/parsing/read_file.c\
+		 src/parsing/separate_elements.c src/parsing/other_utils.c\
+		 src/parsing/separate_elements_map.c src/parsing/separate_elements_colors.c\
+		 src/parsing/separate_elements_textures.c src/parsing/check_map_elements.c\
+
 OBJDIR = obj
 OBJS   = $(patsubst %.c,$(OBJDIR)/%.o,$(SRC))
 
@@ -35,6 +40,7 @@ $(OBJDIR)/%.o: %.c
 
 clean:
 	make clean -C $(LIBFT_D)
+	echo ${NAME}
 	rm $(OBJDIR) -fr
 
 fclean: clean
@@ -42,6 +48,11 @@ fclean: clean
 	rm $(NAME) -fr
 
 re: fclean all
+
+do: fclean all
+	make clean -C $(LIBFT_D)
+	rm $(OBJDIR) -fr
+	clear
 
 .SECONDARY: $(OBJS)
 .PHONEY: clean
