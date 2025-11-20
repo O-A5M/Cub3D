@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   separate_elements_colors.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 11:42:23 by oakhmouc          #+#    #+#             */
+/*   Updated: 2025/11/20 11:43:26 by oakhmouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 
 static int	is_color_digit(char **colors)
@@ -58,7 +70,7 @@ int	add_color(t_lines *file_content)
 	if (!file_content)
 		return (-1);
 	while (file_content && (file_content->line[0] == 'F'
-		|| file_content->line[0] == 'C' || file_content->line[0] == '\n'))
+			|| file_content->line[0] == 'C' || file_content->line[0] == '\n'))
 	{
 		if (file_content->line[0] == 'F' || file_content->line[0] == 'C')
 		{

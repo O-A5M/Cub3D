@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map_elements.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 11:41:25 by oakhmouc          #+#    #+#             */
+/*   Updated: 2025/11/20 11:53:36 by oakhmouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 
 static char	**copy_and_replace(void);
@@ -16,8 +28,8 @@ int	check_map_elements(void)
 		while (param->map[i][++j])
 		{
 			if (param->player_posX == -1 && param->player_posY == -1
-			&& (param->map[i][j] == 'S' || param->map[i][j] == 'N'
-			|| param->map[i][j] == 'E' || param->map[i][j] == 'W'))
+				&& (param->map[i][j] == 'S' || param->map[i][j] == 'N'
+				|| param->map[i][j] == 'E' || param->map[i][j] == 'W'))
 			{
 				param->player_posY = i;
 				param->player_posX = j;

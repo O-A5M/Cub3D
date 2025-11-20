@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   separate_elements_map.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 11:42:27 by oakhmouc          #+#    #+#             */
+/*   Updated: 2025/11/20 11:46:25 by oakhmouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 
 static int	split_map(t_lines *file_content, size_t len)
@@ -29,9 +41,9 @@ int	add_map(t_lines *file_content_i)
 	file_content = file_content_i;
 	if (!file_content)
 		return (-1);
-	while (file_content
-		&& ((file_content->line[0] == '0' || file_content->line[0] == '1'
-		|| file_content->line[0] == ' ' || file_content->line[0] == '\n')))
+	while (file_content && ((file_content->line[0] == '0'
+				|| file_content->line[0] == '1' || file_content->line[0] == ' '
+				|| file_content->line[0] == '\n')))
 	{
 		if (file_content->line[0] != '\n')
 			len++;

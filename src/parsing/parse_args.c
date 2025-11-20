@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_args.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 11:42:09 by oakhmouc          #+#    #+#             */
+/*   Updated: 2025/11/20 11:48:07 by oakhmouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 
 static int	check_filename(char *filename)
@@ -20,7 +32,7 @@ static int	check_filename(char *filename)
 
 int	parse_args(char *filename)
 {
-	int	fd;
+	int		fd;
 	t_lines	*file_content;
 
 	file_content = NULL;
@@ -32,12 +44,7 @@ int	parse_args(char *filename)
 		return (perror("cub3D"), -1);
 	file_content = extract_file_content(fd);
 	if (!file_content)
-		return (perror("cub3D"),free_lines(&file_content), -1);
-	// while (file_content)
-	// {
-	// 	printf("%s", file_content->line);
-	// 	file_content = file_content->next;
-	// }
+		return (perror("cub3D"), free_lines(&file_content), -1);
 	if (parse_content(file_content) == -1)
 		return (free_lines(&file_content), -1);
 	return (free_lines(&file_content), 0);
