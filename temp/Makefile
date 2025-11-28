@@ -1,12 +1,13 @@
 CC       = gcc
 CFLAGS   = -Wall -Wextra -Werror
+MLXPATH  = -L../libraries/minilibx-linux/
 MLXFLAGS = -lmlx -lXext -lX11 -lm
 SRC      = cub3d.c utilities/utils_1.c Rendering/init.c Rendering/drawing_utils.c Rendering/render.c
 OBJ      = $(SRC:.c=.o)
 NAME     = Cub3d
 
 $(NAME)  : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(MLXPATH) $(MLXFLAGS) -o $(NAME)
 
 all      : $(NAME)
 
