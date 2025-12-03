@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:42:05 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/11/20 11:42:56 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/11/28 22:49:34 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	params_init(t_params **params)
 	}
 	(*params)->player_posX = -1;
 	(*params)->player_posY = -1;
+	(*params)->player_direction = 0;
 }
 
 void	free_params(t_params **params)
