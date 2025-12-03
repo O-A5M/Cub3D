@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:38:20 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/11/05 15:38:11 by aelmsafe         ###   ########.fr       */
+/*   Updated: 2025/11/28 20:04:32 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
-# include "./minilibx-linux/mlx.h"
+// # include "./minilibx-linux/mlx.h"
+#include "../libraries/minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 
 /* the MACROs */
