@@ -31,6 +31,7 @@ typedef struct	s_params
 {
 	char	**map;
 	char	*textures[ALL_TEXTURES];
+	char	player_direction;
 	int		floor_color[3];
 	int		ceiling_color[3];
 	int		player_posX;
