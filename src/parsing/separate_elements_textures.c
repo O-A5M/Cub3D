@@ -28,14 +28,14 @@ static int	split_tex(char *type, char *path)
 	return (0);
 }
 
-static int	manage_tex(char **tmp, t_lines *file_content)
+static int	manage_tex(char ***tmp, t_lines *file_content)
 {
-	tmp = ft_split(file_content->line, ' ');
-	if (!tmp || !tmp[0] || !tmp[1] || tmp[2])
+	(*tmp) = ft_split(file_content->line, ' ');
+	if (!(*tmp) || !(*tmp)[0] || !(*tmp)[1] || (*tmp)[2])
 		return (perror("cub3D"), -1);
-	if (ft_strlen(tmp[0]) != 2)
+	if (ft_strlen((*tmp)[0]) != 2)
 		return (-1);
-	if (split_tex(tmp[0], tmp[1]) == -1)
+	if (split_tex((*tmp)[0], (*tmp)[1]) == -1)
 		return (-1);
 	return (0);
 }
@@ -55,7 +55,7 @@ int	add_tex(t_lines *file_content)
 	{
 		if (file_content->line[0] != '\n')
 		{
-			if (manage_tex(tmp, file_content) == -1)
+			if (manage_tex(&tmp, file_content) == -1)
 				return (free_array(&tmp), -1);
 			free_array(&tmp);
 		}
