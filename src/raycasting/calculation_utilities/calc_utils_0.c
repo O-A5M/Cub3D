@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rayclude.h"
+#include "../rayclude.h"
 
 void	block_to_pixel_coords(t_data *data, int j, int i)
 {

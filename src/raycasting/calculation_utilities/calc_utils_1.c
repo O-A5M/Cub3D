@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rayclude.h"
+#include "../rayclude.h"
 
 // !!! might not need this if I can figure it from the parsing part !!!
 /* a function that finds the player position in the map */

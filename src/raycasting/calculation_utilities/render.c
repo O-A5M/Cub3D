@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rayclude.h"
+#include "../rayclude.h"
 
 void	next_grid_finder(t_data *data, double *close_y,
 			double *close_x, char *last_met)

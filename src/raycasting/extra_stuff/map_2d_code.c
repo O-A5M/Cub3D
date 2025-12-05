@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rayclude.h"
+#include "../rayclude.h"
 
 /* a func that colors a given grid in the map, with a given a color */
 void	color_grid(t_data *data, int grid_x, int grid_y)

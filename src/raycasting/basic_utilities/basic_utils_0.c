@@ -10,19 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rayclude.h"
-
-int	ft_strlen(const char *s)
-{
-	int	count;
-
-	if (s == NULL)
-		return (-1);
-	count = 0;
-	while (s[count])
-		count++;
-	return (count);
-}
+#include "../rayclude.h"
 
 int	ft_write(const char *s)
 {

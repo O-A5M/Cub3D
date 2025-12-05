@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "mlx.h"
 #include "libft.h"
-#include "rayclude.h"
+#include "../src/raycasting/rayclude.h"
 
 #define ALL_TEXTURES 6
 #define NORTH_TEX 0

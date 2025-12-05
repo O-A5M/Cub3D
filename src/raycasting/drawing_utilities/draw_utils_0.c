@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rayclude.h"
+# include <math.h>
+#include "../rayclude.h"
 
 /* a function that colors the ceiling and the floor inside the window */
 void	draw_ceiling_and_floor(t_data *data)
