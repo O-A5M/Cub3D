@@ -2,7 +2,7 @@
 
 CC	  = cc
 ######################## removed the flags for testing, don't forget to put them back ###########################
-FLAGS = -Wall -Wextra -Werror -g3 -g -O3 -Iincludes -Ilibraries/libft -Ilibraries/minilibx-linux #-lsrc/raycasting
+FLAGS = -Wall -Wextra -Werror -g3 -g -O3 -Iincludes -Ilibraries/libft -Ilibraries/minilibx-linux -Isrc/raycasting
 
 # external libraries
 
