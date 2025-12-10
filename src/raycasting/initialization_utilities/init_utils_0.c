@@ -6,40 +6,39 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:48:34 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/11/27 11:44:23 by aelmsafe         ###   ########.fr       */
+/*   Updated: 2025/12/10 18:43:46 by aelmsafe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rayclude.h"
 
 /* a func that sets up some necessary data at the beginning of the program */
-int	initiate_mlx(t_data *data, t_mlxdata *mlx, t_imgdata *img)
+int	initiate_mlx(t_params *params, t_mlxdata *mlx, t_imgdata *img)
 {
 	mlx->mlx_ptr = mlx_init();
 	if (!mlx->mlx_ptr)
-		return (write(1, "Issue Creating Connection!\n", 27), 1);
+		return (ft_putstr_fd("Issue Creating Connection!\n", 2), 1);
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cub0d");
 	if (!mlx->win_ptr)
-		return (write(1, "Issue Creating Window!\n", 23), 1);
+		return (ft_putstr_fd("Issue Creating Window!\n", 2), 1);
 	img->img_ptr = mlx_new_image(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	if (!img->img_ptr)
-		return (write(1, "Issue Creating Image!\n", 22), 1);
+		return (ft_putstr_fd("Issue Creating Image!\n", 2), 1);
 	img->img_add = mlx_get_data_addr(img->img_ptr, &img->bpp,
 			&img->line_length, &img->endian);
 	if (!img->img_add)
-		return (write(1, "Issue Retrieving Address!\n", 26), 1);
-	data->mlx = mlx;
-	data->img = img;
+		return (ft_putstr_fd("Issue Retrieving Address!\n", 2), 1);
+	params->mlx = mlx;
+	params->img = img;
 	return (0);
 }
 
-int	initiate_player_and_ray(t_data *data, t_playerdata *player, t_ray *ray)
+int	initiate_player_and_ray(t_params *params, t_playerdata *player,
+		t_raydata *ray)
 {
-	player->y = -1;
-	player->x = -1;
 	ray->nearest_blocky = 0;
 	ray->nearest_blockx = 0;
-	data->player = player;
-	data->ray = ray;
+	params->player = player;
+	params->ray = ray;
 	return (0);
 }

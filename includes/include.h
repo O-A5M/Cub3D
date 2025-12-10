@@ -30,13 +30,14 @@ typedef struct	s_lines
 
 typedef struct	s_params
 {
-	char	**map;
-	char	*textures[ALL_TEXTURES];
-	char	player_direction;
-	int		floor_color[3];
-	int		ceiling_color[3];
-	int		player_posX;
-	int		player_posY;
+	char			**map;
+	char			*textures[ALL_TEXTURES];
+	int				floor_color[3];
+	int				ceiling_color[3];
+	t_mlxdata		*mlx;
+	t_imgdata		*img;
+	t_playerdata	*player;
+	t_raydata		*ray;
 }				t_params;
 
 t_lines		*new_line(char *str);

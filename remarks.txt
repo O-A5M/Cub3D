@@ -1,0 +1,26 @@
+#PRIMARY
+--------
+
+    ##Othman's part:
+    ---------------
+        ###1 Parsing doesn't exit when the player is not found on the map!
+        ###2 Parsing an empty map: correctly handled but outputs "cub3d: Success on the screen"!
+        ###3 
+
+    ##Obito's part:
+    ------------
+        ###1 Memory is not freed when mlx initialization fails!
+        ###2 
+
+#SECONDARY
+----------
+
+    ##Othman's part:
+    ---------------
+        ###1 Use of static for params, why? It feels unnecessary.
+        ###2 
+
+    ##Obito's part:
+    ------------
+        ###1 Unnecessary declaration of unused stuctures in the header file.
+        ###2 

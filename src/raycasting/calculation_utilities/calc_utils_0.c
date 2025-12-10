@@ -6,38 +6,38 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 11:23:52 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/11/27 11:35:03 by aelmsafe         ###   ########.fr       */
+/*   Updated: 2025/12/10 18:30:53 by aelmsafe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rayclude.h"
 
-void	block_to_pixel_coords(t_data *data, int j, int i)
+void	block_to_pixel_coords(t_params *params, int j, int i)
 {
-	data->player->grid_y = j;
-	data->player->grid_x = i;
-	data->player->y = (j + 1 / (double)2) * (WIN_HEIGHT / (double)MAP_HEIGHT);
-	data->player->x = (i + 1 / (double)2) * (WIN_WIDTH / MAP_WIDTH);
-	if (data->player->direction == 'N')
-		data->player->starting_angle = M_PI / 2;
-	else if (data->player->direction == 'S')
-		data->player->starting_angle = M_PI * 3 / 2;
-	else if (data->player->direction == 'E')
-		data->player->starting_angle = 0;
-	else if (data->player->direction == 'W')
-		data->player->starting_angle = M_PI;
+	params->player->grid_y = j;
+	params->player->grid_x = i;
+	params->player->y = (j + 1 / (double)2) * (WIN_HEIGHT / (double)MAP_HEIGHT);
+	params->player->x = (i + 1 / (double)2) * (WIN_WIDTH / MAP_WIDTH);
+	if (params->player->direction == 'N')
+		params->player->starting_angle = M_PI / 2;
+	else if (params->player->direction == 'S')
+		params->player->starting_angle = M_PI * 3 / 2;
+	else if (params->player->direction == 'E')
+		params->player->starting_angle = 0;
+	else if (params->player->direction == 'W')
+		params->player->starting_angle = M_PI;
 }
 
-void	direction_corrector(t_data *data, double angle)
+void	direction_corrector(t_params *params, double angle)
 {
 	(void)((angle >= 0) && (angle < (M_PI / 2))
-		&& (data->ray->y_dir = -1) && (data->ray->x_dir = 1));
+		&& (params->ray->y_dir = -1) && (params->ray->x_dir = 1));
 	(void)((angle >= (M_PI / 2)) && (angle < M_PI)
-		&& (data->ray->y_dir = -1) && (data->ray->x_dir = -1));
+		&& (params->ray->y_dir = -1) && (params->ray->x_dir = -1));
 	(void)((angle >= M_PI) && (angle < (M_PI * 3 / 2 ))
-		&& (data->ray->y_dir = 1) && (data->ray->x_dir = -1));
+		&& (params->ray->y_dir = 1) && (params->ray->x_dir = -1));
 	(void)((angle >= (M_PI * 3 / 2 )) && (angle < (M_PI * 2))
-		&& (data->ray->y_dir = 1) && (data->ray->x_dir = 1));
+		&& (params->ray->y_dir = 1) && (params->ray->x_dir = 1));
 }
 
 double	deg_to_rad(double angle)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_elements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:41:25 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/11/28 22:51:55 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/10 18:40:29 by aelmsafe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	check_map_elements(void)
 		j = -1;
 		while (param->map[i][++j])
 		{
-			if (param->player_posX == -1 && param->player_posY == -1
+			if (param->player->x == -1 && param->player->y == -1
 				&& (param->map[i][j] == 'S' || param->map[i][j] == 'N'
 				|| param->map[i][j] == 'E' || param->map[i][j] == 'W'))
 			{
-				param->player_posY = i;
-				param->player_posX = j;
+				param->player->y = i;
+				param->player->x = j;
 				continue ;
 			}
 			if (param->map[i][j] != '0' && param->map[i][j] != '1'

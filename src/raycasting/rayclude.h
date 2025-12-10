@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:38:20 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/05 11:59:07 by aelmsafe         ###   ########.fr       */
+/*   Updated: 2025/12/10 18:43:49 by aelmsafe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RAYCLUDE_H
 
 /* the header inclusions */
-# include "include.h"			//######## dont know but this seems unnecessary. #########
+# include "include.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -75,7 +75,7 @@ typedef struct s_coord
 	double	x;
 }				t_coord;
 
-typedef struct s_ray
+typedef struct s_raydata
 {
 	double	ray_length;
 	int		grid_y;
@@ -85,7 +85,7 @@ typedef struct s_ray
 	double	nearest_blocky;
 	double	nearest_blockx;
 
-}				t_ray;
+}				t_raydata;
 
 /* a structure that holds the important data to comfortably use it around */
 typedef struct s_data
@@ -93,23 +93,23 @@ typedef struct s_data
 	t_mlxdata		*mlx;
 	t_imgdata		*img;
 	t_playerdata	*player;
-	t_ray			*ray;
+	t_raydata		*ray;
 	unsigned int	ceiling_color;
 	unsigned int	floor_color;
 }				t_data;
 
 /* Function Prototypes*/
 int		ft_write(const char *s);
-void	block_to_pixel_coords(t_data *data, int j, int i);
-void	direction_corrector(t_data *data, double angle);
+void	block_to_pixel_coords(t_params *params, int j, int i);
+void	direction_corrector(t_params *params, double angle);
 double	deg_to_rad(double angle);
 double	rad_to_deg(double angle);
-int		find_player_grid(t_data *data, char map[MAP_HEIGHT][MAP_WIDTH]);
-int		render(t_data *data, char map[MAP_HEIGHT][MAP_WIDTH]);
-void	draw_ceiling_and_floor(t_data *data);
-void	draw_wall(t_data *data, int ray_num, double corr_angle);
-int		initiate_mlx(t_data *data, t_mlxdata *mlx, t_imgdata *img);
-int		initiate_player_and_ray(t_data *data, t_playerdata *player, t_ray *ray);
-int		render(t_data *data, char map[MAP_HEIGHT][MAP_WIDTH]);
+int		render(t_params *params);
+void	draw_ceiling_and_floor(t_params *params);
+void	draw_wall(t_params *params, int ray_num, double corr_angle);
+int		initiate_mlx(t_params *params, t_mlxdata *mlx, t_imgdata *img);
+int		initiate_player_and_ray(t_params *params, t_playerdata *player,
+			t_raydata *ray);
+int		render(t_params *params);
 
 #endif /* RAYCLUDE_H */

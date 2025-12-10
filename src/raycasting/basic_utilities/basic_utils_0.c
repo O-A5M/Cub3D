@@ -12,17 +12,15 @@
 
 #include "../rayclude.h"
 
-int	ft_write(const char *s)
+void	ft_write(const char *s)
 {
 	int	i;
 
 	if (s == NULL)
-		return (-1);
+		return ;
 	i = 0;
 	while (s[i])
-	{
-		write(1, &(s[i]), 1);
 		i++;
-	}
+	write(1, &(s[i]), 1);
 	return (i);
 }

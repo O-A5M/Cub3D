@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 16:09:48 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/11/05 16:12:22 by aelmsafe         ###   ########.fr       */
+/*   Updated: 2025/12/10 18:26:47 by aelmsafe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	next_grid_finder(t_data *data, double *close_y,
 	return ;
 }
 
-double	find_wall(t_data *data, double angle, char map[MAP_HEIGHT][MAP_WIDTH])
+double	find_wall(t_data *data, double angle)
 {
 	double	close_y;
 	double	close_x;
@@ -66,25 +66,25 @@ double	find_wall(t_data *data, double angle, char map[MAP_HEIGHT][MAP_WIDTH])
 	return (0);
 }
 
-/* a function that cast the rays */
-void	ray_caster(t_data *data, char map[MAP_HEIGHT][MAP_WIDTH])
+/* a function that casts the rays */
+void	ray_caster(t_params *params)
 {
 	int			ray_num;
 	double		angle;
 	double		correction_angle;
 
-	data->ray->ray_length = 0;
+	params->ray->ray_length = 0;
 	ray_num = 0;
-	angle = rad_to_deg(data->player->starting_angle) - (FOV / 2);
+	angle = rad_to_deg(params->player->starting_angle) - (FOV / 2);
 	correction_angle = (FOV / 2);
 	while (ray_num < NUM_OF_RAYS)
 	{
-		data->ray->nearest_blocky
+		params->ray->nearest_blocky
 			= fabs(GRID_HEIGHT / (sin(deg_to_rad(angle))));
-		data->ray->nearest_blockx
+		params->ray->nearest_blockx
 			= fabs(GRID_WIDTH / (cos(deg_to_rad(angle))));
-		data->ray->ray_length = find_wall(data, deg_to_rad(angle), map);
-		draw_wall(data, ray_num, correction_angle);
+		params->ray->ray_length = find_wall(params, deg_to_rad(angle), map);
+		draw_wall(params, ray_num, correction_angle);
 		angle += 0.3000000000;
 		correction_angle -= 0.3;
 		ray_num += 1;
@@ -92,14 +92,9 @@ void	ray_caster(t_data *data, char map[MAP_HEIGHT][MAP_WIDTH])
 }
 
 /* the function that starts everything rendering wise */
-int	render(t_data *data, char map[MAP_HEIGHT][MAP_WIDTH])
+int	render(t_params *params)
 {
-	if (find_player_grid(data, map))
-	{
-		write(2, "Issue!\n", 7);
-		return (1);
-	}
-	draw_ceiling_and_floor(data);
+	draw_ceiling_and_floor(params);
 	ray_caster(data, map);
 	return (0);
 }
