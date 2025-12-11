@@ -18,25 +18,26 @@ int	check_map_elements(void)
 {
 	int			i;
 	int			j;
-	t_params	*param;
+	t_params	*params;
 
 	i = -1;
-	param = params_holder();
-	while (param->map[++i])
+	params = params_holder();
+	while (params->map[++i])
 	{
 		j = -1;
-		while (param->map[i][++j])
+		while (params->map[i][++j])
 		{
-			if (param->player->x == -1 && param->player->y == -1
-				&& (param->map[i][j] == 'S' || param->map[i][j] == 'N'
-				|| param->map[i][j] == 'E' || param->map[i][j] == 'W'))
+			if (params->player->cell_x == -1 && params->player->cell_y == -1
+				&& (params->map[i][j] == 'S' || params->map[i][j] == 'N'
+				|| params->map[i][j] == 'E' || params->map[i][j] == 'W'))
 			{
-				param->player->y = i;
-				param->player->x = j;
+				params->player->cell_y = i;
+				params->player->cell_x = j;
+				params->player->direction = map[i][j];
 				continue ;
 			}
-			if (param->map[i][j] != '0' && param->map[i][j] != '1'
-				&& param->map[i][j] != ' ' && param->map[i][j] != '\n')
+			if (params->map[i][j] != '0' && params->map[i][j] != '1'
+				&& params->map[i][j] != ' ' && params->map[i][j] != '\n')
 				return (-1);
 		}
 	}

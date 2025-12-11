@@ -29,8 +29,8 @@
 # define NUM_OF_RAYS 200
 # define MAP_HEIGHT 10
 # define MAP_WIDTH 10
-# define GRID_HEIGHT (WIN_HEIGHT / MAP_HEIGHT)
-# define GRID_WIDTH (WIN_WIDTH / MAP_WIDTH)
+# define CELL_HEIGHT (WIN_HEIGHT / MAP_HEIGHT)
+# define CELL_WIDTH (WIN_WIDTH / MAP_WIDTH)
 
 /* an enum for player directions */
 typedef enum directions
@@ -61,10 +61,10 @@ typedef struct s_imgdata
 /* a structure for player info */
 typedef struct s_playerdata
 {
-	double			x;
-	double			y;
-	int				grid_y;
-	int				grid_x;
+	double			pixel_x;
+	double			pixel_y;
+	int				cell_y;
+	int				cell_x;
 	char			direction;
 	double			starting_angle;
 }				t_playerdata;
@@ -78,12 +78,12 @@ typedef struct s_coord
 typedef struct s_raydata
 {
 	double	ray_length;
-	int		grid_y;
-	int		grid_x;
-	int		y_dir;
-	int		x_dir;
-	double	nearest_blocky;
-	double	nearest_blockx;
+	int		cell_y;
+	int		cell_x;
+	int		dir_y;
+	int		dir_x;
+	double	distance_per_y;
+	double	distance_per_x;
 
 }				t_raydata;
 
@@ -104,12 +104,11 @@ void	block_to_pixel_coords(t_params *params, int j, int i);
 void	direction_corrector(t_params *params, double angle);
 double	deg_to_rad(double angle);
 double	rad_to_deg(double angle);
-int		render(t_params *params);
 void	draw_ceiling_and_floor(t_params *params);
+void	ray_caster(t_params *params);
 void	draw_wall(t_params *params, int ray_num, double corr_angle);
 int		initiate_mlx(t_params *params, t_mlxdata *mlx, t_imgdata *img);
-int		initiate_player_and_ray(t_params *params, t_playerdata *player,
-			t_raydata *ray);
+int		setup_player_and_ray(t_params *params);
 int		render(t_params *params);
 
 #endif /* RAYCLUDE_H */

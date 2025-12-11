@@ -33,12 +33,22 @@ int	initiate_mlx(t_params *params, t_mlxdata *mlx, t_imgdata *img)
 	return (0);
 }
 
-int	initiate_player_and_ray(t_params *params, t_playerdata *player,
-		t_raydata *ray)
+int	setup_player_and_ray(t_params *params)
 {
-	ray->nearest_blocky = 0;
-	ray->nearest_blockx = 0;
-	params->player = player;
-	params->ray = ray;
+	if (params->player->cell_x == -1 || params->player->cell_y == -1
+		|| params->player->direction == 0)
+		return (1);
+	params->player->pixel_y = (int)(params->player->cell_y
+			* ((double)WIN_HEIGHT / MAP_HEIGHT));
+	params->player->pixel_x = (int)(params->player->cell_x
+			* ((double)WIN_WIDTH / MAP_WIDTH));
+	if (params->player->direction == 'E')
+		params->player->starting_angle = 0;
+	else if (params->player->direction == 'N')
+		params->player->starting_angle = 90;
+	else if (params->player->direction == 'W')
+		params->player->starting_angle = 180;
+	else
+		params->player->starting_angle = 270;
 	return (0);
 }

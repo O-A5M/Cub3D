@@ -12,32 +12,35 @@
 
 #include "../rayclude.h"
 
-void	block_to_pixel_coords(t_params *params, int j, int i)
-{
-	params->player->grid_y = j;
-	params->player->grid_x = i;
-	params->player->y = (j + 1 / (double)2) * (WIN_HEIGHT / (double)MAP_HEIGHT);
-	params->player->x = (i + 1 / (double)2) * (WIN_WIDTH / MAP_WIDTH);
-	if (params->player->direction == 'N')
-		params->player->starting_angle = M_PI / 2;
-	else if (params->player->direction == 'S')
-		params->player->starting_angle = M_PI * 3 / 2;
-	else if (params->player->direction == 'E')
-		params->player->starting_angle = 0;
-	else if (params->player->direction == 'W')
-		params->player->starting_angle = M_PI;
-}
+// void	block_to_pixel_coords(t_params *params, int j, int i)
+// {
+// 	params->player->cell_y = j;
+// 	params->player->cell_x = i;
+// 	params->player->pixel_y = (j + 1 / (double)2) * (WIN_HEIGHT / (double)MAP_HEIGHT);
+// 	params->player->pixel_x = (i + 1 / (double)2) * (WIN_WIDTH / MAP_WIDTH);
+// 	if (params->player->direction == 'N')
+// 		params->player->starting_angle = M_PI / 2;
+// 	else if (params->player->direction == 'S')
+// 		params->player->starting_angle = M_PI * 3 / 2;
+// 	else if (params->player->direction == 'E')
+// 		params->player->starting_angle = 0;
+// 	else if (params->player->direction == 'W')
+// 		params->player->starting_angle = M_PI;
+// }
 
 void	direction_corrector(t_params *params, double angle)
 {
-	(void)((angle >= 0) && (angle < (M_PI / 2))
-		&& (params->ray->y_dir = -1) && (params->ray->x_dir = 1));
-	(void)((angle >= (M_PI / 2)) && (angle < M_PI)
-		&& (params->ray->y_dir = -1) && (params->ray->x_dir = -1));
-	(void)((angle >= M_PI) && (angle < (M_PI * 3 / 2 ))
-		&& (params->ray->y_dir = 1) && (params->ray->x_dir = -1));
-	(void)((angle >= (M_PI * 3 / 2 )) && (angle < (M_PI * 2))
-		&& (params->ray->y_dir = 1) && (params->ray->x_dir = 1));
+	params->ray->dir_y = -1;
+	params->ray->dir_x = 1
+	if (angle >= 0 && angle < (M_PI / 2))
+		params->ray->dir_y = 1;
+	else if (angle >= (M_PI / 2) && angle < M_PI)
+	{
+		params->ray->dir_y = 1;
+		params->ray->dir_x = -1;
+	}
+	else if (angle >= M_PI && angle < (M_PI * 3 / 2))
+		params->ray->dir_x = -1;
 }
 
 double	deg_to_rad(double angle)

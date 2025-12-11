@@ -36,13 +36,18 @@ void	params_init(t_params **params, t_raydata *ray, t_playerdata *player)
 		(*params)->floor_color[index] = -1;
 		index++;
 	}
-	(*params)->ray = ray;
 	(*params)->player = player;
-	(*params)->player->x = -1;
-	(*params)->player->y = -1;
-	(*params)->player->grid_x = -1;
-	(*params)->player->grid_y = -1;
+	(*params)->player->pixel_y = -1;
+	(*params)->player->pixel_x = -1;
+	(*params)->player->cell_y = -1;
+	(*params)->player->cell_x = -1;
 	(*params)->player->direction = 0;
+	(*params)->ray = ray;
+	(*params)->ray->distance_per_y = 0;
+	(*params)->ray->distance_per_x = 0;
+	(*params)->ray->dir_y = 0;
+	(*params)->ray->dir_x = 0;
+	(*params)->ray->ray_length = 0;
 }
 
 void	free_params(t_params **params)

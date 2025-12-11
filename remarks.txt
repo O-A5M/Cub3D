@@ -10,7 +10,7 @@
     ##Obito's part:
     ------------
         ###1 Memory is not freed when mlx initialization fails!
-        ###2 
+        ###2 Handle angles where dist_per_x and dist_per_y tend to INF, just hardcode DOUBLE_MAX or DOUBLE_MIN for those.
 
 #SECONDARY
 ----------

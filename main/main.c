@@ -25,8 +25,9 @@ int	main(int ac, char **av)
 	if ((ac != 2) || (ac == 2 && parse_args(av[1]) == -1))
 		return (free_params(&param), 1);
 	if (initiate_mlx(params, &mlx, &img)
-		|| initiate_player_and_ray(params, &ray, &player))
+		|| setup_player_and_ray(params))
 		return (free_params(&param), 1);
-	render(params);
+	draw_ceiling_and_floor(params);
+	ray_caster(params);
 	return (free_params(&param), 0);
 }

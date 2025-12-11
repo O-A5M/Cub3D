@@ -12,18 +12,18 @@
 
 #include "../rayclude.h"
 
-/* a func that colors a given grid in the map, with a given a color */
-void	color_grid(t_data *data, int grid_x, int grid_y)
+/* a func that colors a given cell in the map, with a given a color */
+void	color_cell(t_data *data, int cell_x, int cell_y)
 {
 	char	*dst;
 	int		px;
 	int		py;
 
-	py = grid_y * GRID_HEIGHT;
-	while (py < (grid_y + 1) * GRID_HEIGHT)
+	py = cell_y * CELL_HEIGHT;
+	while (py < (cell_y + 1) * CELL_HEIGHT)
 	{
-		px = grid_x * GRID_WIDTH;
-		while (px < (grid_x + 1) * GRID_WIDTH)
+		px = cell_x * CELL_WIDTH;
+		while (px < (cell_x + 1) * CELL_WIDTH)
 		{
 			dst = data->img->img_add + (py * data->img->line_length)
 				+ (px * (data->img->bpp / 8));
@@ -44,8 +44,8 @@ void	draw_a_line(t_data *data)
 	line_length = 8;
 	counter = 0;
 	while (counter++ <= line_length
-		&& data->player->x > 0 && data->player->x < WIN_WIDTH
-		&& data->player->y > 0 && data->player->y < WIN_HEIGHT)
+		&& data->player->pixel_x > 0 && data->player->pixel_x < WIN_WIDTH
+		&& data->player->pixel_y > 0 && data->player->pixel_y < WIN_HEIGHT)
 	{
 		*(unsigned int *)dst = 0x00F0F0CC;
 		(void)((data->player->direction == 'N')
@@ -81,8 +81,8 @@ void	draw_direction_vector(t_data *data)
 }
 
 /* a func that draws a small square representing the player,
-given its grid's coordinates on the map, its color and its direction */
-void	draw_player(t_data *data, int grid_x, int grid_y)
+given its cell's coordinates on the map, its color and its direction */
+void	draw_player(t_data *data, int cell_x, int cell_y)
 {
 	char	*dst;
 	int		x;
@@ -90,18 +90,18 @@ void	draw_player(t_data *data, int grid_x, int grid_y)
 	int		counter_x;
 	int		counter_y;
 
-	data->player->y = (grid_y * GRID_HEIGHT) + (GRID_HEIGHT / 2) - 2;
-	y = data->player->y;
+	data->player->pixel_y = (cell_y * CELL_HEIGHT) + (CELL_HEIGHT / 2) - 2;
+	y = data->player->pixel_y;
 	counter_y = 0;
 	while (counter_y < 5)
 	{
-		data->player->x = (grid_x * GRID_WIDTH) + (GRID_WIDTH / 2) - 2;
-		x = data->player->x;
+		data->player->pixel_x = (cell_x * CELL_WIDTH) + (CELL_WIDTH / 2) - 2;
+		x = data->player->pixel_x;
 		counter_x = 0;
 		while (counter_x < 5)
 		{
-			dst = data->img->img_add + data->player->y * data->img->line_length
-				+ data->player->x * (data->img->bpp / 8);
+			dst = data->img->img_add + data->player->pixel_y * data->img->line_length
+				+ data->player->pixel_x * (data->img->bpp / 8);
 			*(unsigned int *)dst = 0x00FF0000;
 			x++;
 			counter_x++;
