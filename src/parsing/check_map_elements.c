@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:41:25 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/12/10 18:40:29 by aelmsafe         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:57:13 by aelmsafe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_map_elements(void)
 				continue ;
 			}
 			if (param->map[i][j] != '0' && param->map[i][j] != '1'
-			&& param->map[i][j] != ' ' && param->map[i][j] != '\n')
+				&& param->map[i][j] != ' ' && param->map[i][j] != '\n')
 				return (-1);
 		}
 	}

@@ -46,7 +46,7 @@ t_lines		*last_line(t_lines *head);
 size_t		lines_count(t_lines *head);
 void		free_lines(t_lines **head);
 t_params	*params_holder(void);
-void		params_init(t_params **params);
+void		params_init(t_params **params, t_raydata *ray, t_playerdata *player);
 void		free_params(t_params **params);
 int			parse_args(char *filename);
 t_lines		*extract_file_content(int fd);

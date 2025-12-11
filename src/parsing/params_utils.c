@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:42:05 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/12/10 18:35:42 by aelmsafe         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:46:39 by aelmsafe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_params	*params_holder(void)
 	return (ret);
 }
 
-void	params_init(t_params **params)
+void	params_init(t_params **params, t_raydata *ray, t_playerdata *player)
 {
 	int	index;
 
@@ -36,13 +36,13 @@ void	params_init(t_params **params)
 		(*params)->floor_color[index] = -1;
 		index++;
 	}
+	(*params)->ray = ray;
+	(*params)->player = player;
 	(*params)->player->x = -1;
 	(*params)->player->y = -1;
+	(*params)->player->grid_x = -1;
+	(*params)->player->grid_y = -1;
 	(*params)->player->direction = 0;
-	(*params)->mlx = NULL;
-	(*params)->img = NULL;
-	(*params)->player = NULL;
-	(*params)->ray = NULL;
 }
 
 void	free_params(t_params **params)
