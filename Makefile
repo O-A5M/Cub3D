@@ -2,7 +2,8 @@
 
 CC	  = cc
 ######################## removed the flags for testing, don't forget to put them back ###########################
-FLAGS = -Wall -Wextra -Werror -g3 -g -O3 -Iincludes -Ilibraries/libft -Ilibraries/minilibx-linux -Isrc/raycasting
+FLAGS  = -Wall -Wextra -Werror -g3 -g -O3 -Iincludes -Ilibraries/libft -Ilibraries/minilibx-linux -Isrc/raycasting
+XFLAGS = -lmlx -lm -lXext -lX11
 
 # external libraries
 
@@ -37,7 +38,7 @@ $(LIBFT_N):
 	make -C $(LIBFT_D)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -L./$(LIBFT_D) -l$(LIBFT) -lm -o $(NAME)
+	$(CC) $(OBJS) -L./$(LIBFT_D) -l$(LIBFT) -lm -o $(NAME) $(XFLAGS)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
