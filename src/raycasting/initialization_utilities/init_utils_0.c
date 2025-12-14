@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rayclude.h"
+// #include "../rayclude.h"
+#include "include.h"
 
 /* a func that sets up some necessary data at the beginning of the program */
 int	initiate_mlx(t_params *params, t_mlxdata *mlx, t_imgdata *img)

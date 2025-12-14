@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rayclude.h"
+// #include "../rayclude.h"
+#include "include.h"
 
 // void	block_to_pixel_coords(t_params *params, int j, int i)
 // {
@@ -31,16 +32,16 @@
 void	direction_corrector(t_params *params, double angle)
 {
 	params->ray->dir_y = -1;
-	params->ray->dir_x = 1
+	params->ray->dir_x = 1;
 	if (angle >= 0 && angle < (M_PI / 2))
 		params->ray->dir_y = 1;
+	else if (angle >= M_PI && angle < (M_PI * 3 / 2))
+		params->ray->dir_x = -1;
 	else if (angle >= (M_PI / 2) && angle < M_PI)
 	{
 		params->ray->dir_y = 1;
 		params->ray->dir_x = -1;
 	}
-	else if (angle >= M_PI && angle < (M_PI * 3 / 2))
-		params->ray->dir_x = -1;
 }
 
 double	deg_to_rad(double angle)

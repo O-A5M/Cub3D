@@ -17,10 +17,10 @@ SRC    = main/main.c src/parsing/lines_utils.c src/parsing/parse_args.c\
 		 src/parsing/separate_elements.c src/parsing/other_utils.c\
 		 src/parsing/separate_elements_map.c src/parsing/separate_elements_colors.c\
 		 src/parsing/separate_elements_textures.c src/parsing/check_map_elements.c\
+		 src/raycasting/initialization_utilities/init_utils_0.c\
 		 src/raycasting/basic_utilities/basic_utils_0.c src/raycasting/calculation_utilities/calc_utils_0.c\
-		 src/raycasting/calculation_utilities/render.c src/raycasting/calculation_utilities/calc_utils_1.c\
-		 src/raycasting/drawing_utilities/draw_utils_0.c #src/raycasting/extra_stuff/map_2d_code.c\
-		 src/raycasting/extra_stuff/fun.c
+		 src/raycasting/calculation_utilities/render.c src/raycasting/drawing_utilities/draw_utils_0.c\
+		#src/raycasting/extra_stuff/map_2d_code.c\ src/raycasting/extra_stuff/fun.c
 
 OBJDIR = obj
 OBJS   = $(patsubst %.c,$(OBJDIR)/%.o,$(SRC))

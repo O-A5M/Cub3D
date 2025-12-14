@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rayclude.h"
+// #include "../rayclude.h"
+#include "include.h"
 
-void	ft_write(const char *s)
+int	ft_write(const char *s)
 {
 	int	i;
 
 	if (s == NULL)
-		return ;
+		return (-1);
 	i = 0;
 	while (s[i])
 		i++;

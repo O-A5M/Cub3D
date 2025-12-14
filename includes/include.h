@@ -1,14 +1,15 @@
 #ifndef INCLUDE_H
-# define INCLUDE_H
-#include <stddef.h>
-#include <stdio.h>
-#include <math.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "mlx.h"
-#include "libft.h"
-#include "../src/raycasting/rayclude.h"
+#define INCLUDE_H
+# include <stddef.h>
+# include <stdio.h>
+# include <math.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include "mlx.h"
+# include "libft.h"
+# include <X11/keysym.h>
+// #include "rayclude.h"
 
 #define ALL_TEXTURES 6
 #define NORTH_TEX 0
@@ -22,11 +23,74 @@
 #define GREEN 1
 #define BLUE 2
 
+
+//-------------------------------------------------------//
+# define WIN_HEIGHT 1000
+# define WIN_WIDTH 1000
+# define FOV 60
+# define NUM_OF_RAYS 200
+# define MAP_HEIGHT 10
+# define MAP_WIDTH 10
+# define CELL_HEIGHT (WIN_HEIGHT / MAP_HEIGHT)
+# define CELL_WIDTH (WIN_WIDTH / MAP_WIDTH)
+//-------------------------------------------------------//
+
+
 typedef struct	s_lines
 {
 	char			*line;
 	struct s_lines	*next;
 }				t_lines;
+
+
+//-------------------------------------------------------//
+/* a structure for window creation info */
+typedef struct s_mlxdata
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+}				t_mlxdata;
+
+/* a structure for image info */
+typedef struct s_imgdata
+{
+	void	*img_ptr;
+	void	*img_add;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}				t_imgdata;
+
+/* a structure for player info */
+typedef struct s_playerdata
+{
+	double			pixel_x;
+	double			pixel_y;
+	int				cell_y;
+	int				cell_x;
+	char			direction;
+	double			starting_angle;
+}				t_playerdata;
+
+typedef struct s_coord
+{
+	double	y;
+	double	x;
+}				t_coord;
+
+typedef struct s_raydata
+{
+	double	ray_length;
+	int		cell_y;
+	int		cell_x;
+	int		dir_y;
+	int		dir_x;
+	double	distance_per_y;
+	double	distance_per_x;
+
+}				t_raydata;
+//-------------------------------------------------------//
+
 
 typedef struct	s_params
 {
@@ -58,5 +122,22 @@ int			add_color(t_lines *file_content);
 int			add_map(t_lines *file_content);
 int			check_map_elements(void);
 int			is_map_surrounded(void);
+
+
+//-------------------------------------------------------//
+/* Function Prototypes*/
+int		ft_write(const char *s);
+// void	block_to_pixel_coords(t_params *params, int j, int i);
+void	direction_corrector(t_params *params, double angle);
+double	deg_to_rad(double angle);
+double	rad_to_deg(double angle);
+void	draw_ceiling_and_floor(t_params *params);
+int		ray_caster(t_params *params);
+void	draw_wall(t_params *params, int ray_num, double correction_angle);
+int		initiate_mlx(t_params *params, t_mlxdata *mlx, t_imgdata *img);
+int		setup_player_and_ray(t_params *params);
+int		ray_caster(t_params *params);
+//-------------------------------------------------------//
+
 
 #endif

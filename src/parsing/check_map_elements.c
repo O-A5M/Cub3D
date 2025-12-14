@@ -33,7 +33,7 @@ int	check_map_elements(void)
 			{
 				params->player->cell_y = i;
 				params->player->cell_x = j;
-				params->player->direction = map[i][j];
+				params->player->direction = params->map[i][j];
 				continue ;
 			}
 			if (params->map[i][j] != '0' && params->map[i][j] != '1'

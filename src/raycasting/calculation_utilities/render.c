@@ -10,63 +10,65 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rayclude.h"
+// #include "../rayclude.h"
+#include "include.h"
 
-void	next_cell_finder(t_data *data, double *close_y,
-			double *close_x, char *last_met)
+void	step_ray(t_params *params, double *ray_dist_y,
+			double *ray_dist_x, char *ray_dist_axis)
 {
-	if (*close_y < *close_x)
+	if (*ray_dist_y < *ray_dist_x)
 	{
-		*last_met = 'y';
-		data->ray->cell_y += data->ray->dir_y;
-		*close_y += data->ray->distance_per_y;
+		*ray_dist_axis = 'y';
+		params->ray->cell_y += params->ray->dir_y;
+		*ray_dist_y += params->ray->distance_per_y;
 	}
-	else if (*close_y > *close_x)
+	else if (*ray_dist_y > *ray_dist_x)
 	{
-		*last_met = 'x';
-		data->ray->cell_x += data->ray->dir_x;
-		*close_x += data->ray->distance_per_x;
+		*ray_dist_axis = 'x';
+		params->ray->cell_x += params->ray->dir_x;
+		*ray_dist_x += params->ray->distance_per_x;
 	}
 	else
 	{
-		*last_met = 'b';
-		data->ray->cell_y += data->ray->dir_y;
-		data->ray->cell_x += data->ray->dir_x;
-		*close_y += data->ray->distance_per_y;
-		*close_x += data->ray->distance_per_x;
+		*ray_dist_axis = 'b';
+		params->ray->cell_y += params->ray->dir_y;
+		params->ray->cell_x += params->ray->dir_x;
+		*ray_dist_y += params->ray->distance_per_y;
+		*ray_dist_x += params->ray->distance_per_x;
 	}
 	return ;
 }
 
-double	find_wall(t_params *params, double angle)
+double	find_ray_length(t_params *params, double angle)
 {
-	double	close_y;
-	double	close_x;
-	char	last_met;
+	double	ray_dist_y;
+	double	ray_dist_x;
+	char	ray_dist_axis;
 
 	direction_corrector(params, angle);
-	data->ray->cell_y = data->player->cell_y;
-	data->ray->cell_x = data->player->cell_x;
-	close_y = data->ray->distance_per_y;
-	close_x = data->ray->distance_per_x;
-	while (params->map[data->ray->cell_y] && params->map[data->ray->cell_y][data->ray->cell_x])
+	params->ray->cell_y = params->player->cell_y;
+	params->ray->cell_x = params->player->cell_x;
+	ray_dist_y = params->ray->distance_per_y;
+	ray_dist_x = params->ray->distance_per_x;
+	while (params->map[params->ray->cell_y]
+		&& params->map[params->ray->cell_y][params->ray->cell_x])
 	{
-		next_cell_finder(data, &close_y, &close_x, &last_met);
-		if (map[data->ray->cell_y][data->ray->cell_x] == '1')
+		step_ray(params, &ray_dist_y, &ray_dist_x, &ray_dist_axis);
+		if (params->map[params->ray->cell_y][params->ray->cell_x] == '1')
 		{
-			if (last_met == 'y')
-				return ((close_y  - (3.0 / 2 * data->ray->distance_per_y))
+			if (ray_dist_axis == 'y')
+				return ((ray_dist_y  - (3.0 / 2 * params->ray->distance_per_y))
 					/ fabs(sin(angle)));
 			else
-				return ((close_x  - (3.0 / 2 * data->ray->distance_per_x))
+				return ((ray_dist_x  - (3.0 / 2 * params->ray->distance_per_x))
 				/ fabs(cos(angle)));
 		}
 	}
 	return (0);
 }
 
-/* a function that casts the rays */
-void	ray_caster(t_params *params)
+/* The Function that does the whole ray casting thing */
+int	ray_caster(t_params *params)
 {
 	int			ray_num;
 	double		angle;
@@ -81,10 +83,12 @@ void	ray_caster(t_params *params)
 			= fabs(CELL_HEIGHT / sin(deg_to_rad(angle)));
 		params->ray->distance_per_x
 			= fabs(CELL_WIDTH / cos(deg_to_rad(angle)));
-		params->ray->ray_length = find_wall(params, deg_to_rad(angle), map);
-		draw_wall(params, ray_num, correction_angle);
+		params->ray->ray_length
+			= find_ray_length(params, deg_to_rad(angle));
+		draw_wall(params, ray_num, deg_to_rad(fabs(correction_angle)));
 		angle += ((double)FOV / NUM_OF_RAYS);
 		correction_angle -= ((double)FOV / NUM_OF_RAYS);
 		ray_num += 1;
 	}
+	return (0);
 }

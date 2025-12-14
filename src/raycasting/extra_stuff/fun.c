@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rayclude.h"
+// #include "../rayclude.h"
+#include "include.h"
+
 // print a cercle :)
 // {
 // 	int r = 400;
