@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:38:20 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/10 18:43:49 by aelmsafe         ###   ########.fr       */
+/*   Updated: 2025/12/14 18:56:49 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <math.h>
 # include "mlx.h"
 # include <X11/keysym.h>
+# include "include.h"
 
 /* the MACROs */
 # define WIN_HEIGHT 1000
@@ -30,6 +31,8 @@
 # define MAP_WIDTH 10
 # define CELL_HEIGHT (WIN_HEIGHT / MAP_HEIGHT)
 # define CELL_WIDTH (WIN_WIDTH / MAP_WIDTH)
+
+typedef struct	s_params t_params;
 
 /* an enum for player directions */
 typedef enum directions
@@ -104,7 +107,7 @@ void	direction_corrector(t_params *params, double angle);
 double	deg_to_rad(double angle);
 double	rad_to_deg(double angle);
 void	draw_ceiling_and_floor(t_params *params);
-void	ray_caster(t_params *params);
+//void	ray_caster(t_params *params);
 void	draw_wall(t_params *params, int ray_num, double correction_angle);
 int		initiate_mlx(t_params *params, t_mlxdata *mlx, t_imgdata *img);
 int		setup_player_and_ray(t_params *params);

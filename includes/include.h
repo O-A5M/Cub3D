@@ -9,7 +9,7 @@
 # include "mlx.h"
 # include "libft.h"
 # include <X11/keysym.h>
-// #include "rayclude.h"
+# include "rayclude.h"
 
 #define ALL_TEXTURES 6
 #define NORTH_TEX 0
@@ -45,50 +45,17 @@ typedef struct	s_lines
 
 //-------------------------------------------------------//
 /* a structure for window creation info */
-typedef struct s_mlxdata
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-}				t_mlxdata;
+typedef struct s_mlxdata t_mlxdata;
 
 /* a structure for image info */
-typedef struct s_imgdata
-{
-	void	*img_ptr;
-	void	*img_add;
-	int		bpp;
-	int		line_length;
-	int		endian;
-}				t_imgdata;
+typedef struct s_imgdata t_imgdata;
 
 /* a structure for player info */
-typedef struct s_playerdata
-{
-	double			pixel_x;
-	double			pixel_y;
-	int				cell_y;
-	int				cell_x;
-	char			direction;
-	double			starting_angle;
-}				t_playerdata;
+typedef struct s_playerdata t_playerdata;
 
-typedef struct s_coord
-{
-	double	y;
-	double	x;
-}				t_coord;
+typedef struct s_coord t_coord;
 
-typedef struct s_raydata
-{
-	double	ray_length;
-	int		cell_y;
-	int		cell_x;
-	int		dir_y;
-	int		dir_x;
-	double	distance_per_y;
-	double	distance_per_x;
-
-}				t_raydata;
+typedef struct s_raydata t_raydata;
 //-------------------------------------------------------//
 
 
