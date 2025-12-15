@@ -25,8 +25,8 @@
 
 
 //-------------------------------------------------------//
-# define WIN_HEIGHT 1000
-# define WIN_WIDTH 1000
+# define WIN_HEIGHT 2000
+# define WIN_WIDTH 2000
 # define FOV 60
 # define NUM_OF_RAYS 200
 # define MAP_HEIGHT 10
@@ -94,7 +94,7 @@ int			is_map_surrounded(void);
 //-------------------------------------------------------//
 /* Function Prototypes*/
 int		ft_write(const char *s);
-// void	block_to_pixel_coords(t_params *params, int j, int i);
+void	block_to_pixel_coords(t_params *params, int j, int i);
 void	direction_corrector(t_params *params, double angle);
 double	deg_to_rad(double angle);
 double	rad_to_deg(double angle);

@@ -12,6 +12,13 @@
 
 #include "include.h"
 
+void	render_to_screen(t_params *params)
+{
+	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+		params->img->img_ptr, 0, 0);
+	mlx_loop(params->mlx->mlx_ptr);
+}
+
 int	main(int ac, char **av)
 {
 	t_params		*params;
@@ -29,5 +36,6 @@ int	main(int ac, char **av)
 		return (free_params(&params), 1);
 	draw_ceiling_and_floor(params);
 	ray_caster(params);
+	render_to_screen(params);
 	return (free_params(&params), 0);
 }

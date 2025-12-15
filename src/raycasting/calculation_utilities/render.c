@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../rayclude.h"
 #include "include.h"
 
 void	step_ray(t_params *params, double *ray_dist_y,
@@ -61,7 +60,7 @@ double	find_ray_length(t_params *params, double angle)
 					/ fabs(sin(angle)));
 			else
 				return ((ray_dist_x  - (3.0 / 2 * params->ray->distance_per_x))
-				/ fabs(cos(angle)));
+					/ fabs(cos(angle)));
 		}
 	}
 	return (0);
