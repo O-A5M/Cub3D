@@ -12,11 +12,31 @@
 
 #include "include.h"
 
-void	render_to_screen(t_params *params)
+int	key_hook(int keycode, t_params *params)
 {
-	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
-		params->img->img_ptr, 0, 0);
-	mlx_loop(params->mlx->mlx_ptr);
+	// if (keycode == XK_Up)
+	// {
+	// 	params->player->starting_angle += 1;;
+	// }
+	// else if (keycode == XK_Down)
+	// {
+	// 	;
+	// }
+	if (keycode == XK_Right)
+	{
+		params->player->starting_angle
+			= fmod((params->player->starting_angle + 360 - 1), 360);
+		ray_caster(params);
+	}
+	else if (keycode == XK_Left)
+	{
+		params->player->starting_angle
+			= fmod((params->player->starting_angle + 360 + 1), 360);
+		ray_caster(params);
+	}
+	else
+		return (1);
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -36,6 +56,7 @@ int	main(int ac, char **av)
 		return (free_params(&params), 1);
 	draw_ceiling_and_floor(params);
 	ray_caster(params);
-	render_to_screen(params);
+	mlx_key_hook(params->mlx->win_ptr, key_hook, params);
+	mlx_loop(params->mlx->mlx_ptr);
 	return (free_params(&params), 0);
 }

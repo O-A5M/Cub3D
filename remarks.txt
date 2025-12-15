@@ -31,3 +31,4 @@
     ------------
         ###1 Unnecessary declaration of unused stuctures in the header file.
         ###2 Change render.c 's name to ray_caster.c or something similar.
+        ###3 Pass just `img` pointer instead of `params` pointer for functions like draw_celing_and_floor()

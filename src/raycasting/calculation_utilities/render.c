@@ -89,5 +89,7 @@ int	ray_caster(t_params *params)
 		correction_angle -= ((double)FOV / NUM_OF_RAYS);
 		ray_num += 1;
 	}
+	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+		params->img->img_ptr, 0, 0);
 	return (0);
 }

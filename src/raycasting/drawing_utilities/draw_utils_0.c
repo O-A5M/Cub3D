@@ -67,7 +67,7 @@ void	draw_wall(t_params *params, int ray_num, double correction_angle)
 		// need to use MACROS or variables, don't forget the hardcoded values here
 		while (counter < 4)
 		{
-			printf("x: %f, y: %f\n", coords.x, coords.y);
+			// printf("x: %f, y: %f\n", coords.x, coords.y);
 			dst = params->img->img_add + ((int)coords.y * params->img->line_length)
 				+ (((int)coords.x + counter) * (params->img->bpp / 8));
 			*(unsigned int *)dst = 0x0000FF;
