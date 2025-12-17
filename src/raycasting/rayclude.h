@@ -23,8 +23,6 @@
 # include "include.h"
 
 /* the MACROs */
-# define WIN_HEIGHT 2000
-# define WIN_WIDTH 2000
 # define FOV 60
 # define NUM_OF_RAYS 200
 # define MAP_HEIGHT 10

@@ -12,30 +12,37 @@
 
 #include "include.h"
 
+/* A function added by oakhmouc that merger the rgb values */
+int	merge_colors(int *rgb)
+{
+	return (rgb[RED] << 16 | rgb[GREEN] << 8 | rgb[BLUE]);
+}
+
 /* a function that colors the ceiling and the floor inside the window */
 void	draw_ceiling_and_floor(t_params *params)
 {
 	char			*dst;
-	// unsigned int	*color;
-	unsigned int	tmp;
+	unsigned int	color;
+	//unsigned int	tmp;
 	int				y;
 	int				x;
 
-	// color = (unisgned int *)params->ceiling_color;
-	tmp = 0;
+	color = merge_colors(params->ceiling_color);
+	printf("%u\n", color);
+	//tmp = 0;
 	y = 0;
 	while (y < WIN_HEIGHT)
 	{
 		if (y == (WIN_HEIGHT / 2))
-			// color = (unsigned int *)params->floor_color;
-			tmp = 0x202020;
+			color = merge_colors(params->floor_color);
+			//tmp = 0x202020;
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
 			dst = params->img->img_add + (y * params->img->line_length)
 				+ (x * (params->img->bpp / 8));
-			// *(unsigned int *)dst = *color;
-			*(unsigned int *)dst = tmp;
+			*(unsigned int *)dst = color;
+			//*(unsigned int *)dst = tmp;
 			x += 1;
 		}
 		y += 1;
