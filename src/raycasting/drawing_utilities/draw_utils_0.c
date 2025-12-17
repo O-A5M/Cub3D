@@ -28,7 +28,6 @@ void	draw_ceiling_and_floor(t_params *params)
 	int				x;
 
 	color = merge_colors(params->ceiling_color);
-	printf("%u\n", color);
 	//tmp = 0;
 	y = 0;
 	while (y < WIN_HEIGHT)
