@@ -18,22 +18,22 @@
 void	draw_ceiling_and_floor(t_params *params)
 {
 	char			*dst;
-	unsigned int	*color;
+	unsigned int	color;
 	int				y;
 	int				x;
 
-	color = (unsigned int *)params->ceiling_color;
+	color = (unsigned int)merge_colors(params->ceiling_color);
 	y = 0;
 	while (y < WIN_HEIGHT)
 	{
 		if (y == (WIN_HEIGHT / 2))
-			color = (unsigned int *)params->floor_color;
+			color = (unsigned int)merge_colors(params->floor_color);
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
 			dst = params->img->img_add + (y * params->img->line_length)
 				+ (x * (params->img->bpp / 8));
-			*(unsigned int *)dst = *color;
+			*(unsigned int *)dst = color;
 			x += 1;
 		}
 		y += 1;
