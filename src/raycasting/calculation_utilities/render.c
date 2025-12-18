@@ -57,10 +57,8 @@ double	find_ray_length(t_params *params, double angle)
 		if (params->map[params->ray->cell_y][params->ray->cell_x] == '1')
 		{
 			if (ray_dist_axis == 'y')
-				// I think i shouldn't have divided by sin() here.
 				return (ray_dist_y  - (3.0 / 2 * params->ray->distance_per_y));
 			else
-				// same for cos() here.
 				return (ray_dist_x  - (3.0 / 2 * params->ray->distance_per_x));
 		}
 	}
