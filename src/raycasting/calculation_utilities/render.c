@@ -19,7 +19,6 @@ void	step_ray(t_params *params, double *ray_dist_y,
 	{
 		*ray_dist_axis = 'y';
 		params->ray->cell_y += params->ray->dir_y;
-		if ()
 		*ray_dist_y += params->ray->distance_per_y;
 	}
 	else if (*ray_dist_y > *ray_dist_x)
@@ -58,11 +57,11 @@ double	find_ray_length(t_params *params, double angle)
 		if (params->map[params->ray->cell_y][params->ray->cell_x] == '1')
 		{
 			if (ray_dist_axis == 'y')
-				return ((ray_dist_y  - (3.0 / 2 * params->ray->distance_per_y))
-					/ fabs(sin(angle)));
+				// I think i shouldn't have divided by sin() here.
+				return (ray_dist_y  - (3.0 / 2 * params->ray->distance_per_y));
 			else
-				return ((ray_dist_x  - (3.0 / 2 * params->ray->distance_per_x))
-					/ fabs(cos(angle)));
+				// same for cos() here.
+				return (ray_dist_x  - (3.0 / 2 * params->ray->distance_per_x));
 		}
 	}
 	return (0);
