@@ -76,10 +76,6 @@ int	ray_caster(t_params *params)
 	ray_num = 0;
 	angle = params->player->starting_angle - (FOV / 2);
 	correction_angle = (FOV / 2);
-	/*****************************************************/
-	// this line added by oakhmouc to redraw the floor and the ceiling after a key is pressed.
-	draw_ceiling_and_floor(params);
-	/*****************************************************/
 	while (ray_num < NUM_OF_RAYS)
 	{
 		params->ray->distance_per_y

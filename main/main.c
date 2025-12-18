@@ -32,29 +32,22 @@ void	clear_screen(t_params *params)
 			*(unsigned int *)dst = 0X000000;
 		}
 	}
-	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr, params->img->img_ptr, 0, 0);
+	mlx_put_image_to_window(params->mlx->mlx_ptr,
+		params->mlx->win_ptr, params->img->img_ptr, 0, 0);
 }
 
 int	key_hook(int keycode, t_params *params)
 {
-	// if (keycode == XK_Up)
-	// {
-	// 	params->player->starting_angle += 1;;
-	// }
-	// else if (keycode == XK_Down)
-	// {
-	// 	;
-	// }
 	if (keycode == XK_Right)
 	{
-		clear_screen(params);
+		draw_ceiling_and_floor(params);
 		params->player->starting_angle
 			= fmod((params->player->starting_angle + 360 + 10), 360);
 		ray_caster(params);
 	}
 	else if (keycode == XK_Left)
 	{
-		clear_screen(params);
+		draw_ceiling_and_floor(params);
 		params->player->starting_angle
 			= fmod((params->player->starting_angle + 360 - 10), 360);
 		ray_caster(params);
