@@ -23,25 +23,21 @@ void	draw_ceiling_and_floor(t_params *params)
 {
 	char			*dst;
 	unsigned int	color;
-	//unsigned int	tmp;
 	int				y;
 	int				x;
 
 	color = merge_colors(params->ceiling_color);
-	//tmp = 0;
 	y = 0;
 	while (y < WIN_HEIGHT)
 	{
 		if (y == (WIN_HEIGHT / 2))
 			color = merge_colors(params->floor_color);
-			//tmp = 0x202020;
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
 			dst = params->img->img_add + (y * params->img->line_length)
 				+ (x * (params->img->bpp / 8));
 			*(unsigned int *)dst = color;
-			//*(unsigned int *)dst = tmp;
 			x += 1;
 		}
 		y += 1;
@@ -53,34 +49,25 @@ void	draw_ceiling_and_floor(t_params *params)
 void	draw_wall(t_params *params, int ray_num, double correction_angle)
 {
 	char	*dst;
-	int		counter;
 	double	wall_height;
-	t_coord	coords;
+	int		y;
+	int		x;
+	int		y_limit;
 
-	// wall_height = WIN_HEIGHT * (100 / (params->ray->ray_length
-	// 			* cos(correction_angle)));
-	(void)correction_angle;
-	wall_height = (WIN_HEIGHT * 100) / (params->ray->ray_length);
-	if (wall_height > WIN_HEIGHT)
-		wall_height = WIN_HEIGHT;
-	// Q: what if this is negative???
-	// A: That will cause problems apparently, just as I thought
-	coords.y = (WIN_HEIGHT / (double)2) - (wall_height / 2);
-	coords.x = (WIN_WIDTH / (double)200) * ray_num;
-	while ((int)wall_height > 0)
+	// need to have a better equation for better represntation,
+	// 	and also make sure we don't go out of boundaries,
+	//	nor have issues when changing the map / window dimensions.
+	wall_height = (50 * WIN_HEIGHT)
+			/ (params->ray->ray_length * cos(correction_angle));
+	y = (int)((WIN_HEIGHT / (double)2) - (wall_height / 2));
+	y_limit = WIN_HEIGHT - y;
+	x = ray_num;
+	while (y < y_limit)
 	{
-		counter = 1;
-		// need to use MACROS or variables, don't forget the hardcoded values here
-		while (counter < 4)
-		{
-			// printf("x: %f, y: %f\n", coords.x, coords.y);
-			dst = params->img->img_add + ((int)coords.y * params->img->line_length)
-				+ (((int)coords.x + counter) * (params->img->bpp / 8));
-			*(unsigned int *)dst = 0x0000FF;
-			counter += 1;
-		}
-		coords.y += 1;
-		wall_height -= 1;
+		dst = params->img->img_add + (y * params->img->line_length)
+			+ (x * (params->img->bpp / 8));
+		*(unsigned int *)dst = 0x0000FF;
+		y += 1;
 	}
 	return ;
 }

@@ -14,12 +14,12 @@
 # define RAYCLUDE_H
 
 /* the MACROs */
-# define WIN_HEIGHT 1080
-# define WIN_WIDTH 1080
+# define WIN_HEIGHT 2000
+# define WIN_WIDTH 2000
 # define MAP_HEIGHT 10
 # define MAP_WIDTH 10
-# define NUM_OF_RAYS 200
 # define FOV 60
+# define NUM_OF_RAYS (WIN_WIDTH)
 # define CELL_HEIGHT (WIN_HEIGHT / MAP_HEIGHT)
 # define CELL_WIDTH (WIN_WIDTH / MAP_WIDTH)
 
