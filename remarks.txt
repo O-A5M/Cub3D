@@ -20,7 +20,7 @@
         ###2 Handle angles where dist_per_x and dist_per_y tend to INF, just hardcode DOUBLE_MAX or DOUBLE_MIN for those.
         ###3 Will need to test the case where the ray is diagonal, like `angle = 45deg` for example,
                 as both the cells, cell_y and cell_x will be incremented.
-        ###4 
+        ###4 Issue of raycasting, where a simple wall-rounded map with a hallway, doesn't show properly!
 
 
 #SECONDARY
