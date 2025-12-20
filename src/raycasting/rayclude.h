@@ -54,12 +54,12 @@ typedef struct s_imgdata
 /* a structure for player info */
 typedef struct s_playerdata
 {
-	double			pixel_x;
-	double			pixel_y;
-	int				cell_y;
-	int				cell_x;
-	char			direction;
-	double			starting_angle;
+	int		pixel_x;
+	int		pixel_y;
+	int		cell_y;
+	int		cell_x;
+	char	direction;
+	double	starting_angle;
 }				t_playerdata;
 
 /* a structure for coordiations type */
