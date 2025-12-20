@@ -57,8 +57,10 @@ void	draw_wall(t_params *params, int ray_num, double correction_angle)
 	// need to have a better equation for better represntation,
 	// 	and also make sure we don't go out of boundaries,
 	//	nor have issues when changing the map / window dimensions.
-	wall_height = (50 * WIN_HEIGHT)
+	wall_height = (100 * WIN_HEIGHT)
 			/ (params->ray->ray_length * cos(correction_angle));
+	if (wall_height > WIN_HEIGHT)
+		wall_height = WIN_HEIGHT;
 	y = (int)((WIN_HEIGHT / (double)2) - (wall_height / 2));
 	y_limit = WIN_HEIGHT - y;
 	x = ray_num;

@@ -14,8 +14,8 @@
 # define RAYCLUDE_H
 
 /* the MACROs */
-# define WIN_HEIGHT 2000
-# define WIN_WIDTH 2000
+# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1080
 # define MAP_HEIGHT 10
 # define MAP_WIDTH 10
 # define FOV 60

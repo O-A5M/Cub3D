@@ -21,7 +21,9 @@
         ###3 Will need to test the case where the ray is diagonal, like `angle = 45deg` for example,
                 as both the cells, cell_y and cell_x will be incremented.
         ###4 Issue of raycasting, where a simple wall-rounded map with a hallway, doesn't show properly!
-
+        ###5 Surely there is an issue with RayCasting, the way the far walls are drawn tell me so.
+        ###6 2000px by 2000px is not compatible with most screens, need to change it and change the code to adhere to it.
+        ###7 
 
 #SECONDARY
 ----------
