@@ -14,7 +14,10 @@ t_textures    **load_tex(void)
     while (index < 4)
     {
         text[index] = malloc(sizeof(t_textures));
-        text[index]->addr = mlx_xpm_file_to_image(param->mlx->mlx_ptr, param->textures[index], &text[index]->width, &text[index]->height);
+        text[index]->addr = mlx_xpm_file_to_image(param->mlx->mlx_ptr,
+												  param->textures[index],
+												  &text[index]->width,
+												  &text[index]->height);
         if (!text[index]->addr)
             return (printf("Error testurn\n"), NULL);
     }
