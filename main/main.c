@@ -20,6 +20,8 @@ int	main(int ac, char **av)
 	t_playerdata	player;
 	t_raydata		ray;
 
+	if (!load_tex())
+		printf("haha got you\n");
 	params = params_holder();
 	params_init(&params, &ray, &player);
 	if ((ac != 2) || (ac == 2 && parse_args(av[1]) == -1))
