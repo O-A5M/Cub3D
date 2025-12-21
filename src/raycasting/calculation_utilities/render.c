@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../rayclude.h"
 #include "include.h"
 
 void	step_ray(t_params *params, double *ray_dist_y,
@@ -50,18 +49,17 @@ double	find_ray_length(t_params *params, double angle)
 	params->ray->cell_x = params->player->cell_x;
 	ray_dist_y = params->ray->distance_per_y;
 	ray_dist_x = params->ray->distance_per_x;
-	while (params->map[params->ray->cell_y]
+	while (params->ray->cell_y >= 0 && params->ray->cell_x >= 0
+		&& params->map[params->ray->cell_y]
 		&& params->map[params->ray->cell_y][params->ray->cell_x])
 	{
 		step_ray(params, &ray_dist_y, &ray_dist_x, &ray_dist_axis);
 		if (params->map[params->ray->cell_y][params->ray->cell_x] == '1')
 		{
 			if (ray_dist_axis == 'y')
-				return ((ray_dist_y  - (3.0 / 2 * params->ray->distance_per_y))
-					/ fabs(sin(angle)));
+				return (ray_dist_y  - (3.0 / 2 * params->ray->distance_per_y));
 			else
-				return ((ray_dist_x  - (3.0 / 2 * params->ray->distance_per_x))
-				/ fabs(cos(angle)));
+				return (ray_dist_x  - (3.0 / 2 * params->ray->distance_per_x));
 		}
 	}
 	return (0);
@@ -90,5 +88,7 @@ int	ray_caster(t_params *params)
 		correction_angle -= ((double)FOV / NUM_OF_RAYS);
 		ray_num += 1;
 	}
+	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+		params->img->img_ptr, 0, 0);
 	return (0);
 }

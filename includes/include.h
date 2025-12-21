@@ -1,5 +1,7 @@
 #ifndef INCLUDE_H
-#define INCLUDE_H
+# define INCLUDE_H
+
+/* the header inclusions */
 # include <stddef.h>
 # include <stdio.h>
 # include <math.h>
@@ -23,19 +25,6 @@
 #define GREEN 1
 #define BLUE 2
 
-
-//-------------------------------------------------------//
-# define WIN_HEIGHT 1000
-# define WIN_WIDTH 1000
-# define FOV 60
-# define NUM_OF_RAYS 200
-# define MAP_HEIGHT 10
-# define MAP_WIDTH 10
-# define CELL_HEIGHT (WIN_HEIGHT / MAP_HEIGHT)
-# define CELL_WIDTH (WIN_WIDTH / MAP_WIDTH)
-//-------------------------------------------------------//
-
-
 typedef struct	s_lines
 {
 	char			*line;
@@ -53,11 +42,11 @@ typedef struct s_imgdata t_imgdata;
 /* a structure for player info */
 typedef struct s_playerdata t_playerdata;
 
+/* a structure for coordiations type */
 typedef struct s_coord t_coord;
 
+/* a structure for ray info */
 typedef struct s_raydata t_raydata;
-//-------------------------------------------------------//
-
 
 typedef struct	s_textures
 {
@@ -79,6 +68,7 @@ typedef struct	s_params
 	t_raydata		*ray;
 }				t_params;
 
+/* Function Prototypes*/
 t_lines		*new_line(char *str);
 void		add_line(t_lines **head, t_lines *line);
 t_lines		*last_line(t_lines *head);
@@ -98,22 +88,5 @@ int			add_map(t_lines *file_content);
 int			check_map_elements(void);
 int			is_map_surrounded(void);
 t_textures    *load_tex(void);
-
-
-//-------------------------------------------------------//
-/* Function Prototypes*/
-int		ft_write(const char *s);
-// void	block_to_pixel_coords(t_params *params, int j, int i);
-void	direction_corrector(t_params *params, double angle);
-double	deg_to_rad(double angle);
-double	rad_to_deg(double angle);
-void	draw_ceiling_and_floor(t_params *params);
-int		ray_caster(t_params *params);
-void	draw_wall(t_params *params, int ray_num, double correction_angle);
-int		initiate_mlx(t_params *params, t_mlxdata *mlx, t_imgdata *img);
-int		setup_player_and_ray(t_params *params);
-int		ray_caster(t_params *params);
-//-------------------------------------------------------//
-
 
 #endif

@@ -12,6 +12,51 @@
 
 #include "include.h"
 
+/*A function added by oakhmouc used to clear image before drawing again */
+/*to avoid redrawing on top of another image */
+void	clear_screen(t_params *params)
+{
+	int		x;
+	int		y;
+	char	*dst;
+
+	x = -1;
+	y = -1;
+	while (++y < WIN_HEIGHT)
+	{
+		x = -1;
+		while (++x < WIN_WIDTH)
+		{
+			dst = params->img->img_add + (y * params->img->line_length)
+				+ (x * (params->img->bpp / 8));
+			*(unsigned int *)dst = 0X000000;
+		}
+	}
+	mlx_put_image_to_window(params->mlx->mlx_ptr,
+		params->mlx->win_ptr, params->img->img_ptr, 0, 0);
+}
+
+int	key_hook(int keycode, t_params *params)
+{
+	if (keycode == XK_Right)
+	{
+		draw_ceiling_and_floor(params);
+		params->player->starting_angle
+			= fmod((params->player->starting_angle + 360 + 10), 360);
+		ray_caster(params);
+	}
+	else if (keycode == XK_Left)
+	{
+		draw_ceiling_and_floor(params);
+		params->player->starting_angle
+			= fmod((params->player->starting_angle + 360 - 10), 360);
+		ray_caster(params);
+	}
+	else
+		return (1);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_params		*params;
@@ -31,5 +76,7 @@ int	main(int ac, char **av)
 		return (free_params(&params), 1);
 	draw_ceiling_and_floor(params);
 	ray_caster(params);
+	mlx_key_hook(params->mlx->win_ptr, key_hook, params);
+	mlx_loop(params->mlx->mlx_ptr);
 	return (free_params(&params), 0);
 }

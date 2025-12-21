@@ -5,12 +5,23 @@
     ---------------
         ###1 Parsing doesn't exit when the player is not found on the map!
         ###2 Parsing an empty map: correctly handled but outputs "cub3d: Success on the screen"!
-        ###3 
+        ###3 If we change `int array[3]` to `char array[3]`, we'd have to be careful about error checking.
+                probably have to check if the ft_atoi() return is bigger than 255, before assiginig it to
+                `array[index]` because with `char` type it will be typecasted, changing its value and causing issues.
+                so the condition:
+                        `if (param->ceiling_color[i] < 0 || param->ceiling_color[i] > 255
+			            || param->floor_color[i] < 0 || param->floor_color[i] > 255)`
+                will not be valid anymore.
+        ###4 
 
     ##Obito's part:
     ------------
         ###1 Memory is not freed when mlx initialization fails!
         ###2 Handle angles where dist_per_x and dist_per_y tend to INF, just hardcode DOUBLE_MAX or DOUBLE_MIN for those.
+        ###3 Will need to test the case where the ray is diagonal, like `angle = 45deg` for example,
+                as both the cells, cell_y and cell_x will be incremented.
+        ###4 
+
 
 #SECONDARY
 ----------
@@ -18,9 +29,12 @@
     ##Othman's part:
     ---------------
         ###1 Use of static for params, why? It feels unnecessary.
-        ###2 
+        ###2 Is rayclude.h needed anymore? If not we just delete it and its calls.
+        ###3 
 
     ##Obito's part:
     ------------
         ###1 Unnecessary declaration of unused stuctures in the header file.
-        ###2 
+        ###2 Change render.c 's name to ray_caster.c or something similar.
+        ###3 Pass just `img` pointer instead of `params` pointer for functions like draw_celing_and_floor()
+        ###4 

@@ -13,8 +13,11 @@
 // #include "../rayclude.h"
 #include "include.h"
 
-// void	block_to_pixel_coords(t_params *params, int j, int i)
-// {
+void	block_to_pixel_coords(t_params *params, int j, int i)
+{
+	(void)params;
+	(void)j;
+	(void)i;
 // 	params->player->cell_y = j;
 // 	params->player->cell_x = i;
 // 	params->player->pixel_y = (j + 1 / (double)2) * (WIN_HEIGHT / (double)MAP_HEIGHT);
@@ -27,7 +30,7 @@
 // 		params->player->starting_angle = 0;
 // 	else if (params->player->direction == 'W')
 // 		params->player->starting_angle = M_PI;
-// }
+}
 
 void	direction_corrector(t_params *params, double angle)
 {

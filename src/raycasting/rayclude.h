@@ -13,22 +13,13 @@
 #ifndef RAYCLUDE_H
 # define RAYCLUDE_H
 
-/* the header inclusions */
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <math.h>
-# include "mlx.h"
-# include <X11/keysym.h>
-# include "include.h"
-
 /* the MACROs */
-# define WIN_HEIGHT 1000
-# define WIN_WIDTH 1000
-# define FOV 60
-# define NUM_OF_RAYS 200
+# define WIN_HEIGHT 2000
+# define WIN_WIDTH 2000
 # define MAP_HEIGHT 10
 # define MAP_WIDTH 10
+# define FOV 60
+# define NUM_OF_RAYS (WIN_WIDTH)
 # define CELL_HEIGHT (WIN_HEIGHT / MAP_HEIGHT)
 # define CELL_WIDTH (WIN_WIDTH / MAP_WIDTH)
 
@@ -71,12 +62,14 @@ typedef struct s_playerdata
 	double			starting_angle;
 }				t_playerdata;
 
+/* a structure for coordiations type */
 typedef struct s_coord
 {
 	double	y;
 	double	x;
 }				t_coord;
 
+/* a structure for ray info */
 typedef struct s_raydata
 {
 	double	ray_length;
@@ -89,28 +82,17 @@ typedef struct s_raydata
 
 }				t_raydata;
 
-/* a structure that holds the important data to comfortably use it around */
-// typedef struct s_data
-// {
-// 	t_mlxdata		*mlx;
-// 	t_imgdata		*img;
-// 	t_playerdata	*player;
-// 	t_raydata		*ray;
-// 	unsigned int	ceiling_color;
-// 	unsigned int	floor_color;
-// }				t_data;
-
 /* Function Prototypes*/
 int		ft_write(const char *s);
+int		initiate_mlx(t_params *params, t_mlxdata *mlx, t_imgdata *img);
+int		setup_player_and_ray(t_params *params);
 // void	block_to_pixel_coords(t_params *params, int j, int i);
 void	direction_corrector(t_params *params, double angle);
 double	deg_to_rad(double angle);
 double	rad_to_deg(double angle);
 void	draw_ceiling_and_floor(t_params *params);
-//void	ray_caster(t_params *params);
-void	draw_wall(t_params *params, int ray_num, double correction_angle);
-int		initiate_mlx(t_params *params, t_mlxdata *mlx, t_imgdata *img);
-int		setup_player_and_ray(t_params *params);
 int		ray_caster(t_params *params);
+void	draw_wall(t_params *params, int ray_num, double correction_angle);
+int		setup_player_and_ray(t_params *params);
 
 #endif /* RAYCLUDE_H */
