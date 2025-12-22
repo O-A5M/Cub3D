@@ -10,26 +10,62 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../rayclude.h"
 #include "include.h"
 
-void	block_to_pixel_coords(t_params *params, int j, int i)
+int	set_pixel_coords(t_params *params)
 {
-	(void)params;
-	(void)j;
-	(void)i;
-// 	params->player->cell_y = j;
-// 	params->player->cell_x = i;
-// 	params->player->pixel_y = (j + 1 / (double)2) * (WIN_HEIGHT / (double)MAP_HEIGHT);
-// 	params->player->pixel_x = (i + 1 / (double)2) * (WIN_WIDTH / MAP_WIDTH);
-// 	if (params->player->direction == 'N')
-// 		params->player->starting_angle = M_PI / 2;
-// 	else if (params->player->direction == 'S')
-// 		params->player->starting_angle = M_PI * 3 / 2;
-// 	else if (params->player->direction == 'E')
-// 		params->player->starting_angle = 0;
-// 	else if (params->player->direction == 'W')
-// 		params->player->starting_angle = M_PI;
+	if (params->player->cell_x < 0 || params->player->cell_y < 0
+		|| params->player->direction == 0)
+		return (1);
+	params->player->pixel_y = (params->player->cell_y / 2.0)
+		* (WIN_HEIGHT / params->map_height_2d);
+	params->player->pixel_x = (params->player->cell_x / 2.0)
+		* (WIN_WIDTH / params->map_width_2d);
+	return (0);
+}
+
+int	set_map_width_and_height(t_params *params)
+{
+	int	i;
+	int	j;
+	int	height;
+	int	width;
+
+	if (!params->map || !params->map[0])
+		return (1);
+	height = 0;
+	width = 0;
+	j = 0;
+	while (params->map[j])
+	{
+		height = j;
+		i = 0;
+		while (params->map[j][i])
+		{
+			if (i > width)
+				width = i;
+			i += 1;
+		}
+		j += 1;
+	}
+	params->map_width_2d = width;
+	params->map_height_2d = height;
+	return (0);
+}
+
+int	set_starting_angle(t_params *params)
+{
+	if (params->player->direction == 'E')
+		params->player->starting_angle = 0;
+	else if (params->player->direction == 'N')
+		params->player->starting_angle = 90;
+	else if (params->player->direction == 'W')
+		params->player->starting_angle = 180;
+	else if (params->player->direction == 'S')
+		params->player->starting_angle = 270;
+	else
+		return (1);
+	return (0);
 }
 
 void	direction_corrector(t_params *params, double angle)

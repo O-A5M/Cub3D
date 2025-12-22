@@ -14,8 +14,8 @@
 # define RAYCLUDE_H
 
 /* the MACROs */
-# define WIN_HEIGHT 1080
-# define WIN_WIDTH 1080
+# define WIN_HEIGHT 1000
+# define WIN_WIDTH 1000
 # define MAP_HEIGHT 10
 # define MAP_WIDTH 10
 # define FOV 60
@@ -85,14 +85,14 @@ typedef struct s_raydata
 /* Function Prototypes*/
 int		ft_write(const char *s);
 int		initiate_mlx(t_params *params, t_mlxdata *mlx, t_imgdata *img);
-int		setup_player_and_ray(t_params *params);
-// void	block_to_pixel_coords(t_params *params, int j, int i);
 void	direction_corrector(t_params *params, double angle);
 double	deg_to_rad(double angle);
 double	rad_to_deg(double angle);
 void	draw_ceiling_and_floor(t_params *params);
 int		ray_caster(t_params *params);
 void	draw_wall(t_params *params, int ray_num, double correction_angle);
-int		setup_player_and_ray(t_params *params);
+int		set_map_width_and_height(t_params *params);
+int		set_pixel_coords(t_params *params);
+int		set_starting_angle(t_params *params);
 
 #endif /* RAYCLUDE_H */

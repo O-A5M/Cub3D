@@ -69,14 +69,14 @@ int	key_hook(int keycode, t_params *params)
 	{
 		draw_ceiling_and_floor(params);
 		params->player->starting_angle
-			= fmod((params->player->starting_angle + 360 + 10), 360);
+			= fmod((params->player->starting_angle + 360 + 45), 360);
 		ray_caster(params);
 	}
 	else if (keycode == XK_Left)
 	{
 		draw_ceiling_and_floor(params);
 		params->player->starting_angle
-			= fmod((params->player->starting_angle + 360 - 10), 360);
+			= fmod((params->player->starting_angle + 360 - 45), 360);
 		ray_caster(params);
 	}
 	else if (keycode == XK_a || keycode == XK_A)
@@ -112,8 +112,8 @@ int	main(int ac, char **av)
 	params_init(&params, &ray, &player);
 	if ((ac != 2) || (ac == 2 && parse_args(av[1]) == -1))
 		return (free_params(&params), 1);
-	if (initiate_mlx(params, &mlx, &img)
-		|| setup_player_and_ray(params))
+	if (initiate_mlx(params, &mlx, &img) || set_map_width_and_height(params)
+		|| set_starting_angle(params) || set_pixel_coords(params))
 		return (free_params(&params), 1);
 	draw_ceiling_and_floor(params);
 	ray_caster(params);

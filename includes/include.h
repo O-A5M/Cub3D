@@ -55,6 +55,8 @@ typedef struct	s_params
 	char			*textures[ALL_TEXTURES];
 	int				floor_color[3];
 	int				ceiling_color[3];
+	int				map_height_2d;
+	int				map_width_2d;
 	t_mlxdata		*mlx;
 	t_imgdata		*img;
 	t_playerdata	*player;
