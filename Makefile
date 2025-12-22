@@ -38,7 +38,7 @@ $(LIBFT_N):
 	make -C $(LIBFT_D)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -L./$(LIBFT_D) -l$(LIBFT) -lm -o $(NAME) $(XFLAGS)
+	$(CC) $(OBJS) -L./$(LIBFT_D) -l$(LIBFT) -L./libraries/minilibx-linux -lm -o $(NAME) $(XFLAGS)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)

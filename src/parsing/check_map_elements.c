@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:41:25 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/12/11 15:57:13 by aelmsafe         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:46:52 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static char	*replace_space(char *str, int longest)
 	ret = malloc(sizeof(char) * longest);
 	if (!ret)
 		return (NULL);
-	while (str[++index] != '\n')
+	while (str[++index] != '\n' && str[index])
 		ret[index] = str[index];
 	while (index < longest - 1)
 		ret[index++] = ' ';
