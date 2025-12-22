@@ -112,9 +112,13 @@ int	main(int ac, char **av)
 	params_init(&params, &ray, &player);
 	if ((ac != 2) || (ac == 2 && parse_args(av[1]) == -1))
 		return (free_params(&params), 1);
-	if (initiate_mlx(params, &mlx, &img) || set_map_width_and_height(params)
+	if (initiate_mlx(params, &mlx, &img) || calc_map_width_and_height(params)
 		|| set_starting_angle(params) || set_pixel_coords(params))
 		return (free_params(&params), 1);
+	printf("Map Height: %d | Map Width: %d\n", params->map_height_2d, params->map_width_2d);
+	printf("Player position:\n");
+	printf("pixel y: %d | pixel x: %d\n", params->player->pixel_y, params->player->pixel_x);
+	printf("cell y: %d | cell x: %d\n", params->player->cell_y, params->player->cell_x);
 	draw_ceiling_and_floor(params);
 	ray_caster(params);
 	mlx_key_hook(params->mlx->win_ptr, key_hook, params);

@@ -91,7 +91,7 @@ double	rad_to_deg(double angle);
 void	draw_ceiling_and_floor(t_params *params);
 int		ray_caster(t_params *params);
 void	draw_wall(t_params *params, int ray_num, double correction_angle);
-int		set_map_width_and_height(t_params *params);
+int		calc_map_width_and_height(t_params *params);
 int		set_pixel_coords(t_params *params);
 int		set_starting_angle(t_params *params);
 

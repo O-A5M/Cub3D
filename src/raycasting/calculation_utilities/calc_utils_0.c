@@ -24,7 +24,7 @@ int	set_pixel_coords(t_params *params)
 	return (0);
 }
 
-int	set_map_width_and_height(t_params *params)
+int	calc_map_width_and_height(t_params *params)
 {
 	int	i;
 	int	j;
@@ -38,7 +38,7 @@ int	set_map_width_and_height(t_params *params)
 	j = 0;
 	while (params->map[j])
 	{
-		height = j;
+		height += 1;
 		i = 0;
 		while (params->map[j][i])
 		{
