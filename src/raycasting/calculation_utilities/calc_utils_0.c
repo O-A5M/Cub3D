@@ -17,9 +17,9 @@ int	set_pixel_coords(t_params *params)
 	if (params->player->cell_x < 0 || params->player->cell_y < 0
 		|| params->player->direction == 0)
 		return (1);
-	params->player->pixel_y = (params->player->cell_y / 2.0)
+	params->player->pixel_y = (params->player->cell_y + 0.5)
 		* (WIN_HEIGHT / params->map_height_2d);
-	params->player->pixel_x = (params->player->cell_x / 2.0)
+	params->player->pixel_x = (params->player->cell_x + 0.5)
 		* (WIN_WIDTH / params->map_width_2d);
 	return (0);
 }
@@ -70,15 +70,15 @@ int	set_starting_angle(t_params *params)
 
 void	direction_corrector(t_params *params, double angle)
 {
-	params->ray->dir_y = -1;
+	params->ray->dir_y = 1;
 	params->ray->dir_x = 1;
 	if (angle >= 0 && angle < (M_PI / 2))
-		params->ray->dir_y = 1;
+		params->ray->dir_y = -1;
 	else if (angle >= M_PI && angle < (M_PI * 3 / 2))
 		params->ray->dir_x = -1;
 	else if (angle >= (M_PI / 2) && angle < M_PI)
 	{
-		params->ray->dir_y = 1;
+		params->ray->dir_y = -1;
 		params->ray->dir_x = -1;
 	}
 }

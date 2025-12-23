@@ -14,14 +14,14 @@
 # define RAYCLUDE_H
 
 /* the MACROs */
-# define WIN_HEIGHT 1000
-# define WIN_WIDTH 1000
-# define MAP_HEIGHT 10
-# define MAP_WIDTH 10
-# define FOV 60
-# define NUM_OF_RAYS (WIN_WIDTH)
-# define CELL_HEIGHT (WIN_HEIGHT / MAP_HEIGHT)
-# define CELL_WIDTH (WIN_WIDTH / MAP_WIDTH)
+# define WIN_HEIGHT  1000
+# define WIN_WIDTH 	 1000
+# define MAP_HEIGHT  10
+# define MAP_WIDTH 	 10
+# define FOV         60
+# define NUM_OF_RAYS 1000 /* must be equal to WIN_WIDTH */
+# define CELL_HEIGHT 1
+# define CELL_WIDTH  1
 
 typedef struct	s_params t_params;
 
@@ -54,10 +54,10 @@ typedef struct s_imgdata
 /* a structure for player info */
 typedef struct s_playerdata
 {
-	int		pixel_x;
-	int		pixel_y;
-	int		cell_y;
-	int		cell_x;
+	double	pixel_x;
+	double	pixel_y;
+	double	cell_y;
+	double	cell_x;
 	char	direction;
 	double	starting_angle;
 }				t_playerdata;
@@ -73,10 +73,10 @@ typedef struct s_coord
 typedef struct s_raydata
 {
 	double	ray_length;
-	int		cell_y;
-	int		cell_x;
-	int		dir_y;
-	int		dir_x;
+	double	cell_y;
+	double	cell_x;
+	double	dir_y;
+	double	dir_x;
 	double	distance_per_y;
 	double	distance_per_x;
 
@@ -94,5 +94,6 @@ void	draw_wall(t_params *params, int ray_num, double correction_angle);
 int		calc_map_width_and_height(t_params *params);
 int		set_pixel_coords(t_params *params);
 int		set_starting_angle(t_params *params);
+int		create_minimap(t_params *params);
 
 #endif /* RAYCLUDE_H */

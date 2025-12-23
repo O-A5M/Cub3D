@@ -50,11 +50,12 @@ double	find_ray_length(t_params *params, double angle)
 	ray_dist_y = params->ray->distance_per_y;
 	ray_dist_x = params->ray->distance_per_x;
 	while (params->ray->cell_y >= 0 && params->ray->cell_x >= 0
-		&& params->map[params->ray->cell_y]
-		&& params->map[params->ray->cell_y][params->ray->cell_x])
+		&& params->map[(int)params->ray->cell_y]
+		&& params->map[(int)params->ray->cell_y][(int)params->ray->cell_x])
 	{
 		step_ray(params, &ray_dist_y, &ray_dist_x, &ray_dist_axis);
-		if (params->map[params->ray->cell_y][params->ray->cell_x] == '1')
+		if (params->map[(int)params->ray->cell_y]
+			[(int)params->ray->cell_x] == '1')
 		{
 			if (ray_dist_axis == 'y')
 				return (ray_dist_y  - (3.0 / 2 * params->ray->distance_per_y));
@@ -73,7 +74,7 @@ int	ray_caster(t_params *params)
 	double		correction_angle;
 
 	ray_num = 0;
-	angle = params->player->starting_angle - (FOV / 2);
+	angle = params->player->starting_angle + (FOV / 2);
 	correction_angle = (FOV / 2);
 	while (ray_num < NUM_OF_RAYS)
 	{
@@ -84,11 +85,11 @@ int	ray_caster(t_params *params)
 		params->ray->ray_length
 			= find_ray_length(params, deg_to_rad(angle));
 		draw_wall(params, ray_num, deg_to_rad(fabs(correction_angle)));
-		angle += ((double)FOV / NUM_OF_RAYS);
+		angle -= ((double)FOV / NUM_OF_RAYS);
 		correction_angle -= ((double)FOV / NUM_OF_RAYS);
 		ray_num += 1;
 	}
-	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
-		params->img->img_ptr, 0, 0);
+	// mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+	// 	params->img->img_ptr, 0, 0);
 	return (0);
 }

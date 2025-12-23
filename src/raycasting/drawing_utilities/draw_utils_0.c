@@ -68,7 +68,7 @@ void	draw_wall(t_params *params, int ray_num, double correction_angle)
 	{
 		dst = params->img->img_add + (y * params->img->line_length)
 			+ (x * (params->img->bpp / 8));
-		*(unsigned int *)dst = 0x0000FF;
+		*(unsigned int *)dst = 0x2E3136;
 		y += 1;
 	}
 	return ;

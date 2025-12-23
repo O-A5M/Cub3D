@@ -67,17 +67,19 @@ int	key_hook(int keycode, t_params *params)
 {
 	if (keycode == XK_Right)
 	{
-		draw_ceiling_and_floor(params);
 		params->player->starting_angle
-			= fmod((params->player->starting_angle + 360 + 45), 360);
+			= fmod((params->player->starting_angle + 360 - 45), 360);
+		draw_ceiling_and_floor(params);
 		ray_caster(params);
+		create_minimap(params);
 	}
 	else if (keycode == XK_Left)
 	{
-		draw_ceiling_and_floor(params);
 		params->player->starting_angle
-			= fmod((params->player->starting_angle + 360 - 45), 360);
+			= fmod((params->player->starting_angle + 360 + 45), 360);
+		draw_ceiling_and_floor(params);
 		ray_caster(params);
+		create_minimap(params);
 	}
 	else if (keycode == XK_a || keycode == XK_A)
 	{
@@ -100,6 +102,91 @@ int	key_hook(int keycode, t_params *params)
 	return (0);
 }
 
+void	print_coords(t_params *params)
+{
+	printf("Map Height: %d | Map Width: %d\n", (int)params->map_height_2d, (int)params->map_width_2d);
+	printf("Player position:\n");
+	printf("pixel y: %d | pixel x: %d\n", (int)params->player->pixel_y, (int)params->player->pixel_x);
+	printf("cell y: %d | cell x: %d\n", (int)params->player->cell_y, (int)params->player->cell_x);
+	printf("Map:\n");
+}
+
+void	print_map(t_params *params)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	while (params->map[j])
+	{
+		i = 0;
+		while (params->map[j][i])
+		{
+			printf("%c, ", params->map[j][i]);
+			i += 1;
+		}
+		printf("\n");
+		j += 1;
+	}
+}
+
+void	minimap_filler(t_imgdata *img, int line, int cell, int color)
+{
+	char	*dst;
+	int		line_counter;
+	int		cell_counter;
+
+	line_counter = 0;
+	while (line_counter < 4)
+	{
+		cell_counter = 0;
+		while (cell_counter < 4)
+		{
+			dst = img->img_add
+				+ ((4 * line + line_counter) * img->line_length)
+				+ ((4 * cell + cell_counter) * (img->bpp / 8));
+			*(unsigned int *)dst = color;
+			cell_counter += 1;
+		}
+		line_counter += 1;
+	}
+}
+
+int	draw_2d_map(t_params *params)
+{
+	int		line;
+	int		cell;
+
+	line = 0;
+	while (params->map[line])
+	{
+		cell = 0;
+		while (params->map[line][cell])
+		{
+			if (params->map[line][cell] == '0')
+				minimap_filler(params->img, line, cell, 0x004a8eff);
+			else if (params->map[line][cell] == '1')
+				minimap_filler(params->img, line, cell, 0x002e3136);
+			else if (params->map[line][cell] == 'E' || params->map[line][cell] == 'W'
+				|| params->map[line][cell] == 'S' || params->map[line][cell] == 'N')
+				minimap_filler(params->img, line, cell, 0x00FF0000);
+			else
+				minimap_filler(params->img, line, cell, 0x0013161c);
+			cell += 1;
+		}
+		line += 1;
+	}
+	return (0);
+}
+
+int	create_minimap(t_params *params)
+{
+	draw_2d_map(params);
+	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+		params->img->img_ptr, 0, 0);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_params		*params;
@@ -115,14 +202,11 @@ int	main(int ac, char **av)
 	if (initiate_mlx(params, &mlx, &img) || calc_map_width_and_height(params)
 		|| set_starting_angle(params) || set_pixel_coords(params))
 		return (free_params(&params), 1);
-	printf("Map Height: %d | Map Width: %d\n", params->map_height_2d, params->map_width_2d);
-	printf("Player position:\n");
-	printf("pixel y: %d | pixel x: %d\n", params->player->pixel_y, params->player->pixel_x);
-	printf("cell y: %d | cell x: %d\n", params->player->cell_y, params->player->cell_x);
-	// if (load_textures() == -1)
-	// 	printf("No way\n");
+	// print_coords(params);
+	// print_map(params);
 	draw_ceiling_and_floor(params);
 	ray_caster(params);
+	create_minimap(params);
 	mlx_key_hook(params->mlx->win_ptr, key_hook, params);
 	mlx_loop(params->mlx->mlx_ptr);
 	return (free_params(&params), 0);
