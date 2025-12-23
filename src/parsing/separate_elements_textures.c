@@ -6,25 +6,28 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:42:32 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/11/20 11:52:39 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/23 05:24:37 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
+#include <stddef.h>
 
 static int	split_tex(char *type, char *path)
 {
 	t_params	*param;
+	size_t		size;
 
+	size = ft_strlen(type) - 1;
 	param = params_holder();
 	if (type[0] == 'N' && type[1] == 'O')
-		param->textures[NORTH_TEX] = ft_strdup(path);
+		param->textures[NORTH_TEX] = ft_substr(path, 0, size);
 	else if (type[0] == 'S' && type[1] == 'O')
-		param->textures[SOUTH_TEX] = ft_strdup(path);
+		param->textures[SOUTH_TEX] = ft_substr(path, 0, size);
 	else if (type[0] == 'W' && type[1] == 'E')
-		param->textures[WEST_TEX] = ft_strdup(path);
+		param->textures[WEST_TEX] = ft_substr(path, 0, size);
 	else if (type[0] == 'E' && type[1] == 'A')
-		param->textures[EAST_TEX] = ft_strdup(path);
+		param->textures[EAST_TEX] = ft_substr(path, 0, size);
 	return (0);
 }
 

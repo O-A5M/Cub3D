@@ -6,11 +6,12 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:41:25 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/12/23 00:46:52 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/23 06:38:36 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
+#include "rayclude.h"
 
 static char	**copy_and_replace(void);
 
@@ -68,11 +69,15 @@ static int	check_is_map_open(char **map)
 int	is_map_surrounded(void)
 {
 	char	**map;
+	t_params	*param;
 
+	param = params_holder();
 	map = copy_and_replace();
 	if (check_is_map_open(map) == -1)
 		return (free_array(&map), -1);
-	return (free_array(&map), 0);
+	free_array(&param->map);
+	param->map = map;
+	return (0);
 }
 
 static char	*replace_space(char *str, int longest)
@@ -81,12 +86,12 @@ static char	*replace_space(char *str, int longest)
 	int		index;
 
 	index = -1;
-	ret = malloc(sizeof(char) * longest);
+	ret = malloc(sizeof(char) * longest + 1);
 	if (!ret)
 		return (NULL);
 	while (str[++index] != '\n' && str[index])
 		ret[index] = str[index];
-	while (index < longest - 1)
+	while (index < longest)
 		ret[index++] = ' ';
 	ret[index] = '\0';
 	return (ret);

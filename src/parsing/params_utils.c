@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:42:05 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/12/11 15:46:39 by aelmsafe         ###   ########.fr       */
+/*   Updated: 2025/12/23 05:13:56 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ void	params_init(t_params **params, t_raydata *ray, t_playerdata *player)
 		(*params)->floor_color[index] = -1;
 		index++;
 	}
+	index = -1;
+	while (++index < 4)
+		(*params)->tex_info[index].addr = NULL;
 	(*params)->player = player;
 	(*params)->player->pixel_y = -1;
 	(*params)->player->pixel_x = -1;

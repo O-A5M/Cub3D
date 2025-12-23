@@ -48,6 +48,14 @@ typedef struct s_coord t_coord;
 /* a structure for ray info */
 typedef struct s_raydata t_raydata;
 
+/* a structure to hold the textures infos */
+typedef struct s_tex_info
+{
+	void	*addr;
+	int		height;
+	int		width;
+}				t_tex_info;
+
 /* a structure that holds everything altogether plus some more infos */
 typedef struct	s_params
 {
@@ -61,6 +69,7 @@ typedef struct	s_params
 	t_imgdata		*img;
 	t_playerdata	*player;
 	t_raydata		*ray;
+	t_tex_info		tex_info[4];
 }				t_params;
 
 /* Function Prototypes*/
@@ -82,5 +91,6 @@ int			add_color(t_lines *file_content);
 int			add_map(t_lines *file_content);
 int			check_map_elements(void);
 int			is_map_surrounded(void);
+int			load_textures(void);
 
 #endif
