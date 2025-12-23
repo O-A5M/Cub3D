@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:42:24 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/23 06:38:55 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/23 06:44:53 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ int	main(int ac, char **av)
 	printf("Player position:\n");
 	printf("pixel y: %d | pixel x: %d\n", params->player->pixel_y, params->player->pixel_x);
 	printf("cell y: %d | cell x: %d\n", params->player->cell_y, params->player->cell_x);
-	if (load_textures() == -1)
-		printf("No way\n");
+	// if (load_textures() == -1)
+	// 	printf("No way\n");
 	draw_ceiling_and_floor(params);
 	ray_caster(params);
 	mlx_key_hook(params->mlx->win_ptr, key_hook, params);
