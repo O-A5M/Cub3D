@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:41:33 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/11/20 11:47:19 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/26 16:39:13 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ int	parse_content(t_lines *file_content)
 	if (separate_elements(tmp) == -1)
 		return (-1);
 	if (check_map_elements() == -1 || is_map_surrounded() == -1)
+		return (ft_putstr_fd("Map error!!\n", 2), -1);
+	if (params_holder()->player->cell_x == -1
+		|| params_holder()->player->cell_y == -1)
 		return (ft_putstr_fd("Map error!!\n", 2), -1);
 	return (0);
 }
