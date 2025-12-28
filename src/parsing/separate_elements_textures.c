@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:42:32 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/12/23 05:24:37 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/28 14:39:12 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	split_tex(char *type, char *path)
 	t_params	*param;
 	size_t		size;
 
-	size = ft_strlen(type) - 1;
+	size = ft_strlen(path) - 1;
 	param = params_holder();
 	if (type[0] == 'N' && type[1] == 'O')
 		param->textures[NORTH_TEX] = ft_substr(path, 0, size);

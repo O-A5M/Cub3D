@@ -51,9 +51,13 @@ typedef struct s_raydata t_raydata;
 /* a structure to hold the textures infos */
 typedef struct s_tex_info
 {
-	void	*addr;
+	void	*img;
+	char	*addr;
 	int		height;
 	int		width;
+	int		bpp;
+	int		line_len;
+	int		endian;
 }				t_tex_info;
 
 /* a structure that holds everything altogether plus some more infos */

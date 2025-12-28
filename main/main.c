@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:42:24 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/23 06:44:53 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/28 14:40:06 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,8 @@ int	main(int ac, char **av)
 		return (free_params(&params), 1);
 	// print_coords(params);
 	// print_map(params);
+	if (load_textures() == -1)
+		printf("Error\n");
 	draw_ceiling_and_floor(params);
 	ray_caster(params);
 	create_minimap(params);
