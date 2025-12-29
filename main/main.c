@@ -69,34 +69,40 @@ int	key_hook(int keycode, t_params *params)
 	{
 		params->player->starting_angle
 			= fmod((params->player->starting_angle + 360 - 45), 360);
+		printf("new angle: %f\n", params->player->starting_angle);
 		draw_ceiling_and_floor(params);
 		ray_caster(params);
 		create_minimap(params);
+		mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+			params->img->img_ptr, 0, 0);
 	}
 	else if (keycode == XK_Left)
 	{
 		params->player->starting_angle
 			= fmod((params->player->starting_angle + 360 + 45), 360);
+		printf("new angle: %f\n", params->player->starting_angle);
 		draw_ceiling_and_floor(params);
 		ray_caster(params);
 		create_minimap(params);
+		mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+			params->img->img_ptr, 0, 0);
 	}
-	else if (keycode == XK_a || keycode == XK_A)
-	{
-		move_player(params, 'a');
-	}
-	else if (keycode == XK_d || keycode == XK_D)
-	{
-		move_player(params, 'd');
-	}
-	else if (keycode == XK_w || keycode == XK_W)
-	{
-		move_player(params, 'w');
-	}
-	else if (keycode == XK_s || keycode == XK_S)
-	{
-		move_player(params, 's');
-	}
+	// else if (keycode == XK_a || keycode == XK_A)
+	// {
+	// 	move_player(params, 'a');
+	// }
+	// else if (keycode == XK_d || keycode == XK_D)
+	// {
+	// 	move_player(params, 'd');
+	// }
+	// else if (keycode == XK_w || keycode == XK_W)
+	// {
+	// 	move_player(params, 'w');
+	// }
+	// else if (keycode == XK_s || keycode == XK_S)
+	// {
+	// 	move_player(params, 's');
+	// }
 	else
 		return (1);
 	return (0);
@@ -182,8 +188,8 @@ int	draw_2d_map(t_params *params)
 int	create_minimap(t_params *params)
 {
 	draw_2d_map(params);
-	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
-		params->img->img_ptr, 0, 0);
+	// mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+	// 	params->img->img_ptr, 0, 0);
 	return (0);
 }
 
@@ -209,6 +215,7 @@ int	main(int ac, char **av)
 	draw_ceiling_and_floor(params);
 	ray_caster(params);
 	create_minimap(params);
+	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
 	mlx_key_hook(params->mlx->win_ptr, key_hook, params);
 	mlx_loop(params->mlx->mlx_ptr);
 	return (free_params(&params), 0);

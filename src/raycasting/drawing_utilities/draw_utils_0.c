@@ -57,18 +57,22 @@ void	draw_wall(t_params *params, int ray_num, double correction_angle)
 	// need to have a better equation for better represntation,
 	// 	and also make sure we don't go out of boundaries,
 	//	nor have issues when changing the map / window dimensions.
-	wall_height = (100 * WIN_HEIGHT)
-			/ (params->ray->ray_length * cos(correction_angle));
-	if (wall_height > WIN_HEIGHT)
-		wall_height = WIN_HEIGHT;
-	y = (int)((WIN_HEIGHT / (double)2) - (wall_height / 2));
+	// wall_height = (100 * WIN_HEIGHT)
+	// 		/ (params->ray->ray_length * cos(correction_angle));
+	wall_height = WIN_HEIGHT / (1 * (params->ray->ray_length * fabs(cos(correction_angle))));
+	printf("=================Wall Height: %f=================\n=================Ray Length: %f=================\n=================Deg: %f=================\n", wall_height, params->ray->ray_length, correction_angle);
+	// printf("============================Ray Distance: %f==========================\n============================Wall height: %f==========================\n", params->ray->ray_length, wall_height);
+	// if (wall_height > WIN_HEIGHT)
+	// 	wall_height = WIN_HEIGHT / 2;
+	y = (int)((WIN_HEIGHT / 2.0) - (wall_height / 2.0));
 	y_limit = WIN_HEIGHT - y;
 	x = ray_num;
 	while (y < y_limit)
 	{
 		dst = params->img->img_add + (y * params->img->line_length)
 			+ (x * (params->img->bpp / 8));
-		*(unsigned int *)dst = 0x2E3136;
+		// *(unsigned int *)dst = 0x2E3136;
+		*(unsigned int *)dst = 0xFF00;
 		y += 1;
 	}
 	return ;
