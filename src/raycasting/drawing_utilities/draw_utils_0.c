@@ -54,19 +54,16 @@ void	draw_wall(t_params *params, int ray_num, double correction_angle)
 	int		x;
 	int		y_limit;
 
-	// need to have a better equation for better represntation,
-	// 	and also make sure we don't go out of boundaries,
-	//	nor have issues when changing the map / window dimensions.
-	// wall_height = (100 * WIN_HEIGHT)
-	// 		/ (params->ray->ray_length * cos(correction_angle));
-	wall_height = WIN_HEIGHT / (1 * (params->ray->ray_length * fabs(cos(correction_angle))));
-	printf("=================Wall Height: %f=================\n=================Ray Length: %f=================\n=================Deg: %f=================\n", wall_height, params->ray->ray_length, correction_angle);
-	// printf("============================Ray Distance: %f==========================\n============================Wall height: %f==========================\n", params->ray->ray_length, wall_height);
-	// if (wall_height > WIN_HEIGHT)
-	// 	wall_height = WIN_HEIGHT / 2;
-	y = (int)((WIN_HEIGHT / 2.0) - (wall_height / 2.0));
+	wall_height = (CELL_SIZE / (params->ray->ray_length
+				* fabs(cos(correction_angle))))
+				* ((WIN_WIDTH / 2) / tan(deg_to_rad(FOV / 2)));
+	if (wall_height <= 0)
+		printf("anomality at ray n %d\n\n", ray_num);
+	y = (WIN_HEIGHT / 2.0) - (wall_height / 2.0);
 	y_limit = WIN_HEIGHT - y;
 	x = ray_num;
+	if (y >= y_limit)
+		printf("Anomality!\n");
 	while (y < y_limit)
 	{
 		dst = params->img->img_add + (y * params->img->line_length)

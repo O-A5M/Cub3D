@@ -19,11 +19,11 @@ void	color_cell(t_data *data, int cell_x, int cell_y)
 	int		px;
 	int		py;
 
-	py = cell_y * CELL_HEIGHT;
-	while (py < (cell_y + 1) * CELL_HEIGHT)
+	py = cell_y * CELL_SIZE;
+	while (py < (cell_y + 1) * CELL_SIZE)
 	{
-		px = cell_x * CELL_WIDTH;
-		while (px < (cell_x + 1) * CELL_WIDTH)
+		px = cell_x * CELL_SIZE;
+		while (px < (cell_x + 1) * CELL_SIZE)
 		{
 			dst = data->img->img_add + (py * data->img->line_length)
 				+ (px * (data->img->bpp / 8));
@@ -90,12 +90,12 @@ void	draw_player(t_data *data, int cell_x, int cell_y)
 	int		counter_x;
 	int		counter_y;
 
-	data->player->pixel_y = (cell_y * CELL_HEIGHT) + (CELL_HEIGHT / 2) - 2;
+	data->player->pixel_y = (cell_y * CELL_SIZE) + (CELL_SIZE / 2) - 2;
 	y = data->player->pixel_y;
 	counter_y = 0;
 	while (counter_y < 5)
 	{
-		data->player->pixel_x = (cell_x * CELL_WIDTH) + (CELL_WIDTH / 2) - 2;
+		data->player->pixel_x = (cell_x * CELL_SIZE) + (CELL_SIZE / 2) - 2;
 		x = data->player->pixel_x;
 		counter_x = 0;
 		while (counter_x < 5)

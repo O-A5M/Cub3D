@@ -69,23 +69,21 @@ int	key_hook(int keycode, t_params *params)
 	{
 		params->player->starting_angle
 			= fmod((params->player->starting_angle + 360 - 45), 360);
-		printf("new angle: %f\n", params->player->starting_angle);
 		draw_ceiling_and_floor(params);
 		ray_caster(params);
 		create_minimap(params);
-		mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
-			params->img->img_ptr, 0, 0);
+		// mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+		// 	params->img->img_ptr, 0, 0);
 	}
 	else if (keycode == XK_Left)
 	{
 		params->player->starting_angle
 			= fmod((params->player->starting_angle + 360 + 45), 360);
-		printf("new angle: %f\n", params->player->starting_angle);
 		draw_ceiling_and_floor(params);
 		ray_caster(params);
 		create_minimap(params);
-		mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
-			params->img->img_ptr, 0, 0);
+		// mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+		// 	params->img->img_ptr, 0, 0);
 	}
 	// else if (keycode == XK_a || keycode == XK_A)
 	// {
@@ -188,8 +186,8 @@ int	draw_2d_map(t_params *params)
 int	create_minimap(t_params *params)
 {
 	draw_2d_map(params);
-	// mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
-	// 	params->img->img_ptr, 0, 0);
+	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+		params->img->img_ptr, 0, 0);
 	return (0);
 }
 
@@ -209,7 +207,7 @@ int	main(int ac, char **av)
 		|| set_starting_angle(params) || set_pixel_coords(params))
 		return (free_params(&params), 1);
 	// print_coords(params);
-	// print_map(params);
+	print_map(params);
 	if (load_textures() == -1)
 		printf("Error\n");
 	draw_ceiling_and_floor(params);

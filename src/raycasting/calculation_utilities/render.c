@@ -52,7 +52,7 @@ int	check_cell(t_params *params, char ray_dist_axis)
 	x = params->ray->cell_x;
 	dir_y = params->ray->dir_y;
 	dir_x = params->ray->dir_x;
-	printf("cell y: %d  ;  cell x: %d\n", y, x);
+	// printf("cell y: %d  ;  cell x: %d\n", y, x);
 	if (map[y][x] != '0')
 		return (1);
 	if (ray_dist_axis == 'b')
@@ -100,11 +100,10 @@ int	ray_caster(t_params *params)
 	correction_angle = (FOV / 2);
 	while (ray_num < NUM_OF_RAYS)
 	{
-		printf("ray n %d\n\n", ray_num);
 		params->ray->distance_per_y
-			= fabs(CELL_HEIGHT / fabs(sin(deg_to_rad(angle))));
+			= fabs(CELL_SIZE / fabs(sin(deg_to_rad(angle))));
 		params->ray->distance_per_x
-			= fabs(CELL_WIDTH / fabs(cos(deg_to_rad(angle))));
+			= fabs(CELL_SIZE / fabs(cos(deg_to_rad(angle))));
 		params->ray->ray_length
 			= find_ray_length(params, deg_to_rad(angle));
 		draw_wall(params, ray_num, deg_to_rad(fabs(correction_angle)));
@@ -112,7 +111,5 @@ int	ray_caster(t_params *params)
 		correction_angle -= ((double)FOV / NUM_OF_RAYS);
 		ray_num += 1;
 	}
-	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
-		params->img->img_ptr, 0, 0);
 	return (0);
 }

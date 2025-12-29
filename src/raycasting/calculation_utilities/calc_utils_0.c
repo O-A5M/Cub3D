@@ -36,6 +36,7 @@ int	calc_map_width_and_height(t_params *params)
 	height = 0;
 	width = 0;
 	j = 0;
+	/* I think I am counting the spaces on the edge too, attention */
 	while (params->map[j])
 	{
 		height += 1;
