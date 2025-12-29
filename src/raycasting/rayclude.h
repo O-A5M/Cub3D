@@ -14,10 +14,10 @@
 # define RAYCLUDE_H
 
 /* the MACROs */
-# define WIN_HEIGHT  2000
-# define WIN_WIDTH 	 2000
+# define WIN_HEIGHT  1000
+# define WIN_WIDTH 	 1000
 # define FOV         60
-# define NUM_OF_RAYS 2000 /* must be equal to WIN_WIDTH */
+# define NUM_OF_RAYS 1000 /* must be equal to WIN_WIDTH */
 # define CELL_SIZE 32
 
 typedef struct	s_params t_params;
