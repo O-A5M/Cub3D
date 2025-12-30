@@ -38,29 +38,29 @@ void	clear_screen(t_params *params)
 
 void	move_player(t_params *params, char direction)
 {
+	// I shouldnt forget updating the minimap!
 	if (direction == 'a')
 	{
-		// params->player->pixel_y = ;
-		// params->player->pixel_x = ;
+		params->player->pos_x -= 0.1;
+		params->player->cell_x = (int)params->player->pos_x;
 	}
 	else if (direction == 'd')
 	{
-
+		params->player->pos_x += 0.1;
+		params->player->cell_x = (int)params->player->pos_x;
 	}
 	else if (direction == 'w')
 	{
-
+		params->player->pos_y -= 0.1;
+		params->player->cell_y = (int)params->player->pos_y;
 	}
 	else if (direction == 's')
 	{
-
+		params->player->pos_y += 0.1;
+		params->player->cell_y = (int)params->player->pos_y;
 	}
 	else
-	{
-		;
-	}
-	draw_ceiling_and_floor(params);
-	ray_caster(params);
+		return ;
 }
 
 int	key_hook(int keycode, t_params *params)
@@ -68,41 +68,26 @@ int	key_hook(int keycode, t_params *params)
 	if (keycode == XK_Right)
 	{
 		params->player->starting_angle
-			= fmod((params->player->starting_angle + 360 - 45), 360);
-		draw_ceiling_and_floor(params);
-		ray_caster(params);
-		create_minimap(params);
-		// mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
-		// 	params->img->img_ptr, 0, 0);
+			= fmod((params->player->starting_angle + 360 - 10), 360);
 	}
 	else if (keycode == XK_Left)
 	{
 		params->player->starting_angle
-			= fmod((params->player->starting_angle + 360 + 45), 360);
-		draw_ceiling_and_floor(params);
-		ray_caster(params);
-		create_minimap(params);
-		// mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
-		// 	params->img->img_ptr, 0, 0);
+			= fmod((params->player->starting_angle + 360 + 10), 360);
 	}
-	// else if (keycode == XK_a || keycode == XK_A)
-	// {
-	// 	move_player(params, 'a');
-	// }
-	// else if (keycode == XK_d || keycode == XK_D)
-	// {
-	// 	move_player(params, 'd');
-	// }
-	// else if (keycode == XK_w || keycode == XK_W)
-	// {
-	// 	move_player(params, 'w');
-	// }
-	// else if (keycode == XK_s || keycode == XK_S)
-	// {
-	// 	move_player(params, 's');
-	// }
+	else if (keycode == XK_a || keycode == XK_A)
+		move_player(params, 'a');
+	else if (keycode == XK_d || keycode == XK_D)
+		move_player(params, 'd');
+	else if (keycode == XK_w || keycode == XK_W)
+		move_player(params, 'w');
+	else if (keycode == XK_s || keycode == XK_S)
+		move_player(params, 's');
 	else
 		return (1);
+	draw_ceiling_and_floor(params);
+	ray_caster(params);
+	create_minimap(params);
 	return (0);
 }
 
