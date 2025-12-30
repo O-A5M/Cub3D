@@ -21,6 +21,8 @@ int	set_pixel_coords(t_params *params)
 		* (WIN_HEIGHT / params->map_height_2d);
 	params->player->pixel_x = (params->player->cell_x + 0.5)
 		* (WIN_WIDTH / params->map_width_2d);
+	params->player->pos_y = params->player->cell_y + 0.5;
+	params->player->pos_x = params->player->cell_x + 0.5;
 	return (0);
 }
 

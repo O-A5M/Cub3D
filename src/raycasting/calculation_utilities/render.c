@@ -29,7 +29,7 @@ void	step_ray(t_params *params, double *ray_dist_y,
 	}
 	else
 	{
-		//special case will need FURTHER INSPECTION later!!!
+		//special case might need FURTHER INSPECTION later!!!
 		*ray_dist_axis = 'b';
 		params->ray->cell_y += params->ray->dir_y;
 		params->ray->cell_x += params->ray->dir_x;
@@ -72,18 +72,25 @@ double	find_ray_length(t_params *params, double angle)
 	params->ray->cell_y = params->player->cell_y;
 	params->ray->cell_x = params->player->cell_x;
 	direction_corrector(params, angle);
-	ray_dist_y = params->ray->distance_per_y;
-	ray_dist_x = params->ray->distance_per_x;
+	if (params->ray->dir_y < 0)
+		ray_dist_y = (params->player->pos_y - params->ray->cell_y)
+				* params->ray->distance_per_y;
+	else
+		ray_dist_y = (params->ray->cell_y + 1.0 - params->player->pos_y)
+				* params->ray->distance_per_y;
+	if (params->ray->dir_x < 0)
+		ray_dist_x = (params->player->pos_x - params->ray->cell_x)
+				* params->ray->distance_per_x;
+	else
+		ray_dist_x = (params->ray->cell_x + 1.0 - params->player->pos_x)
+				* params->ray->distance_per_x;
 	while (37)
 	{
 		step_ray(params, &ray_dist_y, &ray_dist_x, &ray_dist_axis);
+		if (check_cell(params, ray_dist_axis) && ray_dist_axis == 'y')
+				return (ray_dist_y - (1.0 * params->ray->distance_per_y));
 		if (check_cell(params, ray_dist_axis))
-		{
-			if (ray_dist_axis == 'y')
-				return (ray_dist_y - (1.5 * params->ray->distance_per_y));
-			else
-				return (ray_dist_x - (1.5 * params->ray->distance_per_x));
-		}
+				return (ray_dist_x - (1.0 * params->ray->distance_per_x));
 	}
 	return (0);
 }

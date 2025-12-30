@@ -57,6 +57,7 @@ void	draw_wall(t_params *params, int ray_num, double correction_angle)
 	wall_height = (CELL_SIZE / (params->ray->ray_length
 				* fabs(cos(correction_angle))))
 				* ((WIN_WIDTH / 2) / tan(deg_to_rad(FOV / 2)));
+	// wall_height = (CELL_SIZE * WIN_HEIGHT) / (params->ray->ray_length * cos(correction_angle));
 	if (wall_height > WIN_HEIGHT)
 		wall_height = WIN_HEIGHT;
 	y = (WIN_HEIGHT / 2.0) - (wall_height / 2.0);

@@ -18,7 +18,7 @@
 # define WIN_WIDTH 	 1000
 # define FOV         60
 # define NUM_OF_RAYS 1000 /* must be equal to WIN_WIDTH */
-# define CELL_SIZE 32
+# define CELL_SIZE 1
 
 typedef struct	s_params t_params;
 
@@ -51,8 +51,10 @@ typedef struct s_imgdata
 /* a structure for player info */
 typedef struct s_playerdata
 {
-	double	pixel_x;
+	double	pos_y;
+	double	pos_x;
 	double	pixel_y;
+	double	pixel_x;
 	double	cell_y;
 	double	cell_x;
 	char	direction;
