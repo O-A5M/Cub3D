@@ -38,29 +38,30 @@ void	clear_screen(t_params *params)
 
 void	move_player(t_params *params, char direction)
 {
-	// I shouldnt forget updating the minimap!
+	double	move_angle;
+	double	new_y;
+	double	new_x;
+
+	// I should update the minimap later!
 	if (direction == 'a')
-	{
-		params->player->pos_x -= 0.1;
-		params->player->cell_x = (int)params->player->pos_x;
-	}
+		move_angle = params->player->starting_angle + 90;
 	else if (direction == 'd')
+		move_angle = params->player->starting_angle + 270;
+	else if (direction == 'w')
+		move_angle = params->player->starting_angle;
+	else
+		move_angle = params->player->starting_angle + 180;
+	new_y = params->player->pos_y - 0.1 * sin(deg_to_rad(move_angle));
+	new_x = params->player->pos_x + 0.1 * cos(deg_to_rad(move_angle));
+	if (params->map[(int)new_y][(int)new_x] != '1'
+		&& params->map[(int)new_y][(int)new_x] != ' ')
 	{
-		params->player->pos_x += 0.1;
+		params->player->pos_y = new_y;
+		params->player->pos_x = new_x;
+		params->player->cell_y = (int)params->player->pos_y;
 		params->player->cell_x = (int)params->player->pos_x;
 	}
-	else if (direction == 'w')
-	{
-		params->player->pos_y -= 0.1;
-		params->player->cell_y = (int)params->player->pos_y;
-	}
-	else if (direction == 's')
-	{
-		params->player->pos_y += 0.1;
-		params->player->cell_y = (int)params->player->pos_y;
-	}
-	else
-		return ;
+	return ;
 }
 
 int	key_hook(int keycode, t_params *params)
