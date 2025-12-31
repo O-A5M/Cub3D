@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:42:05 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/12/31 06:50:50 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/31 07:07:36 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	params_init(t_params **params, t_raydata *ray, t_playerdata *player)
 	}
 	index = -1;
 	while (++index < 4)
+	{
+		(*params)->tex_info[index].img = NULL;
 		(*params)->tex_info[index].addr = NULL;
+	}
 	(*params)->player = player;
 	(*params)->mlx = NULL;
 	(*params)->player->pixel_y = -1;
@@ -67,7 +70,7 @@ void	free_params(t_params **params)
 		free_array(&(*params)->map);
 	if ((*params)->mlx)
 	{
-		while (++index < 4)
+		while (++index < 4 && (*params)->tex_info[index].img)
 			mlx_destroy_image((*params)->mlx->mlx_ptr, (*params)->tex_info[index].img);
 		mlx_destroy_image((*params)->mlx->mlx_ptr, (*params)->img->img_ptr);
 		mlx_destroy_window((*params)->mlx->mlx_ptr, (*params)->mlx->win_ptr);
