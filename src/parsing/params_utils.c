@@ -6,11 +6,12 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:42:05 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/12/31 05:25:34 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/31 06:50:50 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
+#include "mlx.h"
 
 t_params	*params_holder(void)
 {
@@ -40,6 +41,7 @@ void	params_init(t_params **params, t_raydata *ray, t_playerdata *player)
 	while (++index < 4)
 		(*params)->tex_info[index].addr = NULL;
 	(*params)->player = player;
+	(*params)->mlx = NULL;
 	(*params)->player->pixel_y = -1;
 	(*params)->player->pixel_x = -1;
 	(*params)->player->cell_y = -1;
@@ -60,15 +62,17 @@ void	free_params(t_params **params)
 	index = 0;
 	while (index < ALL_TEXTURES)
 		free ((*params)->textures[index++]);
-	index = 0;
+	index = -1;
 	if ((*params)->map)
+		free_array(&(*params)->map);
+	if ((*params)->mlx)
 	{
-		while ((*params)->map[index])
-		{
-			free ((*params)->map[index]);
-			index++;
-		}
-		free((*params)->map);
+		while (++index < 4)
+			mlx_destroy_image((*params)->mlx->mlx_ptr, (*params)->tex_info[index].img);
+		mlx_destroy_image((*params)->mlx->mlx_ptr, (*params)->img->img_ptr);
+		mlx_destroy_window((*params)->mlx->mlx_ptr, (*params)->mlx->win_ptr);
+		mlx_destroy_display((*params)->mlx->mlx_ptr);
+		free((*params)->mlx->mlx_ptr);
 	}
 	free (*params);
 }

@@ -6,11 +6,13 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:42:24 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/31 00:05:32 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/31 06:55:22 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
+#include "mlx.h"
+#include "rayclude.h"
 
 /*A function added by oakhmouc used to clear image before drawing again */
 /*to avoid redrawing on top of another image */
@@ -64,6 +66,16 @@ void	move_player(t_params *params, char direction)
 	return ;
 }
 
+int	exit_and_clear()
+{
+	t_params	*params;
+
+	params = params_holder();
+	free_params(&params);
+	exit(0);
+	return (0);
+}
+
 int	key_hook(int keycode, t_params *params)
 {
 	if (keycode == XK_Right)
@@ -84,6 +96,8 @@ int	key_hook(int keycode, t_params *params)
 		move_player(params, 'w');
 	else if (keycode == XK_s || keycode == XK_S)
 		move_player(params, 's');
+	else if (keycode == XK_Escape)
+		exit_and_clear();
 	else
 		return (1);
 	draw_ceiling_and_floor(params);
@@ -127,10 +141,10 @@ void	minimap_filler(t_imgdata *img, int line, int cell, int color)
 	int		cell_counter;
 
 	line_counter = 0;
-	while (line_counter < 4)
+	while (line_counter < 6)
 	{
 		cell_counter = 0;
-		while (cell_counter < 4)
+		while (cell_counter < 6)
 		{
 			dst = img->img_add
 				+ ((4 * line + line_counter) * img->line_length)
@@ -192,7 +206,7 @@ int	main(int ac, char **av)
 		|| set_starting_angle(params) || set_pixel_coords(params))
 		return (free_params(&params), 1);
 	// print_coords(params);
-	print_map(params);
+	// print_map(params);
 	if (load_textures() == -1)
 		printf("Error\n");
 	draw_ceiling_and_floor(params);
@@ -200,6 +214,7 @@ int	main(int ac, char **av)
 	create_minimap(params);
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
 	mlx_key_hook(params->mlx->win_ptr, key_hook, params);
+	mlx_hook(params->mlx->win_ptr, 17, 0, exit_and_clear, params->mlx->mlx_ptr);
 	mlx_loop(params->mlx->mlx_ptr);
 	return (free_params(&params), 0);
 }
