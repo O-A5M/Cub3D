@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:42:24 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/28 14:40:06 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/31 00:05:32 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,7 @@ int	draw_2d_map(t_params *params)
 				minimap_filler(params->img, line, cell, 0x004a8eff);
 			else if (params->map[line][cell] == '1')
 				minimap_filler(params->img, line, cell, 0x002e3136);
-			else if (params->map[line][cell] == 'E' || params->map[line][cell] == 'W'
-				|| params->map[line][cell] == 'S' || params->map[line][cell] == 'N')
+			else if (params->map[line][cell] == 'E' || params->map[line][cell] == 'W')
 				minimap_filler(params->img, line, cell, 0x00FF0000);
 			else
 				minimap_filler(params->img, line, cell, 0x0013161c);

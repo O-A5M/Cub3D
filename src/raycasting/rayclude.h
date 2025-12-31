@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:38:20 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/14 18:56:49 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/31 04:07:49 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ typedef struct s_raydata
 	double	dir_x;
 	double	distance_per_y;
 	double	distance_per_x;
-
+	double	hit_x;
+	double	hit_y;
+	char	ray_axis;
 }				t_raydata;
 
 /* Function Prototypes*/

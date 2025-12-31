@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 16:09:48 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/10 18:26:47 by aelmsafe         ###   ########.fr       */
+/*   Updated: 2025/12/31 05:37:04 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ double	find_ray_length(t_params *params, double angle)
 {
 	double	ray_dist_y;
 	double	ray_dist_x;
-	char	ray_dist_axis;
 
 	params->ray->cell_y = params->player->cell_y;
 	params->ray->cell_x = params->player->cell_x;
@@ -86,11 +85,11 @@ double	find_ray_length(t_params *params, double angle)
 				* params->ray->distance_per_x;
 	while (37)
 	{
-		step_ray(params, &ray_dist_y, &ray_dist_x, &ray_dist_axis);
-		if (check_cell(params, ray_dist_axis) && ray_dist_axis == 'y')
-				return (ray_dist_y - (1.0 * params->ray->distance_per_y));
-		if (check_cell(params, ray_dist_axis))
-				return (ray_dist_x - (1.0 * params->ray->distance_per_x));
+		step_ray(params, &ray_dist_y, &ray_dist_x, &params->ray->ray_axis);
+		if (check_cell(params, params->ray->ray_axis) && params->ray->ray_axis == 'y')
+			return (ray_dist_y - (1.0 * params->ray->distance_per_y));
+		if (check_cell(params, params->ray->ray_axis))
+			return (ray_dist_x - (1.0 * params->ray->distance_per_x));
 	}
 	return (0);
 }
@@ -113,6 +112,10 @@ int	ray_caster(t_params *params)
 			= fabs(CELL_SIZE / fabs(cos(deg_to_rad(angle))));
 		params->ray->ray_length
 			= find_ray_length(params, deg_to_rad(angle));
+		params->ray->hit_y = params->player->pos_y + params->ray->ray_length
+					   * -sin(deg_to_rad(angle));
+		params->ray->hit_x = params->player->pos_x + params->ray->ray_length
+					   * cos(deg_to_rad(angle));
 		draw_wall(params, ray_num, deg_to_rad(fabs(correction_angle)));
 		angle -= ((double)FOV / NUM_OF_RAYS);
 		correction_angle -= ((double)FOV / NUM_OF_RAYS);

@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 10:51:32 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/28 15:22:37 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/31 03:45:22 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_ceiling_and_floor(t_params *params)
 	return ;
 }
 
-/* a function that draws a vertical line representing a casted ray*/
+/* a function that draws a vertical line representing a casted ray*/ 
 void	draw_wall(t_params *params, int ray_num, double correction_angle)
 {
 	char	*dst;
@@ -53,11 +53,11 @@ void	draw_wall(t_params *params, int ray_num, double correction_angle)
 	int		y;
 	int		x;
 	int		y_limit;
+	double	raylen;
 
-	wall_height = (CELL_SIZE / (params->ray->ray_length
-				* fabs(cos(correction_angle))))
+	raylen = (params->ray->ray_length * fabs(cos(correction_angle)));
+	wall_height = (CELL_SIZE / raylen)
 				* ((WIN_WIDTH / 2) / tan(deg_to_rad(FOV / 2)));
-	// wall_height = (CELL_SIZE * WIN_HEIGHT) / (params->ray->ray_length * cos(correction_angle));
 	if (wall_height > WIN_HEIGHT)
 		wall_height = WIN_HEIGHT;
 	y = (WIN_HEIGHT / 2.0) - (wall_height / 2.0);
@@ -67,8 +67,7 @@ void	draw_wall(t_params *params, int ray_num, double correction_angle)
 	{
 		dst = params->img->img_add + (y * params->img->line_length)
 			+ (x * (params->img->bpp / 8));
-		// *(unsigned int *)dst = 0x2E3136;
-		*(unsigned int *)dst = 0xFF00;
+		*(unsigned int *)dst = *(unsigned int *)texture_pixel(wall_height, y);
 		y += 1;
 	}
 	return ;

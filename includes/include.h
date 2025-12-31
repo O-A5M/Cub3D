@@ -74,6 +74,8 @@ typedef struct	s_params
 	t_playerdata	*player;
 	t_raydata		*ray;
 	t_tex_info		tex_info[4];
+	double			init_pos_x;
+	double			init_pos_y;
 }				t_params;
 
 /* Function Prototypes*/
@@ -96,5 +98,6 @@ int			add_map(t_lines *file_content);
 int			check_map_elements(void);
 int			is_map_surrounded(void);
 int			load_textures(void);
+char		*texture_pixel(double wall_height, int y);
 
 #endif

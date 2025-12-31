@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:41:25 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/12/23 06:38:36 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2025/12/31 04:25:05 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int	check_map_elements(void)
 				|| params->map[i][j] == 'E' || params->map[i][j] == 'W'))
 			{
 				params->player->cell_y = i;
+				params->init_pos_y = i + 0.5;
 				params->player->cell_x = j;
+				params->init_pos_x = j + 0.5;
 				params->player->direction = params->map[i][j];
 				continue ;
 			}
