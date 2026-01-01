@@ -76,6 +76,39 @@ int	exit_and_clear()
 	return (0);
 }
 
+int	key_press(int keycode, t_params *params)
+{
+	if (keycode == XK_a || keycode == XK_A)
+		params->player_move = 'a';
+	else if (keycode == XK_d || keycode == XK_D)
+		params->player_move = 'd';
+	else if (keycode == XK_w || keycode == XK_W)
+		params->player_move = 'w';
+	else if (keycode == XK_s || keycode == XK_S)
+		params->player_move = 's';
+	return (0);
+}
+
+int	key_release(int keycode, t_params *params)
+{
+	(void)keycode;
+	params->player_move = 0;
+	return (0);
+}
+
+int	move_loop(t_params *params)
+{
+	if (params->player_move == 'a')
+		move_player(params, 'a');
+	else if (params->player_move == 'd')
+		move_player(params, 'd');
+	else if (params->player_move == 'w')
+		move_player(params, 'w');
+	else if (params->player_move == 's')
+		move_player(params, 's');
+	return (0);
+}
+
 int	key_hook(int keycode, t_params *params)
 {
 	if (keycode == XK_Right)
@@ -241,9 +274,11 @@ int	main(int ac, char **av)
 	ray_caster(params);
 	create_minimap(params);
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
-	mlx_key_hook(params->mlx->win_ptr, key_hook, params);
+	mlx_hook(params->mlx->win_ptr, 2, 1L<<0,key_hook, params);
+	mlx_hook(params->mlx->win_ptr, 3, 1L<<1,key_hook, params);
 	mlx_hook(params->mlx->win_ptr, 17, 0, exit_and_clear, params->mlx->mlx_ptr);
 	mlx_hook(params->mlx->win_ptr, 6, 1L<<6, mouse_move, params);
+	mlx_loop_hook(params->mlx->mlx_ptr, move_loop, params);
 	mlx_loop(params->mlx->mlx_ptr);
 	return (free_params(&params), 0);
 }

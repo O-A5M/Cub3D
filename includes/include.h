@@ -76,6 +76,7 @@ typedef struct	s_params
 	t_tex_info		tex_info[4];
 	double			init_pos_x;
 	double			init_pos_y;
+	int				player_move;
 }				t_params;
 
 /* Function Prototypes*/
