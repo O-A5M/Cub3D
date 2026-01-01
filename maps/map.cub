@@ -1,7 +1,7 @@
-NO /home/oakhmouc/Cub3D/textures/North.xpm
-SO /home/oakhmouc/Cub3D/textures/South.xpm
-WE /home/oakhmouc/Cub3D/textures/Welt.xpm
-EA /home/oakhmouc/Cub3D/textures/East.xpm
+NO textures/North.xpm
+SO textures/South.xpm
+WE textures/West.xpm
+EA textures/East.xpm
 
 
 F 74,142,255

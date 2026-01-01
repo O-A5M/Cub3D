@@ -190,6 +190,31 @@ int	create_minimap(t_params *params)
 	return (0);
 }
 
+int	mouse_move(int x, int y, t_params *params)
+{
+	static int	old_x;
+
+	(void)y;
+	if (x % 3 == 0)
+	{
+		if (old_x - x)
+		{
+			params->player->starting_angle
+				= fmod((params->player->starting_angle + 360 - 2), 360);
+		}
+		if (old_x - x)
+		{
+			params->player->starting_angle
+				= fmod((params->player->starting_angle + 360 + 2), 360);
+		}
+		old_x = x;
+		draw_ceiling_and_floor(params);
+		ray_caster(params);
+		create_minimap(params);
+	}
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_params		*params;
@@ -218,6 +243,7 @@ int	main(int ac, char **av)
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
 	mlx_key_hook(params->mlx->win_ptr, key_hook, params);
 	mlx_hook(params->mlx->win_ptr, 17, 0, exit_and_clear, params->mlx->mlx_ptr);
+	mlx_hook(params->mlx->win_ptr, 6, 1L<<6, mouse_move, params);
 	mlx_loop(params->mlx->mlx_ptr);
 	return (free_params(&params), 0);
 }
