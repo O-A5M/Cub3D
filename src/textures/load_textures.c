@@ -36,7 +36,7 @@ int	load_textures(void)
 				&param->tex_info[index].line_len,
 				&param->tex_info[index].endian);
 		if (!param->tex_info[index].addr)
-			return (perror("cub3D 2"), -1);
+			return (perror("cub3D"), -1);
 	}
 	return (0);
 }

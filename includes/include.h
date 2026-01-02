@@ -97,5 +97,11 @@ int			check_map_elements(t_params *params);
 int			is_map_surrounded(void);
 int			load_textures(void);
 char		*texture_pixel(double wall_height, int y);
+int			exit_and_clear();
+int			key_press(int keycode, t_params *params);
+int			key_release(int keycode, t_params *params);
+int			move_loop(t_params *params);
+void	    hooks(t_params *params);
+void		move_player(t_params *params, char direction);
 
 #endif
