@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 16:09:48 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/31 05:37:04 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/02 19:15:27 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int	check_cell(t_params *params, char ray_dist_axis)
 	x = params->ray->cell_x;
 	dir_y = params->ray->dir_y;
 	dir_x = params->ray->dir_x;
-	if (map[y][x] != '0')
+	if (map[y][x] != '0' && map[y][x] != 'N'
+		&& map[y][x] != 'S' && map[y][x] != 'W'
+		&& map[y][x] != 'E')
 		return (1);
 	if (ray_dist_axis == 'b')
 	{
