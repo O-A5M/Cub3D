@@ -13,13 +13,12 @@
 # include <X11/keysym.h>
 # include "rayclude.h"
 
-#define ALL_TEXTURES 6
+#define ALL_TEXTURES 4
 #define NORTH_TEX 0
 #define SOUTH_TEX 1
 #define EAST_TEX 2
 #define WEST_TEX 3
-#define DOOR_TEX 4
-#define SPRITE_TEX 5
+#define PLAYER_RADIUS 0.15
 
 #define RED 0
 #define GREEN 1
