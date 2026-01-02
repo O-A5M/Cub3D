@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 12:47:42 by oakhmouc          #+#    #+#             */
-/*   Updated: 2026/01/02 12:47:43 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/02 12:55:13 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,39 +25,38 @@
 # include <X11/keysym.h>
 # include "rayclude.h"
 
-#define ALL_TEXTURES 4
-#define NORTH_TEX 0
-#define SOUTH_TEX 1
-#define EAST_TEX 2
-#define WEST_TEX 3
-#define PLAYER_RADIUS 0.15
+# define ALL_TEXTURES 4
+# define NORTH_TEX 0
+# define SOUTH_TEX 1
+# define EAST_TEX 2
+# define WEST_TEX 3
+# define PLAYER_RADIUS 0.15
 
-#define RED 0
-#define GREEN 1
-#define BLUE 2
+# define RED 0
+# define GREEN 1
+# define BLUE 2
 
-typedef struct	s_lines
+typedef struct s_lines
 {
 	char			*line;
 	struct s_lines	*next;
 }				t_lines;
 
-
 //-------------------------------------------------------//
 /* a structure for window creation info */
-typedef struct s_mlxdata t_mlxdata;
+typedef struct s_mlxdata	t_mlxdata;
 
 /* a structure for image info */
-typedef struct s_imgdata t_imgdata;
+typedef struct s_imgdata	t_imgdata;
 
 /* a structure for player info */
-typedef struct s_playerdata t_playerdata;
+typedef struct s_playerdata	t_playerdata;
 
 /* a structure for coordiations type */
-typedef struct s_coord t_coord;
+typedef struct s_coord		t_coord;
 
 /* a structure for ray info */
-typedef struct s_raydata t_raydata;
+typedef struct s_raydata	t_raydata;
 
 /* a structure to hold the textures infos */
 typedef struct s_tex_info
@@ -72,7 +71,7 @@ typedef struct s_tex_info
 }				t_tex_info;
 
 /* a structure that holds everything altogether plus some more infos */
-typedef struct	s_params
+typedef struct s_params
 {
 	char			**map;
 	char			*textures[ALL_TEXTURES];
@@ -95,7 +94,8 @@ t_lines		*last_line(t_lines *head);
 size_t		lines_count(t_lines *head);
 void		free_lines(t_lines **head);
 t_params	*params_holder(void);
-void		params_init(t_params **params, t_raydata *ray, t_playerdata *player);
+void		params_init(t_params **params,
+				t_raydata *ray, t_playerdata *player);
 void		free_params(t_params **params);
 int			parse_args(char *filename);
 t_lines		*extract_file_content(int fd);
@@ -109,11 +109,11 @@ int			check_map_elements(t_params *params);
 int			is_map_surrounded(void);
 int			load_textures(void);
 char		*texture_pixel(double wall_height, int y);
-int			exit_and_clear();
+int			exit_and_clear(void);
 int			key_press(int keycode, t_params *params);
 int			key_release(int keycode, t_params *params);
 int			move_loop(t_params *params);
-void	    hooks(t_params *params);
+void		hooks(t_params *params);
 void		move_player(t_params *params, char direction);
 
 #endif
