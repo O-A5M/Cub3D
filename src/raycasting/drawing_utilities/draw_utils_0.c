@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 10:51:32 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/31 03:45:22 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/02 08:18:34 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,23 @@ void	draw_ceiling_and_floor(t_params *params)
 void	draw_wall(t_params *params, int ray_num, double correction_angle)
 {
 	char	*dst;
+	double	wall_real_height;
 	double	wall_height;
 	int		y;
-	int		x;
 	int		y_limit;
-	double	raylen;
 
-	raylen = (params->ray->ray_length * fabs(cos(correction_angle)));
-	wall_height = (CELL_SIZE / raylen)
+	wall_height = (CELL_SIZE / (params->ray->ray_length * fabs(cos(correction_angle))))
 				* ((WIN_WIDTH / 2) / tan(deg_to_rad(FOV / 2)));
+	wall_real_height = wall_height;
 	if (wall_height > WIN_HEIGHT)
 		wall_height = WIN_HEIGHT;
 	y = (WIN_HEIGHT / 2.0) - (wall_height / 2.0);
 	y_limit = WIN_HEIGHT - y;
-	x = ray_num;
 	while (y < y_limit)
 	{
 		dst = params->img->img_add + (y * params->img->line_length)
-			+ (x * (params->img->bpp / 8));
-		*(unsigned int *)dst = *(unsigned int *)texture_pixel(wall_height, y);
+			+ (ray_num * (params->img->bpp / 8));
+		*(unsigned int *)dst = *(unsigned int *)texture_pixel(wall_real_height, y);
 		y += 1;
 	}
 	return ;
