@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:41:25 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/12/31 04:25:05 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/02 19:29:59 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ static int	check_is_map_open(char **map)
 		j = -1;
 		while (map[i][++j])
 		{
-			if (map[i][j] == '0' && (i == 0 || j == 0
+			if ((map[i][j] == '0' || map[i][j] == 'S'
+			|| map[i][j] == 'E' || map[i][j] == 'N'
+			|| map[i][j] == 'W')
+			&& (i == 0 || j == 0
 			|| !map[i + 1] || !map[i][j + 1]
 			|| map[i][j + 1] == ' ' || map[i][j - 1] == ' '
 			|| map[i + 1][j] == ' ' || map[i - 1][j] == ' '))
