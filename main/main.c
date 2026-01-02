@@ -44,7 +44,6 @@ void	move_player(t_params *params, char direction)
 	double	new_y;
 	double	new_x;
 
-	// I should update the minimap later!
 	if (direction == 'a')
 		move_angle = params->player->starting_angle + 90;
 	else if (direction == 'd')
@@ -136,6 +135,7 @@ int	key_hook(int keycode, t_params *params)
 	draw_ceiling_and_floor(params);
 	ray_caster(params);
 	create_minimap(params);
+	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr, params->img->img_ptr, 0, 0);
 	return (0);
 }
 
@@ -154,6 +154,8 @@ void	print_map(t_params *params)
 	int	j;
 
 	j = 0;
+	printf("MAP HEIGHT: %d\n", params->map_height_2d);
+	printf("MAP WIDTH: %d\n", params->map_width_2d);
 	while (params->map[j])
 	{
 		i = 0;
@@ -174,10 +176,10 @@ void	minimap_filler(t_imgdata *img, int line, int cell, int color)
 	int		cell_counter;
 
 	line_counter = 0;
-	while (line_counter < 6)
+	while (line_counter < 4)
 	{
 		cell_counter = 0;
-		while (cell_counter < 6)
+		while (cell_counter < 4)
 		{
 			dst = img->img_add
 				+ ((4 * line + line_counter) * img->line_length)
@@ -200,26 +202,28 @@ int	draw_2d_map(t_params *params)
 		cell = 0;
 		while (params->map[line][cell])
 		{
-			if (params->map[line][cell] == '0')
-				minimap_filler(params->img, line, cell, 0x004a8eff);
+			if (params->map[line][cell] == '0'
+				|| params->map[line][cell] == 'E' || params->map[line][cell] == 'W'
+				|| params->map[line][cell] == 'N' || params->map[line][cell] == 'S')
+				minimap_filler(params->img, line, cell, 0x4a8eff);
 			else if (params->map[line][cell] == '1')
-				minimap_filler(params->img, line, cell, 0x002e3136);
-			else if (params->map[line][cell] == 'E' || params->map[line][cell] == 'W')
-				minimap_filler(params->img, line, cell, 0x00FF0000);
+				minimap_filler(params->img, line, cell, 0x2e3136);
 			else
-				minimap_filler(params->img, line, cell, 0x0013161c);
+				minimap_filler(params->img, line, cell, 0x13161c);
 			cell += 1;
 		}
 		line += 1;
 	}
+	minimap_filler(params->img, params->player->cell_y, params->player->cell_x, 0xFF0000);
 	return (0);
 }
 
 int	create_minimap(t_params *params)
 {
-	draw_2d_map(params);
-	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
-		params->img->img_ptr, 0, 0);
+	if (params->map_height_2d > 50 || params->map_width_2d > 50)
+		write(2, "Can't show the 2d map on screen: Map is bigger than the limit size 50x50\n", 73);
+	else
+		draw_2d_map(params);
 	return (0);
 }
 
@@ -263,8 +267,7 @@ int	main(int ac, char **av)
 	if (initiate_mlx(params, &mlx, &img) || calc_map_width_and_height(params)
 		|| set_starting_angle(params) || set_pixel_coords(params))
 		return (free_params(&params), 1);
-	// print_coords(params);
-	// print_map(params);
+	print_map(params);
 	if (load_textures() == -1)
 	{
 		free_params(&params);
