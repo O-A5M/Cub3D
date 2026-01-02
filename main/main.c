@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:42:24 by aelmsafe          #+#    #+#             */
-/*   Updated: 2025/12/31 07:11:35 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/02 09:27:13 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,14 +176,14 @@ void	minimap_filler(t_imgdata *img, int line, int cell, int color)
 	int		cell_counter;
 
 	line_counter = 0;
-	while (line_counter < 4)
+	while (line_counter < CELL_SIZE * 10)
 	{
 		cell_counter = 0;
-		while (cell_counter < 4)
+		while (cell_counter < CELL_SIZE * 10)
 		{
 			dst = img->img_add
-				+ ((4 * line + line_counter) * img->line_length)
-				+ ((4 * cell + cell_counter) * (img->bpp / 8));
+				+ ((8 * line + line_counter) * img->line_length)
+				+ ((8 * cell + cell_counter) * (img->bpp / 8));
 			*(unsigned int *)dst = color;
 			cell_counter += 1;
 		}
@@ -191,39 +191,47 @@ void	minimap_filler(t_imgdata *img, int line, int cell, int color)
 	}
 }
 
-int	draw_2d_map(t_params *params)
+int draw_2d_map(t_params *params)
 {
-	int		line;
-	int		cell;
+    int pixel_y;
+    int pixel_x;
+    int map_y;
+    int map_x;
+    char tile;
 
-	line = 0;
-	while (params->map[line])
-	{
-		cell = 0;
-		while (params->map[line][cell])
-		{
-			if (params->map[line][cell] == '0'
-				|| params->map[line][cell] == 'E' || params->map[line][cell] == 'W'
-				|| params->map[line][cell] == 'N' || params->map[line][cell] == 'S')
-				minimap_filler(params->img, line, cell, 0x4a8eff);
-			else if (params->map[line][cell] == '1')
-				minimap_filler(params->img, line, cell, 0x2e3136);
-			else
-				minimap_filler(params->img, line, cell, 0x13161c);
-			cell += 1;
-		}
-		line += 1;
-	}
-	minimap_filler(params->img, params->player->cell_y, params->player->cell_x, 0xFF0000);
-	return (0);
+    pixel_y = -1;
+    while (++pixel_y < 16)
+    {
+        map_y = params->player->cell_y + (pixel_y - 8);
+        pixel_x = -1;
+        while (++pixel_x < 16)
+        {
+            map_x = params->player->cell_x + (pixel_x - 8);
+
+            if (map_y >= 0 && map_y < params->map_height_2d
+                && map_x >= 0 && map_x < params->map_width_2d
+                && params->map[map_y][map_x] != '\0')
+            {
+                tile = params->map[map_y][map_x];
+                if (tile == '0' || tile == 'E' || tile == 'W'
+                    || tile == 'N' || tile == 'S')
+                    minimap_filler(params->img, pixel_x, pixel_y, 0x4a8eff);
+                else if (tile == '1')
+                    minimap_filler(params->img, pixel_x, pixel_y, 0x2e3136);
+                else
+                    minimap_filler(params->img, pixel_x, pixel_y, 0x13161c);
+            }
+            else
+                minimap_filler(params->img, pixel_x, pixel_y, 0x000000);
+        }
+    }
+    minimap_filler(params->img, 8, 8, 0xFF0000);
+    return (0);
 }
 
 int	create_minimap(t_params *params)
 {
-	if (params->map_height_2d > 50 || params->map_width_2d > 50)
-		write(2, "Can't show the 2d map on screen: Map is bigger than the limit size 50x50\n", 73);
-	else
-		draw_2d_map(params);
+	draw_2d_map(params);
 	return (0);
 }
 
