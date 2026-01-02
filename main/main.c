@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:42:24 by aelmsafe          #+#    #+#             */
-/*   Updated: 2026/01/02 09:27:13 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/02 10:16:36 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	move_player(t_params *params, char direction)
 		move_angle = params->player->starting_angle;
 	else
 		move_angle = params->player->starting_angle + 180;
-	new_y = params->player->pos_y - 0.1 * sin(deg_to_rad(move_angle));
-	new_x = params->player->pos_x + 0.1 * cos(deg_to_rad(move_angle));
+	new_y = params->player->pos_y - 0.04 * sin(deg_to_rad(move_angle));
+	new_x = params->player->pos_x + 0.04 * cos(deg_to_rad(move_angle));
 	if (params->map[(int)new_y][(int)new_x] != '1'
 		&& params->map[(int)new_y][(int)new_x] != ' ')
 	{
@@ -77,7 +77,17 @@ int	exit_and_clear()
 
 int	key_press(int keycode, t_params *params)
 {
-	if (keycode == XK_a || keycode == XK_A)
+	if (keycode == XK_Right)
+	{
+		params->player->starting_angle
+			= fmod((params->player->starting_angle + 360 - 10), 360);
+	}
+	else if (keycode == XK_Left)
+	{
+		params->player->starting_angle
+			= fmod((params->player->starting_angle + 360 + 10), 360);
+	}
+	else if (keycode == XK_a || keycode == XK_A)
 		params->player_move = 'a';
 	else if (keycode == XK_d || keycode == XK_D)
 		params->player_move = 'd';
@@ -85,6 +95,8 @@ int	key_press(int keycode, t_params *params)
 		params->player_move = 'w';
 	else if (keycode == XK_s || keycode == XK_S)
 		params->player_move = 's';
+	else if (keycode == XK_Escape)
+		exit_and_clear();
 	return (0);
 }
 
@@ -105,37 +117,11 @@ int	move_loop(t_params *params)
 		move_player(params, 'w');
 	else if (params->player_move == 's')
 		move_player(params, 's');
-	return (0);
-}
-
-int	key_hook(int keycode, t_params *params)
-{
-	if (keycode == XK_Right)
-	{
-		params->player->starting_angle
-			= fmod((params->player->starting_angle + 360 - 10), 360);
-	}
-	else if (keycode == XK_Left)
-	{
-		params->player->starting_angle
-			= fmod((params->player->starting_angle + 360 + 10), 360);
-	}
-	else if (keycode == XK_a || keycode == XK_A)
-		move_player(params, 'a');
-	else if (keycode == XK_d || keycode == XK_D)
-		move_player(params, 'd');
-	else if (keycode == XK_w || keycode == XK_W)
-		move_player(params, 'w');
-	else if (keycode == XK_s || keycode == XK_S)
-		move_player(params, 's');
-	else if (keycode == XK_Escape)
-		exit_and_clear();
-	else
-		return (1);
 	draw_ceiling_and_floor(params);
 	ray_caster(params);
 	create_minimap(params);
-	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr, params->img->img_ptr, 0, 0);
+	mlx_put_image_to_window(params->mlx->mlx_ptr, params->mlx->win_ptr,
+						 params->img->img_ptr, 0, 0);
 	return (0);
 }
 
@@ -235,29 +221,22 @@ int	create_minimap(t_params *params)
 	return (0);
 }
 
-int	mouse_move(int x, int y, t_params *params)
+int mouse_move(int x, int y, t_params *params)
 {
-	static int	old_x;
+    static int	old_x;
+    double		dx;
+    double		sensitivity = 0.5;
 
-	(void)y;
-	if (x % 3 == 0)
-	{
-		if (old_x - x)
-		{
-			params->player->starting_angle
-				= fmod((params->player->starting_angle + 360 - 2), 360);
-		}
-		if (old_x - x)
-		{
-			params->player->starting_angle
-				= fmod((params->player->starting_angle + 360 + 2), 360);
-		}
-		old_x = x;
-		draw_ceiling_and_floor(params);
-		ray_caster(params);
-		create_minimap(params);
-	}
-	return (0);
+    (void)y;
+    dx = old_x - x;
+    old_x = x;
+    if (dx != 0 && x % 3 == 0)
+    {
+        params->player->starting_angle =
+            fmod(params->player->starting_angle + dx 
+				 * sensitivity + 360.0, 360.0);
+    }
+    return (0);
 }
 
 int	main(int ac, char **av)
@@ -285,8 +264,8 @@ int	main(int ac, char **av)
 	ray_caster(params);
 	create_minimap(params);
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
-	mlx_hook(params->mlx->win_ptr, 2, 1L<<0,key_hook, params);
-	mlx_hook(params->mlx->win_ptr, 3, 1L<<1,key_hook, params);
+	mlx_hook(params->mlx->win_ptr, 2, 1L<<0,key_press, params);
+	mlx_hook(params->mlx->win_ptr, 3, 1L<<1,key_release, params);
 	mlx_hook(params->mlx->win_ptr, 17, 0, exit_and_clear, params->mlx->mlx_ptr);
 	mlx_hook(params->mlx->win_ptr, 6, 1L<<6, mouse_move, params);
 	mlx_loop_hook(params->mlx->mlx_ptr, move_loop, params);
