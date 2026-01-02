@@ -29,7 +29,6 @@ void	step_ray(t_params *params, double *ray_dist_y,
 	}
 	else
 	{
-		//special case might need FURTHER INSPECTION later!!!
 		*ray_dist_axis = 'b';
 		params->ray->cell_y += params->ray->dir_y;
 		params->ray->cell_x += params->ray->dir_x;
@@ -52,13 +51,26 @@ int	check_cell(t_params *params, char ray_dist_axis)
 	x = params->ray->cell_x;
 	dir_y = params->ray->dir_y;
 	dir_x = params->ray->dir_x;
-	// printf("cell y: %d  ;  cell x: %d\n", y, x);
 	if (map[y][x] != '0')
 		return (1);
 	if (ray_dist_axis == 'b')
 	{
 		if ((map[y - dir_y][x] != '0') || (map[y][x - dir_x] != '0'))
 			return (1);
+	}
+	return (0);
+}
+
+double	ray_length(t_params *params, double ray_dist_x, double ray_dist_y)
+{
+	while (1)
+	{
+		step_ray(params, &ray_dist_y, &ray_dist_x, &params->ray->ray_axis);
+		if (check_cell(params, params->ray->ray_axis)
+			&& params->ray->ray_axis == 'y')
+			return (ray_dist_y - (1.0 * params->ray->distance_per_y));
+		if (check_cell(params, params->ray->ray_axis))
+			return (ray_dist_x - (1.0 * params->ray->distance_per_x));
 	}
 	return (0);
 }
@@ -73,24 +85,17 @@ double	find_ray_length(t_params *params, double angle)
 	direction_corrector(params, angle);
 	if (params->ray->dir_y < 0)
 		ray_dist_y = (params->player->pos_y - params->ray->cell_y)
-				* params->ray->distance_per_y;
+			* params->ray->distance_per_y;
 	else
 		ray_dist_y = (params->ray->cell_y + 1.0 - params->player->pos_y)
-				* params->ray->distance_per_y;
+			* params->ray->distance_per_y;
 	if (params->ray->dir_x < 0)
 		ray_dist_x = (params->player->pos_x - params->ray->cell_x)
-				* params->ray->distance_per_x;
+			* params->ray->distance_per_x;
 	else
 		ray_dist_x = (params->ray->cell_x + 1.0 - params->player->pos_x)
-				* params->ray->distance_per_x;
-	while (37)
-	{
-		step_ray(params, &ray_dist_y, &ray_dist_x, &params->ray->ray_axis);
-		if (check_cell(params, params->ray->ray_axis) && params->ray->ray_axis == 'y')
-			return (ray_dist_y - (1.0 * params->ray->distance_per_y));
-		if (check_cell(params, params->ray->ray_axis))
-			return (ray_dist_x - (1.0 * params->ray->distance_per_x));
-	}
+			* params->ray->distance_per_x;
+	return (ray_length(params, ray_dist_x, ray_dist_y));
 	return (0);
 }
 
@@ -113,9 +118,9 @@ int	ray_caster(t_params *params)
 		params->ray->ray_length
 			= find_ray_length(params, deg_to_rad(angle));
 		params->ray->hit_y = params->player->pos_y + params->ray->ray_length
-					   * -sin(deg_to_rad(angle));
+			* -sin(deg_to_rad(angle));
 		params->ray->hit_x = params->player->pos_x + params->ray->ray_length
-					   * cos(deg_to_rad(angle));
+			* cos(deg_to_rad(angle));
 		draw_wall(params, ray_num, deg_to_rad(fabs(correction_angle)));
 		angle -= ((double)FOV / NUM_OF_RAYS);
 		correction_angle -= ((double)FOV / NUM_OF_RAYS);

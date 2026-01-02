@@ -59,8 +59,8 @@ void	move_player(t_params *params, char direction)
 		move_angle = params->player->starting_angle;
 	else
 		move_angle = params->player->starting_angle + 180;
-	new_y = params->player->pos_y - 0.4 * sin(deg_to_rad(move_angle));
-	new_x = params->player->pos_x + 0.4 * cos(deg_to_rad(move_angle));
+	new_y = params->player->pos_y - 0.1 * sin(deg_to_rad(move_angle));
+	new_x = params->player->pos_x + 0.1 * cos(deg_to_rad(move_angle));
 	if (!is_wall(params, new_y + PLAYER_RADIUS, params->player->pos_x)
 		&& !is_wall(params, new_y - PLAYER_RADIUS, params->player->pos_x))
 		params->player->pos_y = new_y;

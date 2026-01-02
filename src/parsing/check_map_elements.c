@@ -15,14 +15,12 @@
 
 static char	**copy_and_replace(void);
 
-int	check_map_elements(void)
+int	check_map_elements(t_params	*params)
 {
 	int			i;
 	int			j;
-	t_params	*params;
 
 	i = -1;
-	params = params_holder();
 	while (params->map[++i])
 	{
 		j = -1;
@@ -33,9 +31,7 @@ int	check_map_elements(void)
 				|| params->map[i][j] == 'E' || params->map[i][j] == 'W'))
 			{
 				params->player->cell_y = i;
-				params->init_pos_y = i + 0.5;
 				params->player->cell_x = j;
-				params->init_pos_x = j + 0.5;
 				params->player->direction = params->map[i][j];
 				continue ;
 			}
@@ -70,7 +66,7 @@ static int	check_is_map_open(char **map)
 
 int	is_map_surrounded(void)
 {
-	char	**map;
+	char		**map;
 	t_params	*param;
 
 	param = params_holder();

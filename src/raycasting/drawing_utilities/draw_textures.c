@@ -57,13 +57,14 @@ char	*texture_pixel(double wall_height, int y)
 
 	params = params_holder();
 	dir = get_wall_dir(params);
-	y_tex = ((y - ((WIN_HEIGHT / 2.0) - (wall_height / 2.0))) *
-		params->tex_info[dir].height / wall_height);
+	y_tex = ((y - ((WIN_HEIGHT / 2.0) - (wall_height / 2.0)))
+			* params->tex_info[dir].height / wall_height);
 	x_tex = calculation_x(params, dir);
 	if (y_tex < 0)
 		y_tex = 0;
 	if (y_tex >= params->tex_info[dir].height)
 		y_tex = params->tex_info[dir].height - 1;
-	return (params->tex_info[dir].addr + (y_tex * params->tex_info[dir].line_len)
-			+ (x_tex * (params->tex_info[dir].bpp / 8)));
+	return (params->tex_info[dir].addr
+		+ (y_tex * params->tex_info[dir].line_len)
+		+ (x_tex * (params->tex_info[dir].bpp / 8)));
 }

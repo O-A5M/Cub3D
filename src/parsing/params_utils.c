@@ -22,27 +22,8 @@ t_params	*params_holder(void)
 	return (ret);
 }
 
-void	params_init(t_params **params, t_raydata *ray, t_playerdata *player)
+void	separate_init(t_params **params, t_raydata *ray, t_playerdata *player)
 {
-	int	index;
-
-	index = 0;
-	(*params)->map = NULL;
-	while (index < ALL_TEXTURES)
-		(*params)->textures[index++] = NULL;
-	index = 0;
-	while (index < 3)
-	{
-		(*params)->ceiling_color[index] = -1;
-		(*params)->floor_color[index] = -1;
-		index++;
-	}
-	index = -1;
-	while (++index < 4)
-	{
-		(*params)->tex_info[index].img = NULL;
-		(*params)->tex_info[index].addr = NULL;
-	}
 	(*params)->player = player;
 	(*params)->mlx = NULL;
 	(*params)->player->pixel_y = -1;
@@ -58,6 +39,29 @@ void	params_init(t_params **params, t_raydata *ray, t_playerdata *player)
 	(*params)->ray->ray_length = 0;
 }
 
+void	params_init(t_params **params, t_raydata *ray, t_playerdata *player)
+{
+	int	index;
+
+	index = -1;
+	(*params)->map = NULL;
+	while (++index < ALL_TEXTURES)
+		(*params)->textures[index] = NULL;
+	index = -1;
+	while (++index < 3)
+	{
+		(*params)->ceiling_color[index] = -1;
+		(*params)->floor_color[index] = -1;
+	}
+	index = -1;
+	while (++index < 4)
+	{
+		(*params)->tex_info[index].img = NULL;
+		(*params)->tex_info[index].addr = NULL;
+	}
+	separate_init(params, ray, player);
+}
+
 void	free_params(t_params **params)
 {
 	int	index;
@@ -71,7 +75,8 @@ void	free_params(t_params **params)
 	if ((*params)->mlx)
 	{
 		while (++index < 4 && (*params)->tex_info[index].img)
-			mlx_destroy_image((*params)->mlx->mlx_ptr, (*params)->tex_info[index].img);
+			mlx_destroy_image((*params)->mlx->mlx_ptr,
+				(*params)->tex_info[index].img);
 		mlx_destroy_image((*params)->mlx->mlx_ptr, (*params)->img->img_ptr);
 		mlx_destroy_window((*params)->mlx->mlx_ptr, (*params)->mlx->win_ptr);
 		mlx_destroy_display((*params)->mlx->mlx_ptr);

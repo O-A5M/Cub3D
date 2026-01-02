@@ -38,7 +38,6 @@ int	calc_map_width_and_height(t_params *params)
 	height = 0;
 	width = 0;
 	j = 0;
-	/* I think I am counting the spaces on the edge too, attention */
 	while (params->map[j])
 	{
 		height += 1;
@@ -84,32 +83,4 @@ void	direction_corrector(t_params *params, double angle)
 		params->ray->dir_y = -1;
 		params->ray->dir_x = -1;
 	}
-}
-
-double	deg_to_rad(double angle)
-{
-	double	ang;
-
-	ang = angle;
-	if (ang < 0)
-		while (ang < 0)
-			ang += 360;
-	if (ang > 360)
-		ang = fmod(ang, 360);
-	ang *= (M_PI / 180);
-	return (ang);
-}
-
-double	rad_to_deg(double angle)
-{
-	double	ang;
-
-	ang = angle;
-	ang *= (180 / M_PI);
-	if (ang < 0)
-		while (ang < 0)
-			ang += 360;
-	if (ang > 360)
-		ang = fmod(ang, 360);
-	return (ang);
 }

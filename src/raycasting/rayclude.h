@@ -20,7 +20,7 @@
 # define NUM_OF_RAYS 1000 /* must be equal to WIN_WIDTH */
 # define CELL_SIZE 1
 
-typedef struct	s_params t_params;
+typedef struct s_params	t_params;
 
 /* an enum for player directions */
 typedef enum directions

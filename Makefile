@@ -21,7 +21,8 @@ SRC    = main/main.c src/parsing/lines_utils.c src/parsing/parse_args.c\
 		 src/raycasting/initialization_utilities/init_utils_0.c\
 		 src/raycasting/basic_utilities/basic_utils_0.c src/raycasting/calculation_utilities/calc_utils_0.c\
 		 src/raycasting/calculation_utilities/render.c src/raycasting/drawing_utilities/draw_utils_0.c\
-		 src/textures/load_textures.c src/raycasting/drawing_utilities/draw_textures.c
+		 src/textures/load_textures.c src/raycasting/drawing_utilities/draw_textures.c\
+		 src/raycasting/calculation_utilities/calc_utils_1.c
 
 OBJDIR = obj
 OBJS   = $(patsubst %.c,$(OBJDIR)/%.o,$(SRC))

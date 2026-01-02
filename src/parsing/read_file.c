@@ -67,7 +67,7 @@ int	parse_content(t_lines *file_content)
 		return (ft_putstr_fd("Elements error!!\n", 2), -1);
 	if (separate_elements(tmp) == -1)
 		return (-1);
-	if (check_map_elements() == -1 || is_map_surrounded() == -1)
+	if (check_map_elements(params_holder()) == -1 || is_map_surrounded() == -1)
 		return (ft_putstr_fd("Map error!!\n", 2), -1);
 	if (params_holder()->player->cell_x == -1
 		|| params_holder()->player->cell_y == -1)

@@ -45,7 +45,7 @@ void	draw_ceiling_and_floor(t_params *params)
 	return ;
 }
 
-/* a function that draws a vertical line representing a casted ray*/ 
+/* a function that draws a vertical line representing a casted ray*/
 void	draw_wall(t_params *params, int ray_num, double correction_angle)
 {
 	char	*dst;
@@ -54,8 +54,9 @@ void	draw_wall(t_params *params, int ray_num, double correction_angle)
 	int		y;
 	int		y_limit;
 
-	wall_height = (CELL_SIZE / (params->ray->ray_length * fabs(cos(correction_angle))))
-				* ((WIN_WIDTH / 2) / tan(deg_to_rad(FOV / 2)));
+	wall_height = (CELL_SIZE
+			/ (params->ray->ray_length * fabs(cos(correction_angle))))
+		* ((WIN_WIDTH / 2) / tan(deg_to_rad(FOV / 2)));
 	wall_real_height = wall_height;
 	if (wall_height > WIN_HEIGHT)
 		wall_height = WIN_HEIGHT;
@@ -65,7 +66,8 @@ void	draw_wall(t_params *params, int ray_num, double correction_angle)
 	{
 		dst = params->img->img_add + (y * params->img->line_length)
 			+ (ray_num * (params->img->bpp / 8));
-		*(unsigned int *)dst = *(unsigned int *)texture_pixel(wall_real_height, y);
+		*(unsigned int *)dst
+			= *(unsigned int *)texture_pixel(wall_real_height, y);
 		y += 1;
 	}
 	return ;
