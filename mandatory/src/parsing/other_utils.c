@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   other_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/07 15:03:51 by oakhmouc          #+#    #+#             */
-/*   Updated: 2024/11/07 15:03:54 by oakhmouc         ###   ########.fr       */
+/*   Created: 2025/11/20 11:42:00 by oakhmouc          #+#    #+#             */
+/*   Updated: 2025/11/20 11:42:34 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "include.h"
 
-size_t	ft_strlen(const char *s)
+void	free_array(char ***arr)
 {
-	size_t	n;
+	int	index;
 
-	n = 0;
-	while (s && s[n])
-	{
-		n++;
-	}
-	return (n);
+	index = -1;
+	if (!arr)
+		return ;
+	if (!(*arr))
+		return ;
+	while ((*arr)[++index])
+		free((*arr)[index]);
+	free(*arr);
+	(*arr) = NULL;
 }

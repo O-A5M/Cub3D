@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   calc_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/07 15:03:51 by oakhmouc          #+#    #+#             */
-/*   Updated: 2024/11/07 15:03:54 by oakhmouc         ###   ########.fr       */
+/*   Created: 2026/01/02 12:46:56 by oakhmouc          #+#    #+#             */
+/*   Updated: 2026/01/02 12:46:56 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "include.h"
 
-size_t	ft_strlen(const char *s)
+double	deg_to_rad(double angle)
 {
-	size_t	n;
+	double	ang;
 
-	n = 0;
-	while (s && s[n])
-	{
-		n++;
-	}
-	return (n);
+	ang = angle;
+	if (ang < 0)
+		while (ang < 0)
+			ang += 360;
+	if (ang > 360)
+		ang = fmod(ang, 360);
+	ang *= (M_PI / 180);
+	return (ang);
+}
+
+double	rad_to_deg(double angle)
+{
+	double	ang;
+
+	ang = angle;
+	ang *= (180 / M_PI);
+	if (ang < 0)
+		while (ang < 0)
+			ang += 360;
+	if (ang > 360)
+		ang = fmod(ang, 360);
+	return (ang);
 }

@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 11:25:04 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/09/24 14:02:24 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/02 12:59:54 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ char	*get_next_line(int fd)
 	char		*tmp;
 
 	buff = malloc(BUFFER_SIZE + 1);
-	if (!buff)
-		return (NULL);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		free(buff);

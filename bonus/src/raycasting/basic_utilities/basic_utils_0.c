@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   basic_utils_0.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/07 15:03:51 by oakhmouc          #+#    #+#             */
-/*   Updated: 2024/11/07 15:03:54 by oakhmouc         ###   ########.fr       */
+/*   Created: 2025/11/05 16:13:44 by aelmsafe          #+#    #+#             */
+/*   Updated: 2025/11/27 11:34:37 by aelmsafe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "../rayclude.h"
+#include "include.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_write(const char *s)
 {
-	size_t	n;
+	int	i;
 
-	n = 0;
-	while (s && s[n])
-	{
-		n++;
-	}
-	return (n);
+	if (s == NULL)
+		return (-1);
+	i = 0;
+	while (s[i])
+		i++;
+	write(1, &(s[i]), 1);
+	return (i);
 }
