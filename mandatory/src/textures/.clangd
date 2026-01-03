@@ -1,0 +1,6 @@
+CompileFlags:
+  Add:
+    - "-I../../libraries/libft"
+    - "-I../../includes"
+    - "-I../../libraries/minilibx-linux"
+    - "-I../raycasting"

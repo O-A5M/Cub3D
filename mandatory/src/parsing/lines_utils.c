@@ -1,0 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lines_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 11:41:56 by oakhmouc          #+#    #+#             */
+/*   Updated: 2025/11/20 11:42:34 by oakhmouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "include.h"
+
+t_lines	*new_line(char *str)
+{
+	t_lines	*ret;
+
+	if (!str || str[0] == '\0')
+		return (NULL);
+	ret = malloc(sizeof(t_lines));
+	if (!ret)
+		return (NULL);
+	ret->line = str;
+	ret->next = NULL;
+	return (ret);
+}
+
+void	add_line(t_lines **head, t_lines *line)
+{
+	t_lines	*tmp;
+
+	tmp = NULL;
+	if (!head)
+		return ;
+	if (!(*head))
+	{
+		(*head) = line;
+		return ;
+	}
+	tmp = last_line((*head));
+	tmp->next = line;
+}
+
+t_lines	*last_line(t_lines *head)
+{
+	t_lines	*ret;
+
+	ret = head;
+	if (!ret)
+		return (NULL);
+	while (ret->next)
+		ret = ret->next;
+	return (ret);
+}
+
+size_t	lines_count(t_lines *head)
+{
+	t_lines	*tmp;
+	size_t	ret;
+
+	tmp = head;
+	ret = 0;
+	if (!tmp)
+		return (ret);
+	while (tmp)
+	{
+		tmp = tmp->next;
+		ret++;
+	}
+	return (ret);
+}
+
+void	free_lines(t_lines **head)
+{
+	t_lines	*tmp;
+
+	if (!head || !*head)
+		return ;
+	while (*head)
+	{
+		tmp = (*head)->next;
+		free((*head)->line);
+		free(*head);
+		(*head) = tmp;
+	}
+	free (*head);
+	*head = NULL;
+}
