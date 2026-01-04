@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 12:47:42 by oakhmouc          #+#    #+#             */
-/*   Updated: 2026/01/02 12:55:13 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/04 13:03:24 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_params
 	t_raydata		*ray;
 	t_tex_info		tex_info[4];
 	int				player_move;
+	int				mouse_hide;
 }				t_params;
 
 /* Function Prototypes*/
@@ -115,5 +116,6 @@ int			key_release(int keycode, t_params *params);
 int			move_loop(t_params *params);
 void		hooks(t_params *params);
 void		move_player(t_params *params, char direction);
+void		mouse_hide(t_params *params);
 
 #endif

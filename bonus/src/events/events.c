@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 12:46:06 by oakhmouc          #+#    #+#             */
-/*   Updated: 2026/01/03 09:08:32 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/04 13:16:38 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	key_press(int keycode, t_params *params)
 		params->player_move = 'w';
 	else if (keycode == XK_s || keycode == XK_S)
 		params->player_move = 's';
+	else if (keycode == XK_h || keycode == XK_H)
+		params->mouse_hide *= -1;
 	else if (keycode == XK_Escape)
 		exit_and_clear();
 	return (0);
@@ -64,6 +66,7 @@ int	move_loop(t_params *params)
 		move_player(params, 'w');
 	else if (params->player_move == 's')
 		move_player(params, 's');
+	mouse_hide(params);
 	draw_ceiling_and_floor(params);
 	ray_caster(params);
 	create_minimap(params);

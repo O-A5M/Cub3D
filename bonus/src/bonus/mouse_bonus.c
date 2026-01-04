@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 12:46:00 by oakhmouc          #+#    #+#             */
-/*   Updated: 2026/01/02 12:46:00 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/04 15:01:38 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,23 @@ int	mouse_move(int x, int y, t_params *params)
 	(void)y;
 	dx = old_x - x;
 	old_x = x;
-	if (dx != 0 && x % 3 == 0)
+	mlx_mouse_move(params->mlx->mlx_ptr, params->mlx->win_ptr,
+			WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	if (dx != 0 && x % 3 == 0 && params->mouse_hide == 1)
 	{
 		params->player->starting_angle
 			= fmod(params->player->starting_angle + dx
 				* 0.5 + 360.0, 360.0);
 	}
 	return (0);
+}
+
+void	mouse_hide(t_params *params)
+{
+	if (params->mouse_hide == 1)
+		mlx_mouse_hide(params->mlx->mlx_ptr, params->mlx->win_ptr);
+	else
+		mlx_mouse_show(params->mlx->mlx_ptr, params->mlx->win_ptr);
 }
 
 void	hooks(t_params *params)
