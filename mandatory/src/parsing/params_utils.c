@@ -6,7 +6,7 @@
 /*   By: aelmsafe <aelmsafe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:42:05 by oakhmouc          #+#    #+#             */
-/*   Updated: 2025/12/31 07:07:36 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/04 11:34:23 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	separate_init(t_params **params, t_raydata *ray, t_playerdata *player)
 	(*params)->ray->dir_y = 0;
 	(*params)->ray->dir_x = 0;
 	(*params)->ray->ray_length = 0;
+	(*params)->player_move = 0;
 }
 
 void	params_init(t_params **params, t_raydata *ray, t_playerdata *player)
