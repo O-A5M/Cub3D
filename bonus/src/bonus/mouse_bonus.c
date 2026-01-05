@@ -6,7 +6,7 @@
 /*   By: oakhmouc <oakhmouc@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 12:46:00 by oakhmouc          #+#    #+#             */
-/*   Updated: 2026/01/04 15:01:38 by oakhmouc         ###   ########.fr       */
+/*   Updated: 2026/01/05 17:59:57 by oakhmouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	mouse_move(int x, int y, t_params *params)
 	(void)y;
 	dx = old_x - x;
 	old_x = x;
-	mlx_mouse_move(params->mlx->mlx_ptr, params->mlx->win_ptr,
+	if (params->mouse_hide == 1)
+		mlx_mouse_move(params->mlx->mlx_ptr, params->mlx->win_ptr,
 			WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	if (dx != 0 && x % 3 == 0 && params->mouse_hide == 1)
 	{
